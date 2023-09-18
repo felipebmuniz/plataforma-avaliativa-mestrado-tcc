@@ -19,14 +19,14 @@ export const defaultPallet: CompanyTheme = {
   colorBorderDisabled: '#525252',
 
   container: '#F4F7F9',
-  container200: '#62A5CC',
+  container200: '#8DC6E8',
   container500: '#002C55',
 
-  textDefault: '#7A7786',
+  textDefault: '#2E4F63',
   colorTextTitle: '#4E4B59',
-  colorText: '#7A7786',
-  colorTextLight: '#FFFFFF',
-  colorTextLight200: '#ebecf1',
+  colorText: '#2E4F63',
+  colorTextLight: '#A5D9F6',
+  colorTextLight200: '#BAEEFF',
   colorTextSub: '#003E62',
 
   disabled: '#aaa9ae',
