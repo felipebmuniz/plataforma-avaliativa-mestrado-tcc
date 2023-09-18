@@ -13,5 +13,6 @@ export default css`
   #__next {
     height: 100%;
     -webkit-font-smoothing: antialiased;
+    background: #f4f7f9;
   }
 `;

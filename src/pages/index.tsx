@@ -27,11 +27,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <header>
-          <Menu />
-        </header>
+      <VStack
+        w="100%"
+        h="100%"
+        spacing={0}
+        justifyContent="space-between"
+        alignItems="flex-start"
+      >
+        <Menu />
+
         <HStack
+          w="100%"
           padding="6rem 5rem"
           bg={theme.background}
           alignItems="flex-start"
@@ -123,23 +129,27 @@ export default function Home() {
             </Box>
           </VStack>
         </HStack>
+
         <Box
+          as="footer"
+          p=" 1rem"
+          w="100%"
           bg={hexToRgb(theme.container200, 0.3)}
           display="flex"
           alignItems="center"
           justifyContent="center"
-          h="4rem"
           color={theme.textDefault}
-          fontSize="1rem"
+          fontSize="0.85rem"
           fontStyle="normal"
           fontWeight="700"
           lineHeight="normal"
           borderRadius="0.5rem 0.5rem 0rem 0rem"
+          textTransform="uppercase"
         >
           &copy;{new Date().getFullYear()} Felipe Barros Muniz - Todos os
           direitos reservados
         </Box>
-      </main>
+      </VStack>
     </>
   );
 }

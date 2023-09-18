@@ -10,6 +10,7 @@ export const Menu = () => {
   return (
     <HStack
       bg={theme.background}
+      zIndex="1"
       boxShadow={`0px 2px 4px 0px ${hexToRgb(theme.colorSecundary, 0.25)}`}
       transition="all 0.1s linear"
       alignItems={{
