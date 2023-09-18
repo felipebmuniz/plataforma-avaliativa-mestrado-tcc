@@ -28,6 +28,7 @@ function Button({ children, ...props }: ButtonProps) {
       w="inherit"
       h="3.75rem"
       textTransform="uppercase"
+      boxShadow={`0px 2px 4px 0px rgba(0, 0, 0, 0.25)`}
       _hover={{
         filter: 'brightness(1.1)',
       }}
