@@ -4,7 +4,7 @@ type SectionName =
   | 'Sobre o programa'
   | 'Acesso exclusivo';
 
-type SectionSrc = '#avaliacao' | '#metricas' | '#programa' | '#exclussivo';
+type SectionSrc = '/avaliacao' | '/metricas' | '#programa';
 
 export interface Section {
   name: SectionName;

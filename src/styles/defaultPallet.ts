@@ -13,7 +13,7 @@ export const defaultPallet: CompanyTheme = {
 
   background: '#F4F7F9',
   background200: '#ffffff',
-  background500: '#E3EDF2',
+  background500: '#f2f2f3',
 
   colorBorder: '#525252',
   colorBorderDisabled: '#525252',

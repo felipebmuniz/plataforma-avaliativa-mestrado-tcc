@@ -1,9 +1,19 @@
 import { hexToRgb } from '@/utils/theme';
-import { Box, HStack, ListItem, Stack, UnorderedList } from '@chakra-ui/react';
-import { Link } from '../UI/Link';
+import {
+  Box,
+  Center,
+  HStack,
+  IconButton,
+  ListIcon,
+  ListItem,
+  Stack,
+  UnorderedList,
+} from '@chakra-ui/react';
+import { Link } from '../../UI/Link';
 import { useTheme } from '@emotion/react';
 import Image from 'next/image';
 import { SectionsMock } from '@/mocks/sections';
+import { BiInfoCircle } from 'react-icons/bi';
 
 export const Menu = () => {
   const theme = useTheme();
@@ -90,6 +100,7 @@ export const Menu = () => {
                   transition="all 0.2s linear"
                   _hover={{
                     color: theme.colorPrimary200,
+                    textDecoration: 'solid underline 2px',
                   }}
                   href={section.src}
                 >
@@ -97,6 +108,25 @@ export const Menu = () => {
                 </Link>
               </ListItem>
             ))}
+          <ListItem>
+            <Link
+              transition="all 0.2s linear"
+              _hover={{
+                color: theme.colorPrimary200,
+                textDecoration: 'solid underline 2px',
+              }}
+              href={'/'}
+            >
+              <Center justifyContent="flex-start">
+                <ListIcon
+                  as={BiInfoCircle}
+                  color={theme.colorSecundary800}
+                  fontSize="1.5rem"
+                />
+                Acesso Exclusivo
+              </Center>
+            </Link>
+          </ListItem>
         </UnorderedList>
       </Box>
     </HStack>

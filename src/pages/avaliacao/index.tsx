@@ -2,17 +2,17 @@ import Head from 'next/head';
 
 import { VStack } from '@chakra-ui/react';
 import { Menu } from '@/components/sections/Menu';
-import { LandingPage } from '@/components/sections/LandingPage';
 import { Footer } from '@/components/sections/Footer';
+import { EvaluationArea } from '@/components/sections/EvaluationArea';
 
-export default function Home() {
+export default function Avaliacao() {
   return (
     <>
       <Head>
         <title>Plataforma Autoavaliativa Mestrado</title>
         <meta
           name="description"
-          content="Plataforma Autoavaliativa do Mestrado - UFC"
+          content="Área avaliativa da Plataforma Autoavaliativa do Mestrado - UFC"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -25,7 +25,7 @@ export default function Home() {
         alignItems="flex-start"
       >
         <Menu />
-        <LandingPage />
+        <EvaluationArea />
         <Footer />
       </VStack>
     </>
