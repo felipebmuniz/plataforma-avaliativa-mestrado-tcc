@@ -18,21 +18,13 @@ import Button from '@/components/UI/Button';
 export const LandingPage = () => {
   const theme = useTheme();
   return (
-    <HStack
-      w="100%"
-      maxW="1920px"
-      margin="auto"
-      padding="5rem"
-      bg={theme.background}
-      alignItems="flex-start"
-      justifyContent="space-between"
-      height="auto"
-    >
+    <>
       <VStack
         alignItems="flex-start"
         justifyContent="flex-start"
-        gap="2rem"
-        height="100%"
+        gap="3rem"
+        h="100%"
+        w="100%"
       >
         <Badge
           p={'0.25rem 1.25rem'}
@@ -112,6 +104,6 @@ export const LandingPage = () => {
           />
         </Box>
       </VStack>
-    </HStack>
+    </>
   );
 };
