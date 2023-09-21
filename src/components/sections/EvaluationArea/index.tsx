@@ -16,6 +16,8 @@ import { hexToRgb } from '@/utils/theme';
 import { BiInfoCircle } from 'react-icons/bi';
 
 import Button from '@/components/UI/Button';
+import { InputUI } from '@/components/UI/InputUI';
+import { SelectUI } from '@/components/UI/SelectUI';
 
 export const EvaluationArea = () => {
   const theme = useTheme();
@@ -69,6 +71,26 @@ export const EvaluationArea = () => {
           </ListItem>
         </List>
       </VStack>
+      <HStack
+        w="100%"
+        alignItems="flex-end"
+        justifyContent="space-between"
+        gap="5rem"
+      >
+        <HStack w="100%">
+          <InputUI
+            label="Turma"
+            type="text"
+            placeholder="Busque pelo nome da Turma"
+          />
+
+          <SelectUI label="Turma" placeholder="Busque pelo nome da Turma" />
+          <SelectUI label="Turma" placeholder="Busque pelo nome da Turma" />
+        </HStack>
+        <Box>
+          <Button>Buscar</Button>
+        </Box>
+      </HStack>
 
       <HStack gap="1.5rem" width="100%" flexWrap="wrap" margin="auto">
         <Box
