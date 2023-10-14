@@ -36,22 +36,6 @@ export function InputUI({
 }: ButtonProps) {
   const theme = useTheme();
 
-  useEffect(() => {
-    const aux = errors[`${name}`];
-    console.log({
-      type,
-      placeholder,
-      label,
-      name,
-      register,
-      errors,
-      autoComplete,
-      autoFocus,
-      disabled,
-      aux,
-    });
-  }, []);
-
   return (
     <FormControl isInvalid={errors[`${name}`]}>
       <FormLabel>{label}</FormLabel>
