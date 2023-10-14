@@ -19,8 +19,58 @@ import Button from '@/components/UI/Button';
 import { InputUI } from '@/components/UI/InputUI';
 import { SelectUI } from '@/components/UI/SelectUI';
 
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
+const defaultValues: { search: string; filter1: string; filter2: string } = {
+  search: '',
+  filter1: '',
+  filter2: '',
+};
+
+const schemaCreateFilterEvaluationArea = yup.object({
+  search: yup.string().required('Deve buscar por alguma turma!'),
+  filter1: yup
+    .string()
+    .when('search', {
+      is: (value: string) => value != '',
+      then: (schema) => schema.required('Necessário selecionar uma turma!'),
+    })
+    .typeError('Valor inválido!'),
+  filter2: yup
+    .string()
+    .when('filter1', {
+      is: (value: string) => value != '',
+      then: (schema) =>
+        schema.required('Necessário definir o filtro primário!'),
+    })
+    .typeError('Valor inválido!'),
+});
+
 export const EvaluationArea = () => {
   const theme = useTheme();
+
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: defaultValues,
+    resolver: yupResolver(schemaCreateFilterEvaluationArea),
+    mode: 'all',
+  });
+
+  function onSubmit(values: any) {
+    return new Promise((resolve: any) => {
+      setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+        resolve();
+      }, 3000);
+    });
+  }
+
   return (
     <VStack
       alignItems="flex-start"
@@ -72,6 +122,8 @@ export const EvaluationArea = () => {
         </List>
       </VStack>
       <HStack
+        as="form"
+        onSubmit={handleSubmit(onSubmit)}
         w="100%"
         alignItems="flex-end"
         justifyContent="space-between"
@@ -79,16 +131,33 @@ export const EvaluationArea = () => {
       >
         <HStack w="100%">
           <InputUI
+            register={register}
+            errors={errors}
+            name="search"
             label="Turma"
             type="text"
             placeholder="Busque pelo nome da Turma"
           />
 
-          <SelectUI label="Turma" placeholder="Busque pelo nome da Turma" />
-          <SelectUI label="Turma" placeholder="Busque pelo nome da Turma" />
+          <SelectUI
+            control={control}
+            errors={errors}
+            name="filter1"
+            label="Turma"
+            placeholder="Busque pelo nome da Turma"
+          />
+          <SelectUI
+            control={control}
+            errors={errors}
+            name="filter2"
+            label="Turma"
+            placeholder="Busque pelo nome da Turma"
+          />
         </HStack>
         <Box>
-          <Button>Buscar</Button>
+          <Button isLoading={isSubmitting} type="submit">
+            Buscar
+          </Button>
         </Box>
       </HStack>
 

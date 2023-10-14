@@ -1,8 +1,12 @@
 import { ComponentProps } from 'react';
-import { Button as ChakraButton, ChakraProps } from '@chakra-ui/react';
+import {
+  ButtonOptions,
+  Button as ChakraButton,
+  ChakraProps,
+} from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 
-type ButtonProps = ComponentProps<'button'> & ChakraProps;
+type ButtonProps = ComponentProps<'button'> & ChakraProps & ButtonOptions;
 
 function Button({ children, ...props }: ButtonProps) {
   const theme = useTheme();
