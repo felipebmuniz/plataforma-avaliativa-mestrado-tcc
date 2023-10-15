@@ -7,7 +7,9 @@ import {
   FormLabel,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
 } from '@chakra-ui/react';
+
 import { useTheme } from '@emotion/react';
 
 type ButtonProps = ComponentProps<'input'> &
@@ -20,6 +22,8 @@ type ButtonProps = ComponentProps<'input'> &
     autoFocus?: any;
     disabled?: any;
     size?: (string & {}) | 'sm' | 'md' | 'lg' | 'xs';
+    icon?: JSX.Element;
+    iconPosition?: 'right' | 'left';
   };
 
 export function InputUI({
@@ -32,6 +36,8 @@ export function InputUI({
   autoComplete,
   autoFocus,
   disabled,
+  icon,
+  iconPosition,
   ...props
 }: ButtonProps) {
   const theme = useTheme();
@@ -40,7 +46,26 @@ export function InputUI({
     <FormControl isInvalid={errors[`${name}`]}>
       <FormLabel>{label}</FormLabel>
       <InputGroup>
-        <InputLeftElement pointerEvents="none"></InputLeftElement>
+        {icon && iconPosition == 'left' && (
+          <InputLeftElement
+            pointerEvents="none"
+            color="gray.300"
+            fontSize="1.5em"
+            h="100%"
+          >
+            {icon}
+          </InputLeftElement>
+        )}
+        {icon && iconPosition == 'right' && (
+          <InputRightElement
+            pointerEvents="none"
+            color="gray.300"
+            fontSize="1.5em"
+            h="100%"
+          >
+            {icon}
+          </InputRightElement>
+        )}
         <ChakraInput
           {...register(name)}
           id={name}
@@ -51,6 +76,7 @@ export function InputUI({
           autoFocus={autoFocus}
           disabled={disabled}
           borderRadius="0.5rem"
+          focusBorderColor={theme.colorPrimary}
           h="3.75rem"
           {...props}
         />

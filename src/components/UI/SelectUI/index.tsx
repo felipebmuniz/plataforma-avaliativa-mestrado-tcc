@@ -42,6 +42,7 @@ export function SelectUI({
               placeholder={placeholder}
               borderRadius="0.5rem"
               h="3.75rem"
+              focusBorderColor={theme.colorPrimary}
               {...props}
             >
               <option>United Arab Emirates</option>

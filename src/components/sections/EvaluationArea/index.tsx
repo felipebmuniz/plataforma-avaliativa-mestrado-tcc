@@ -23,6 +23,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
+import { BiSearch } from 'react-icons/bi';
+
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: '',
   filter1: '',
@@ -129,7 +131,7 @@ export const EvaluationArea = () => {
         justifyContent="space-between"
         gap="5rem"
       >
-        <HStack w="100%">
+        <HStack w="100%" alignItems="flex-start">
           <InputUI
             register={register}
             errors={errors}
@@ -137,6 +139,8 @@ export const EvaluationArea = () => {
             label="Turma"
             type="text"
             placeholder="Busque pelo nome da Turma"
+            icon={<BiSearch />}
+            iconPosition="right"
           />
 
           <SelectUI
@@ -146,6 +150,7 @@ export const EvaluationArea = () => {
             label="Turma"
             placeholder="Busque pelo nome da Turma"
           />
+
           <SelectUI
             control={control}
             errors={errors}
@@ -154,11 +159,11 @@ export const EvaluationArea = () => {
             placeholder="Busque pelo nome da Turma"
           />
         </HStack>
-        <Box>
-          <Button isLoading={isSubmitting} type="submit">
+        <VStack h="100%" alignItems="center">
+          <Button isLoading={isSubmitting} type="submit" marginTop="2rem">
             Buscar
           </Button>
-        </Box>
+        </VStack>
       </HStack>
 
       <HStack gap="1.5rem" width="100%" flexWrap="wrap" margin="auto">
