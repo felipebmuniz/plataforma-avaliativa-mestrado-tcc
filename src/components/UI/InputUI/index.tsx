@@ -1,4 +1,4 @@
-import { ComponentProps, useEffect } from 'react';
+import { ComponentProps } from 'react';
 import {
   Input as ChakraInput,
   ChakraProps,
@@ -10,11 +10,13 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 
+import InputMask from 'react-input-mask';
+
 import { useTheme } from '@emotion/react';
 
 type ButtonProps = ComponentProps<'input'> &
   ChakraProps & {
-    label: string;
+    label?: string;
     name: string;
     register: any;
     errors?: any;
@@ -24,6 +26,7 @@ type ButtonProps = ComponentProps<'input'> &
     size?: (string & {}) | 'sm' | 'md' | 'lg' | 'xs';
     icon?: JSX.Element;
     iconPosition?: 'right' | 'left';
+    mask?: string;
   };
 
 export function InputUI({
@@ -38,13 +41,22 @@ export function InputUI({
   disabled,
   icon,
   iconPosition,
+  size,
+  mask,
   ...props
 }: ButtonProps) {
   const theme = useTheme();
 
+  const propsMask = mask
+    ? {
+        mask: mask,
+        maskChar: null,
+      }
+    : {};
+
   return (
     <FormControl isInvalid={errors[`${name}`]}>
-      <FormLabel>{label}</FormLabel>
+      {label && <FormLabel>{label}</FormLabel>}
       <InputGroup>
         {icon && iconPosition == 'left' && (
           <InputLeftElement
@@ -67,6 +79,7 @@ export function InputUI({
           </InputRightElement>
         )}
         <ChakraInput
+          as={mask ? InputMask : 'input'}
           {...register(name)}
           id={name}
           name={name}
@@ -78,6 +91,7 @@ export function InputUI({
           borderRadius="0.5rem"
           focusBorderColor={theme.colorPrimary}
           h="3.75rem"
+          {...propsMask}
           {...props}
         />
       </InputGroup>
