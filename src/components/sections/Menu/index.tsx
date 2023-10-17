@@ -1,6 +1,7 @@
 import { hexToRgb } from '@/utils/theme';
 import {
   Box,
+  Button,
   Center,
   HStack,
   IconButton,
@@ -14,6 +15,7 @@ import { useTheme } from '@emotion/react';
 import Image from 'next/image';
 import { SectionsMock } from '@/mocks/sections';
 import { BiInfoCircle } from 'react-icons/bi';
+import PopoverLogin from '@/components/UI/PopoverLogin';
 
 export const Menu = () => {
   const theme = useTheme();
@@ -109,23 +111,23 @@ export const Menu = () => {
               </ListItem>
             ))}
           <ListItem>
-            <Link
-              transition="all 0.2s linear"
-              _hover={{
-                color: theme.colorPrimary200,
-                textDecoration: 'solid underline 2px',
-              }}
-              href={'/'}
-            >
-              <Center justifyContent="flex-start">
-                <ListIcon
-                  as={BiInfoCircle}
-                  color={theme.colorSecundary800}
-                  fontSize="1.5rem"
-                />
+            <PopoverLogin>
+              <Button
+                justifyContent="flex-start"
+                color={theme.colorTextTitle}
+                py="0.2rem "
+                px="1.5rem"
+                h="2.75rem"
+                leftIcon={
+                  <BiInfoCircle
+                    color={theme.colorSecundary800}
+                    fontSize="1.5rem"
+                  />
+                }
+              >
                 Acesso Exclusivo
-              </Center>
-            </Link>
+              </Button>
+            </PopoverLogin>
           </ListItem>
         </UnorderedList>
       </Box>

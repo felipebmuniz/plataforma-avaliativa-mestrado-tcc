@@ -37,15 +37,14 @@ const schemaCreateFilterEvaluationArea = yup.object({
     .string()
     .when('search', {
       is: (value: string) => value != '',
-      then: (schema) => schema.required('Necessário selecionar uma turma!'),
+      then: (schema) => schema.required('Necessário selecionar um valor!'),
     })
     .typeError('Valor inválido!'),
   filter2: yup
     .string()
     .when('filter1', {
       is: (value: string) => value != '',
-      then: (schema) =>
-        schema.required('Necessário definir o filtro primário!'),
+      then: (schema) => schema.required('Necessário selecionar um valor!'),
     })
     .typeError('Valor inválido!'),
 });
