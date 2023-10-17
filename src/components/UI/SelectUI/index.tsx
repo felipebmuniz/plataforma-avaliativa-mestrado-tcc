@@ -41,7 +41,7 @@ export function SelectUI({
               value={field.value}
               placeholder={placeholder}
               borderRadius="0.5rem"
-              h="3.75rem"
+              h="3rem"
               focusBorderColor={theme.colorPrimary}
               {...props}
             >

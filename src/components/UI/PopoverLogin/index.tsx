@@ -57,6 +57,16 @@ const PopoverLogin = ({ children }: IProps) => {
     resolver: yupResolver(schemaFormLogin),
     mode: 'onBlur',
   });
+
+  function onSubmit(values: any) {
+    return new Promise((resolve: any) => {
+      setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+        resolve();
+      }, 3000);
+    });
+  }
+
   return (
     <Popover
       isOpen={isOpen}
@@ -68,9 +78,10 @@ const PopoverLogin = ({ children }: IProps) => {
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent
         key={'form-login'}
-        py="0.75rem "
-        px="1.5rem"
-        width="25rem"
+        p="1rem "
+        width="28rem"
+        as={'form'}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <PopoverArrow />
         <PopoverCloseButton
@@ -124,23 +135,21 @@ const PopoverLogin = ({ children }: IProps) => {
         >
           <ButtonGroup size="sm" gap="1rem">
             <Button
-              py="0.75rem "
-              px="1.5rem"
-              h="2.75rem"
               onClick={() => {
                 onClose();
                 reset(defaultValues);
               }}
+              transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
             >
               Cancelar
             </Button>
             <Button
               bg={theme.container500}
               color={theme.container200}
-              py="0.75rem "
-              px="1.5rem"
-              h="2.75rem"
               ref={initialFocusRef}
+              type="submit"
+              isLoading={isSubmitting}
+              transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
             >
               Entrar
             </Button>

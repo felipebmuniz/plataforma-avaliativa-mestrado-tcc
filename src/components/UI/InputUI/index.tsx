@@ -90,7 +90,7 @@ export function InputUI({
           disabled={disabled}
           borderRadius="0.5rem"
           focusBorderColor={theme.colorPrimary}
-          h="3.75rem"
+          h="3rem"
           {...propsMask}
           {...props}
         />
