@@ -107,9 +107,6 @@ export const DrawerCreateUsers = () => {
                 placeholder="Nome do Usuário *"
                 icon={<BiUser />}
                 iconPosition="left"
-                py="0.2rem "
-                px="1.5rem"
-                h="2.75rem"
                 ref={firstField}
               />
               <InputUI
@@ -121,9 +118,6 @@ export const DrawerCreateUsers = () => {
                 placeholder="Senha de acesso *"
                 icon={<BiEnvelope />}
                 iconPosition="left"
-                py="0.2rem "
-                px="1.5rem"
-                h="2.75rem"
               />
             </Box>
           </DrawerBody>

@@ -88,7 +88,7 @@ const PopoverLogin = ({ children }: IProps) => {
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent
         key={'form-login'}
-        p="1rem "
+        p="1rem"
         width="28rem"
         as={'form'}
         onSubmit={handleSubmit(onSubmit)}
@@ -114,9 +114,6 @@ const PopoverLogin = ({ children }: IProps) => {
             placeholder="Email de acesso *"
             icon={<BiUser />}
             iconPosition="left"
-            py="0.2rem "
-            px="1.5rem"
-            h="2.75rem"
             ref={initialFocusRef}
           />
           <InputUI
@@ -128,9 +125,6 @@ const PopoverLogin = ({ children }: IProps) => {
             placeholder="Senha de acesso *"
             icon={<BiLockAlt />}
             iconPosition="left"
-            py="0.2rem "
-            px="1.5rem"
-            h="2.75rem"
           />
         </PopoverBody>
         <PopoverFooter
