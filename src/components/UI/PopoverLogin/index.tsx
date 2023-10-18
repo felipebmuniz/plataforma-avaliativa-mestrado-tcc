@@ -18,11 +18,12 @@ import {
   useTheme,
 } from '@chakra-ui/react';
 
-import Button from '../Button';
+import { ButtonUI } from '../ButtonUI';
 import { InputUI } from '../InputUI';
 
 import { BiUser } from 'react-icons/bi';
 import { BiLockAlt } from 'react-icons/bi';
+import { useRouter } from 'next/router';
 
 interface IProps {
   children: React.ReactNode;
@@ -43,8 +44,10 @@ const schemaFormLogin = yup.object({
 
 const PopoverLogin = ({ children }: IProps) => {
   const theme = useTheme();
-  const { onOpen, onClose, isOpen } = useDisclosure();
+  const router = useRouter();
+
   const initialFocusRef = React.useRef(null);
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   const {
     handleSubmit,
@@ -58,10 +61,17 @@ const PopoverLogin = ({ children }: IProps) => {
     mode: 'onBlur',
   });
 
+  const clearForm = () => {
+    onClose();
+    reset(defaultValues);
+  };
+
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
+        clearForm();
+        router.push('/admin');
         resolve();
       }, 3000);
     });
@@ -84,12 +94,7 @@ const PopoverLogin = ({ children }: IProps) => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <PopoverArrow />
-        <PopoverCloseButton
-          onClick={() => {
-            onClose();
-            reset(defaultValues);
-          }}
-        />
+        <PopoverCloseButton onClick={clearForm} />
         <PopoverHeader>Acesso Exclusivo!</PopoverHeader>
         <PopoverBody
           marginBottom="1rem"
@@ -112,6 +117,7 @@ const PopoverLogin = ({ children }: IProps) => {
             py="0.2rem "
             px="1.5rem"
             h="2.75rem"
+            ref={initialFocusRef}
           />
           <InputUI
             register={register}
@@ -134,25 +140,21 @@ const PopoverLogin = ({ children }: IProps) => {
           justifyContent="flex-end"
         >
           <ButtonGroup size="sm" gap="1rem">
-            <Button
-              onClick={() => {
-                onClose();
-                reset(defaultValues);
-              }}
+            <ButtonUI
+              onClick={clearForm}
               transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
             >
               Cancelar
-            </Button>
-            <Button
+            </ButtonUI>
+            <ButtonUI
               bg={theme.container500}
               color={theme.container200}
-              ref={initialFocusRef}
+              transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
               type="submit"
               isLoading={isSubmitting}
-              transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
             >
               Entrar
-            </Button>
+            </ButtonUI>
           </ButtonGroup>
         </PopoverFooter>
       </PopoverContent>

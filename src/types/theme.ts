@@ -26,11 +26,13 @@ interface CompanyTheme {
   colorTextLight: string;
   colorTextLight200: string;
   colorTextSub: string;
+  colorTextAddButton: string;
 
   disabled: string;
   unLink: string;
   delete: string;
   selected: string;
+  add: string;
 }
 
 export type { CompanyTheme };

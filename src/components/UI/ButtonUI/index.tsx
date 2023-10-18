@@ -8,7 +8,7 @@ import { useTheme } from '@emotion/react';
 
 type ButtonProps = ComponentProps<'button'> & ChakraProps & ButtonOptions;
 
-function Button({ children, ...props }: ButtonProps) {
+export function ButtonUI({ children, ...props }: ButtonProps) {
   const theme = useTheme();
 
   return (
@@ -18,9 +18,8 @@ function Button({ children, ...props }: ButtonProps) {
       alignItems="center"
       color={theme.container500}
       bgColor={theme.container200}
-      // py="1.2rem "
-      // px="2.5rem"
-      py="1rem "
+      h="3rem"
+      py="1rem"
       px="2rem"
       fontSize="1rem"
       fontStyle="normal"
@@ -32,8 +31,6 @@ function Button({ children, ...props }: ButtonProps) {
       transition="filter 0.3s ease"
       cursor="pointer"
       w="inherit"
-      // h="3.75rem"
-      h="3rem"
       textTransform="uppercase"
       boxShadow={`0px 2px 4px 0px rgba(0, 0, 0, 0.25)`}
       _hover={{
@@ -45,5 +42,3 @@ function Button({ children, ...props }: ButtonProps) {
     </ChakraButton>
   );
 }
-
-export default Button;

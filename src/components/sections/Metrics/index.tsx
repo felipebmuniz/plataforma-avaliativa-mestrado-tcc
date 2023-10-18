@@ -15,7 +15,7 @@ import { useTheme } from '@emotion/react';
 import { hexToRgb } from '@/utils/theme';
 import { BiInfoCircle } from 'react-icons/bi';
 
-import Button from '@/components/UI/Button';
+import { ButtonUI } from '@/components/UI/ButtonUI';
 import { InputUI } from '@/components/UI/InputUI';
 import { SelectUI } from '@/components/UI/SelectUI';
 
@@ -160,9 +160,9 @@ export const Metrics = () => {
           />
         </HStack>
         <VStack h="100%" alignItems="center">
-          <Button isLoading={isSubmitting} type="submit" marginTop="2rem">
+          <ButtonUI isLoading={isSubmitting} type="submit" marginTop="2rem">
             Buscar
-          </Button>
+          </ButtonUI>
         </VStack>
       </HStack>
 

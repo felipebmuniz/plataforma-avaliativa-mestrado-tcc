@@ -13,7 +13,7 @@ import { useTheme } from '@emotion/react';
 import { hexToRgb } from '@/utils/theme';
 import { BiInfoCircle } from 'react-icons/bi';
 import Image from 'next/image';
-import Button from '@/components/UI/Button';
+import { ButtonUI } from '@/components/UI/ButtonUI';
 
 export const LandingPage = () => {
   const theme = useTheme();
@@ -80,10 +80,10 @@ export const LandingPage = () => {
           </ListItem>
         </List>
         <HStack gap="2rem">
-          <Button>Cadastro</Button>
-          <Button bg={theme.container500} color={theme.container200}>
+          <ButtonUI>Cadastro</ButtonUI>
+          <ButtonUI bg={theme.container500} color={theme.container200}>
             Login
-          </Button>
+          </ButtonUI>
         </HStack>
       </VStack>
       <VStack>

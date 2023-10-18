@@ -28,9 +28,11 @@ export const defaultPallet: CompanyTheme = {
   colorTextLight: '#A5D9F6',
   colorTextLight200: '#BAEEFF',
   colorTextSub: '#003E62',
+  colorTextAddButton: '#F4F7F9',
 
   disabled: '#aaa9ae',
   unLink: '#e50a0f',
   delete: '#D91C22',
   selected: '#ffd22e',
+  add: '#0fbf0f',
 };
