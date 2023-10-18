@@ -13,13 +13,13 @@ import {
   Stack,
   useDisclosure,
 } from '@chakra-ui/react';
-import { ButtonUI } from '../ButtonUI';
+import { ButtonUI } from '../../ButtonUI';
 import { BiAddToQueue, BiEnvelope, BiUser } from 'react-icons/bi';
 
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { InputUI } from '../InputUI';
+import { InputUI } from '../../InputUI';
 
 const defaultValues: { name: string; email: string } = {
   name: '',

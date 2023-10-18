@@ -1,5 +1,5 @@
 import AdminLayout from '@/layouts/AdminLayout';
-import { SectionAdmin } from '@/components/sections/SectionAdmin';
+import { SectionAdmin } from '@/components/sections/admin/SectionAdmin';
 
 export default function Admin() {
   return (

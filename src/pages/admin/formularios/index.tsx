@@ -15,19 +15,20 @@ import { ITabs } from '@/types/tabs';
 import { hexToRgb } from '@/utils/theme';
 import { useTheme } from '@emotion/react';
 import { BiInfoCircle } from 'react-icons/bi';
+import { FormsAdmin } from '@/components/sections/admin/FormsAdmin';
 
-const dataTabs: ITabs[] = [
-  {
-    label: 'Usuário Discente',
-    content: <UsersAdmin />,
-  },
-  {
-    label: 'Usuário Docente',
-    content: <UsersAdmin />,
-  },
-];
+// const dataTabs: ITabs[] = [
+//   {
+//     label: 'Usuário Discente',
+//     content: <UsersAdmin />,
+//   },
+//   {
+//     label: 'Usuário Docente',
+//     content: <UsersAdmin />,
+//   },
+// ];
 
-export default function AdminUsers() {
+export default function AdminForms() {
   const theme = useTheme();
   return (
     <AdminLayout
@@ -57,7 +58,7 @@ export default function AdminUsers() {
             lineHeight="150%"
             letterSpacing="0.13rem"
           >
-            Criação de Usuários
+            Criação de Formulários
           </Badge>
 
           <Text
@@ -66,10 +67,10 @@ export default function AdminUsers() {
             fontWeight="700"
             lineHeight="130%"
           >
-            Crie, edite e busque pelos usuários da plataforma.
+            Crie, edite e busque pelos formulários da plataforma.
           </Text>
 
-          <List spacing={3} color={theme.colorText}>
+          {/* <List spacing={3} color={theme.colorText}>
             <ListItem>
               <Center justifyContent="flex-start">
                 <ListIcon
@@ -81,10 +82,10 @@ export default function AdminUsers() {
                 criar.
               </Center>
             </ListItem>
-          </List>
+          </List> */}
         </VStack>
         <HStack gap="1.5rem" width="100%" flexWrap="wrap" margin="auto">
-          <TabsUI data={dataTabs} />
+          <FormsAdmin />
         </HStack>
       </VStack>
     </AdminLayout>

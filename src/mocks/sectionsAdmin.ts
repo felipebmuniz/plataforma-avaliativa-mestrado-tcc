@@ -20,7 +20,7 @@ export const SectionsAdminMock: SectionAdmin[] = [
     type: 'button',
   },
   {
-    src: '/admin',
+    src: '/admin/formularios',
     label: 'Criar Formulários',
     textDecoration: false,
     type: 'button',

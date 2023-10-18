@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
 import { BiSearch } from 'react-icons/bi';
-import { DrawerCreateUsers } from '@/components/UI/DrawerCreateUsers';
+import { DrawerCreateUsers } from '@/components/UI/drawers/DrawerCreateUsers';
 import { SkeletonCards } from '@/components/UI/Skeleton';
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
