@@ -20,15 +20,14 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { InputUI } from '../../InputUI';
+import { EditableUI } from '../../EditableUI';
 
-const defaultValues: { name: string; email: string } = {
-  name: '',
-  email: '',
+const defaultValues: { title: string } = {
+  title: '',
 };
 
 const schemaFormCreateForms = yup.object({
-  name: yup.string().required('Deve ser informado um nome!'),
-  email: yup.string().email().required('Deve ser informado um email!'),
+  title: yup.string().required('Deve ser informado um título!'),
 });
 
 export const DrawerCreateForms = () => {
@@ -45,7 +44,7 @@ export const DrawerCreateForms = () => {
   } = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schemaFormCreateForms),
-    mode: 'onBlur',
+    mode: 'all',
   });
 
   const clearForm = () => {
@@ -98,7 +97,7 @@ export const DrawerCreateForms = () => {
               justifyContent="flex-start"
               gap="1rem"
             >
-              <InputUI
+              {/* <InputUI
                 register={register}
                 errors={errors}
                 name="name"
@@ -118,6 +117,14 @@ export const DrawerCreateForms = () => {
                 placeholder="Senha de acesso *"
                 icon={<BiEnvelope />}
                 iconPosition="left"
+              /> */}
+              <EditableUI
+                register={register}
+                errors={errors}
+                name="title"
+                label="Título"
+                type="text"
+                placeholder="Título do formulário *"
               />
             </Box>
           </DrawerBody>
