@@ -27,7 +27,7 @@ import { CreateQuestion } from '../../createQuestion';
 
 interface IValueQuestions {
   statement: string;
-  type: number;
+  type: boolean;
   options: IValueOptions[];
   formId?: string;
 }
@@ -45,7 +45,9 @@ interface IValuesForm {
 
 const defaultValues: IValuesForm = {
   title: '',
-  questions: [{ statement: '', type: 0, options: [{ value: '', order: 0 }] }],
+  questions: [
+    { statement: '', type: false, options: [{ value: '', order: 0 }] },
+  ],
 };
 
 const schemaFormCreateForms = yup.object({
@@ -54,7 +56,7 @@ const schemaFormCreateForms = yup.object({
     .array(
       yup.object({
         statement: yup.string().required('Deve ser informado uma pergunta!'),
-        type: yup.number().required('Deve ser informado o tipo!'),
+        type: yup.boolean().required('Deve ser informado o tipo!'),
         options: yup
           .array(
             yup.object({
@@ -121,7 +123,7 @@ export const DrawerCreateForms = () => {
         placement="right"
         initialFocusRef={firstField}
         onClose={onClose}
-        size="md"
+        size="lg"
       >
         <DrawerOverlay />
         <DrawerContent>
@@ -130,7 +132,7 @@ export const DrawerCreateForms = () => {
             Criar Novo Formulário
           </DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody py="2rem">
             <Box
               as="form"
               id="my-form-create-users"
@@ -196,7 +198,7 @@ export const DrawerCreateForms = () => {
                 onClick={() => {
                   append({
                     statement: '',
-                    type: 0,
+                    type: false,
                     options: [],
                   });
                 }}

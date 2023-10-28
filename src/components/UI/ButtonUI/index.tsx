@@ -3,10 +3,14 @@ import {
   ButtonOptions,
   Button as ChakraButton,
   ChakraProps,
+  ThemingProps,
 } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 
-type ButtonProps = ComponentProps<'button'> & ChakraProps & ButtonOptions;
+type ButtonProps = ComponentProps<'button'> &
+  ChakraProps &
+  ButtonOptions &
+  ThemingProps<'Button'>;
 
 export function ButtonUI({ children, ...props }: ButtonProps) {
   const theme = useTheme();
