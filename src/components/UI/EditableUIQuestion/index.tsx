@@ -1,6 +1,5 @@
 import { ComponentProps } from 'react';
 import {
-  Box,
   ButtonGroup,
   Input as ChakraInput,
   ChakraProps,
@@ -24,12 +23,17 @@ import { useTheme } from '@emotion/react';
 
 import { BiCheck, BiX, BiEdit } from 'react-icons/bi';
 
-type EditableProps = ComponentProps<'input'> &
+type EditableUIQuestionProps = ComponentProps<'input'> &
   ChakraProps & {
     label?: string;
-    name: string;
+    name: string | 'statement' | 'type' | 'options';
+    nameGroup: string;
+    index: number;
     register: any;
     errors?: any;
+    field: any;
+    append: any;
+    remove: any;
     autoComplete?: any;
     autoFocus?: any;
     disabled?: any;
@@ -39,11 +43,16 @@ type EditableProps = ComponentProps<'input'> &
     mask?: string;
   };
 
-export function EditableUI({
+export function EditableUIQuestion({
   type,
   placeholder,
   label,
   name,
+  nameGroup,
+  index,
+  field,
+  append,
+  remove,
   register,
   errors,
   autoComplete,
@@ -54,7 +63,7 @@ export function EditableUI({
   size,
   mask,
   ...props
-}: EditableProps) {
+}: EditableUIQuestionProps) {
   const theme = useTheme();
 
   const propsMask = mask
@@ -99,13 +108,17 @@ export function EditableUI({
 
   return (
     <Editable
+      key={field.id}
       textAlign="center"
-      defaultValue="Título do formulário ⚡️"
+      defaultValue="Título da pergunta ⚡️"
       fontSize="2xl"
       isPreviewFocusable={false}
       w="100%"
     >
-      <FormControl isInvalid={errors[`${name}`]}>
+      <FormControl
+        isInvalid={errors?.[nameGroup]?.[index]?.[name]}
+        key={field.id}
+      >
         {label && <FormLabel>{label}</FormLabel>}
         <InputGroup
           alignItems="center"
@@ -141,9 +154,9 @@ export function EditableUI({
           />
           <ChakraInput
             as={mask ? InputMask : EditableInput}
-            {...register(name)}
-            id={name}
-            name={name}
+            {...register(`${nameGroup}.${index}.${name}`)}
+            id={`${nameGroup}.${index}.${name}`}
+            name={`${nameGroup}.${index}.${name}`}
             type={type}
             placeholder={placeholder}
             autoComplete={autoComplete}
@@ -158,7 +171,8 @@ export function EditableUI({
           <EditableControls />
         </InputGroup>
         <FormErrorMessage>
-          {errors && errors[`${name}`] && errors[`${name}`].message}
+          {errors?.[nameGroup]?.[index]?.[name] &&
+            errors?.[nameGroup]?.[index]?.[name].message}
         </FormErrorMessage>
       </FormControl>
     </Editable>
