@@ -1,171 +1,143 @@
-import { ComponentProps } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { useTheme } from '@emotion/react';
 import {
+  AbsoluteCenter,
   Box,
-  ButtonGroup,
-  Input as ChakraInput,
-  ChakraProps,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  IconButton,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
+  Center,
+  Divider,
   VStack,
-  useEditableControls,
+  useToast,
 } from '@chakra-ui/react';
 
-import InputMask from 'react-input-mask';
+import { EditableUIQuestion } from '../EditableUIQuestion';
+import ModalAlert from '../Modals/ModalAlert';
 
-import { useTheme } from '@emotion/react';
-
-import { BiCheck, BiX, BiEdit, BiAddToQueue } from 'react-icons/bi';
-import { EditableUI } from '../EditableUI';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import { ButtonUI } from '../ButtonUI';
+import { BiAddToQueue } from 'react-icons/bi';
 
-type CreateOptionRadioProps = ComponentProps<'input'> &
-  ChakraProps & {
-    label?: string;
-    name: string;
-    register: any;
-    errors?: any;
-    autoComplete?: any;
-    autoFocus?: any;
-    disabled?: any;
-    size?: (string & {}) | 'sm' | 'md' | 'lg' | 'xs';
-    icon?: JSX.Element;
-    iconPosition?: 'right' | 'left';
-    mask?: string;
-  };
+type CreateOptionRadioProps = {
+  name: string;
+  nameGroup: string;
+  errors: any;
+  indexGroup: number;
+  watch: any;
+};
 
 export function CreateOptionRadio({
-  type,
-  placeholder,
-  label,
   name,
-  register,
+  nameGroup,
   errors,
-  autoComplete,
-  autoFocus,
-  disabled,
-  icon,
-  iconPosition,
-  size,
-  mask,
-  ...props
+  indexGroup,
+  watch,
 }: CreateOptionRadioProps) {
   const theme = useTheme();
+  const toast = useToast();
 
-  const propsMask = mask
-    ? {
-        mask: mask,
-        maskChar: null,
-      }
-    : {};
+  const { register, control } = useFormContext();
 
-  function EditableControls() {
-    const {
-      isEditing,
-      getSubmitButtonProps,
-      getCancelButtonProps,
-      getEditButtonProps,
-    } = useEditableControls();
+  const { fields, append, remove } = useFieldArray({
+    name: `${nameGroup}.${indexGroup}.${'options'}`,
+    control,
+  });
 
-    return isEditing ? (
-      <ButtonGroup justifyContent="center" size="md">
-        <IconButton
-          aria-label="icon-check"
-          icon={<BiCheck />}
-          {...getSubmitButtonProps()}
-        />
-        <IconButton
-          aria-label="icon-close"
-          icon={<BiX />}
-          {...getCancelButtonProps()}
-        />
-      </ButtonGroup>
-    ) : (
-      <Flex justifyContent="center">
-        <IconButton
-          size="md"
-          aria-label="icon-edit"
-          icon={<BiEdit />}
-          {...getEditButtonProps()}
-        />
-      </Flex>
-    );
-  }
+  const checkTypeQuestion = useCallback(
+    (name: string) => {
+      const valueWatch = watch(name);
+      return valueWatch;
+    },
+    [watch],
+  );
+
+  const validateRender = (checkType: boolean) => {
+    if (!checkType) {
+      fields.length < 1 && append({ value: '' });
+      return (
+        <VStack px="2rem" key={`group-${indexGroup}-options`}>
+          <Box position="relative" py="8" w="100%">
+            <Divider />
+            <AbsoluteCenter
+              bg="white"
+              px="1rem"
+              fontSize="1.2rem"
+              fontWeight="500"
+            >
+              Opções
+            </AbsoluteCenter>
+          </Box>
+          {fields.map((field: any, index: any) => {
+            return (
+              <VStack width="100%" key={field.id} position="relative" py="1rem">
+                <ModalAlert
+                  key={`modal-${field.id}`}
+                  type="iconButtonClose"
+                  ModalTitle="Excluir Opção!"
+                  ModalText="Realmente deseja excluir essa Opção? os dados serão perdidos."
+                  ModalTextButtonConfirm="Excluir"
+                  onChange={() => {
+                    if (fields.length > 1) {
+                      remove(index);
+                    } else {
+                      toast({
+                        status: 'warning',
+                        title: `Pergunta deve ter ao menos uma Opção!`,
+                        position: 'top',
+                        isClosable: true,
+                        variant: 'left-accent',
+                      });
+                    }
+                  }}
+                  configButton={{
+                    position: 'absolute',
+                    top: '-0.5rem',
+                    right: '-0.5rem',
+                    zIndex: '10',
+                  }}
+                />
+                <EditableUIQuestion
+                  nameGroup={`${nameGroup}.${indexGroup}.${name}`}
+                  index={index}
+                  field={field}
+                  register={register}
+                  errors={
+                    errors?.[nameGroup]?.[indexGroup]?.[name]?.[index]?.value
+                  }
+                  name="value"
+                  label="Opção"
+                  placeholder="Título da Opção ⚡️"
+                />
+
+                <Center py="1rem" width="100%">
+                  <Divider />
+                </Center>
+              </VStack>
+            );
+          })}
+          <ButtonUI
+            leftIcon={<BiAddToQueue size="1.2rem" />}
+            bg={theme.add}
+            color={theme.colorTextAddButton}
+            onClick={() => {
+              append({
+                value: '',
+              });
+            }}
+          >
+            Opção
+          </ButtonUI>
+        </VStack>
+      );
+    } else {
+      fields.length > 0 && remove();
+      return null;
+    }
+  };
 
   return (
-    <VStack width="100%">
-      <Editable
-        textAlign="center"
-        defaultValue="Título do formulário ⚡️"
-        fontSize="2xl"
-        isPreviewFocusable={false}
-        w="100%"
-      >
-        <FormControl isInvalid={errors[`${name}`]}>
-          {label && <FormLabel>{label}</FormLabel>}
-          <InputGroup
-            alignItems="center"
-            gap="1rem"
-            justifyContent="space-between"
-          >
-            {icon && iconPosition == 'left' && (
-              <InputLeftElement
-                pointerEvents="none"
-                color="gray.300"
-                fontSize="1.5em"
-                h="100%"
-              >
-                {icon}
-              </InputLeftElement>
-            )}
-            {icon && iconPosition == 'right' && (
-              <InputRightElement
-                pointerEvents="none"
-                color="gray.300"
-                fontSize="1.5em"
-                h="100%"
-              >
-                {icon}
-              </InputRightElement>
-            )}
-            <EditablePreview
-              p="0.5rem 0rem"
-              fontSize="1.2rem"
-              width="100%"
-              minH="3rem"
-              border={`1px solid ${theme.disabled}`}
-            />
-            <ChakraInput
-              as={mask ? InputMask : EditableInput}
-              {...register(name)}
-              id={name}
-              name={name}
-              type={type}
-              placeholder={placeholder}
-              autoComplete={autoComplete}
-              autoFocus={autoFocus}
-              disabled={disabled}
-              borderRadius="0.5rem"
-              focusBorderColor={theme.colorPrimary}
-              h="3rem"
-              {...propsMask}
-              {...props}
-            />{' '}
-            <EditableControls />
-          </InputGroup>
-          <FormErrorMessage>
-            {errors && errors[`${name}`] && errors[`${name}`].message}
-          </FormErrorMessage>
-        </FormControl>
-      </Editable>
-    </VStack>
+    <>
+      {validateRender(
+        checkTypeQuestion(`${nameGroup}.${indexGroup}.${'type'}`),
+      )}
+    </>
   );
 }

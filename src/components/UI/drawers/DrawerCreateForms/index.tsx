@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from '@emotion/react';
 import {
   AbsoluteCenter,
@@ -12,7 +12,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Stack,
   useDisclosure,
 } from '@chakra-ui/react';
 import { ButtonUI } from '../../ButtonUI';
@@ -20,21 +19,20 @@ import { BiAddToQueue, BiEnvelope, BiUser } from 'react-icons/bi';
 
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { InputUI } from '../../InputUI';
+import { useFieldArray, useForm, FormProvider } from 'react-hook-form';
 import { EditableUI } from '../../EditableUI';
 import { CreateQuestion } from '../../createQuestion';
 
 interface IValueQuestions {
   statement: string;
   type: boolean;
-  options: IValueOptions[];
+  options?: IValueOptions[];
   formId?: string;
 }
 
 interface IValueOptions {
   value: string;
-  order: number;
+  order?: number;
   questionId?: string;
 }
 
@@ -46,7 +44,15 @@ interface IValuesForm {
 const defaultValues: IValuesForm = {
   title: '',
   questions: [
-    { statement: '', type: false, options: [{ value: '', order: 0 }] },
+    {
+      statement: '',
+      type: false,
+      options: [
+        {
+          value: '',
+        },
+      ],
+    },
   ],
 };
 
@@ -61,10 +67,19 @@ const schemaFormCreateForms = yup.object({
           .array(
             yup.object({
               value: yup.string().required('Deve ser informado a opção!'),
-              order: yup.number().required('Deve ser informado a posição!'),
+              // .when('type', {
+              //   is: (value: boolean) => value == false,
+              //   then: (schema) =>
+              //     schema.required('Deve ser informado a opção!'),
+              // }),
+              order: yup.number(),
             }),
           )
-          .required('Deve ser informado um Opção!'),
+          .when('type', {
+            is: (value: boolean) => value == false,
+            then: (schema) =>
+              schema.min(1, 'Deve ser informado uma Opção!').required(),
+          }),
       }),
     )
     .required('Deve ser informado um Pergunta!'),
@@ -75,22 +90,24 @@ export const DrawerCreateForms = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef(null);
 
-  const {
-    handleSubmit,
-    register,
-    control,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm({
+  const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schemaFormCreateForms),
     mode: 'all',
   });
 
-  // const { fields , append, remove } = useFieldArray({
+  const {
+    register,
+    reset,
+    watch,
+    control,
+    formState: { errors, isSubmitting },
+    handleSubmit,
+  } = methods;
+
   const { fields, append, remove } = useFieldArray({
     name: 'questions',
-    control,
+    control: control,
   });
 
   const clearForm = () => {
@@ -108,6 +125,10 @@ export const DrawerCreateForms = () => {
     });
   }
 
+  useEffect(() => {
+    console.log('[fields] =>', fields);
+  }, [fields]);
+
   return (
     <>
       <ButtonUI
@@ -116,13 +137,13 @@ export const DrawerCreateForms = () => {
         color={theme.colorTextAddButton}
         onClick={onOpen}
       >
-        Adicionar
+        Adicionar Formulário
       </ButtonUI>
       <Drawer
         isOpen={isOpen}
         placement="right"
         initialFocusRef={firstField}
-        onClose={onClose}
+        onClose={clearForm}
         size="lg"
       >
         <DrawerOverlay />
@@ -133,52 +154,27 @@ export const DrawerCreateForms = () => {
           </DrawerHeader>
 
           <DrawerBody py="2rem">
-            <Box
-              as="form"
-              id="my-form-create-users"
-              onSubmit={handleSubmit(onSubmit)}
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="flex-start"
-              gap="1rem"
-            >
-              <EditableUI
-                register={register}
-                errors={errors}
-                name="title"
-                label="Título"
-                type="text"
-                placeholder="Título do formulário *"
-              />
-
-              <Box position="relative" py="8" w="100%">
-                <Divider />
-                <AbsoluteCenter
-                  bg="white"
-                  px="1rem"
-                  fontSize="1.2rem"
-                  fontWeight="500"
-                >
-                  Perguntas
-                </AbsoluteCenter>
-              </Box>
-
+            <FormProvider {...methods}>
               <Box
-                w="100%"
-                p="1rem"
-                border="1px solid #c0c0c0a6"
-                borderRadius="0.5rem"
+                as="form"
+                id="my-form-create-forms"
+                onSubmit={handleSubmit(onSubmit)}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="flex-start"
+                gap="1rem"
               >
-                <CreateQuestion
-                  fields={fields}
-                  append={append}
-                  remove={remove}
+                <EditableUI
                   register={register}
                   errors={errors}
-                  nameGroup="questions"
+                  name="title"
+                  label="Título"
+                  type="text"
+                  placeholder="Título do formulário ⚡️"
                 />
-                {/* <Box position="relative" py="8" w="100%">
+
+                <Box position="relative" py="8" w="100%">
                   <Divider />
                   <AbsoluteCenter
                     bg="white"
@@ -186,26 +182,38 @@ export const DrawerCreateForms = () => {
                     fontSize="1.2rem"
                     fontWeight="500"
                   >
-                    Opções
+                    Perguntas
                   </AbsoluteCenter>
-                </Box> */}
+                </Box>
+
+                <CreateQuestion
+                  fields={fields}
+                  append={append}
+                  remove={remove}
+                  register={register}
+                  watch={watch}
+                  control={control}
+                  errors={errors}
+                  nameGroup="questions"
+                />
+
+                <Divider py="1rem" />
+                <ButtonUI
+                  leftIcon={<BiAddToQueue size="1.2rem" />}
+                  bg={theme.add}
+                  color={theme.colorTextAddButton}
+                  onClick={() => {
+                    append({
+                      statement: '',
+                      type: false,
+                      options: [{ value: '' }],
+                    });
+                  }}
+                >
+                  Pergunta
+                </ButtonUI>
               </Box>
-              <Divider />
-              <ButtonUI
-                leftIcon={<BiAddToQueue size="1.2rem" />}
-                bg={theme.add}
-                color={theme.colorTextAddButton}
-                onClick={() => {
-                  append({
-                    statement: '',
-                    type: false,
-                    options: [],
-                  });
-                }}
-              >
-                Pergunta
-              </ButtonUI>
-            </Box>
+            </FormProvider>
           </DrawerBody>
 
           <DrawerFooter borderTopWidth="1px">
@@ -221,7 +229,7 @@ export const DrawerCreateForms = () => {
                 color={theme.container200}
                 transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
                 type="submit"
-                form="my-form-create-users"
+                form="my-form-create-forms"
                 isLoading={isSubmitting}
               >
                 Cadastrar

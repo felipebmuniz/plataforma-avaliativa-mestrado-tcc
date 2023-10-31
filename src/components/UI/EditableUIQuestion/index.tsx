@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, useEffect } from 'react';
 import {
   ButtonGroup,
   Input as ChakraInput,
@@ -32,8 +32,8 @@ type EditableUIQuestionProps = ComponentProps<'input'> &
     register: any;
     errors?: any;
     field: any;
-    append: any;
-    remove: any;
+    append?: any;
+    remove?: any;
     autoComplete?: any;
     autoFocus?: any;
     disabled?: any;
@@ -110,15 +110,12 @@ export function EditableUIQuestion({
     <Editable
       key={field.id}
       textAlign="center"
-      defaultValue="Título da pergunta ⚡️"
+      placeholder={placeholder}
       fontSize="2xl"
       isPreviewFocusable={false}
       w="100%"
     >
-      <FormControl
-        isInvalid={errors?.[nameGroup]?.[index]?.[name]}
-        key={field.id}
-      >
+      <FormControl isInvalid={errors} key={field.id}>
         {label && <FormLabel>{label}</FormLabel>}
         <InputGroup
           alignItems="center"
@@ -170,10 +167,7 @@ export function EditableUIQuestion({
           />{' '}
           <EditableControls />
         </InputGroup>
-        <FormErrorMessage>
-          {errors?.[nameGroup]?.[index]?.[name] &&
-            errors?.[nameGroup]?.[index]?.[name].message}
-        </FormErrorMessage>
+        <FormErrorMessage>{errors && errors.message}</FormErrorMessage>
       </FormControl>
     </Editable>
   );

@@ -100,7 +100,7 @@ export function EditableUI({
   return (
     <Editable
       textAlign="center"
-      defaultValue="Título do formulário ⚡️"
+      placeholder={placeholder}
       fontSize="2xl"
       isPreviewFocusable={false}
       w="100%"

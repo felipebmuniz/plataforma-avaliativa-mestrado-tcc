@@ -1,32 +1,9 @@
 import AdminLayout from '@/layouts/AdminLayout';
-import { UsersAdmin } from '@/components/sections/admin/UsersAdmin';
-import {
-  Badge,
-  Center,
-  HStack,
-  List,
-  ListIcon,
-  ListItem,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import { TabsUI } from '@/components/UI/TabsUI';
-import { ITabs } from '@/types/tabs';
+import { Badge, Box, HStack, Text, VStack } from '@chakra-ui/react';
 import { hexToRgb } from '@/utils/theme';
 import { useTheme } from '@emotion/react';
-import { BiInfoCircle } from 'react-icons/bi';
 import { FormsAdmin } from '@/components/sections/admin/FormsAdmin';
-
-// const dataTabs: ITabs[] = [
-//   {
-//     label: 'Usuário Discente',
-//     content: <UsersAdmin />,
-//   },
-//   {
-//     label: 'Usuário Docente',
-//     content: <UsersAdmin />,
-//   },
-// ];
+import { DrawerCreateForms } from '@/components/UI/drawers/DrawerCreateForms';
 
 export default function AdminForms() {
   const theme = useTheme();
@@ -61,14 +38,24 @@ export default function AdminForms() {
             Criação de Formulários
           </Badge>
 
-          <Text
-            fontSize="2.25rem"
-            fontStyle="normal"
-            fontWeight="700"
-            lineHeight="130%"
+          <HStack
+            w="100%"
+            justifyContent="space-between"
+            flexWrap="wrap"
+            gap="2rem"
           >
-            Crie, edite e busque pelos formulários da plataforma.
-          </Text>
+            <Text
+              fontSize="2.25rem"
+              fontStyle="normal"
+              fontWeight="700"
+              lineHeight="130%"
+            >
+              Crie, edite e busque pelos formulários da plataforma.
+            </Text>
+            <Box>
+              <DrawerCreateForms />
+            </Box>
+          </HStack>
 
           {/* <List spacing={3} color={theme.colorText}>
             <ListItem>

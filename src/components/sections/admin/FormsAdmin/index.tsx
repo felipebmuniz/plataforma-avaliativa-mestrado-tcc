@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form';
 
 import { BiSearch } from 'react-icons/bi';
 import { SkeletonCards } from '@/components/UI/Skeleton';
-import { DrawerCreateForms } from '@/components/UI/drawers/DrawerCreateForms';
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: '',
@@ -67,6 +66,7 @@ export const FormsAdmin = () => {
     >
       <HStack
         as="form"
+        id="my-form-search-forms"
         onSubmit={handleSubmit(onSubmit)}
         w="100%"
         alignItems="flex-end"
@@ -104,10 +104,13 @@ export const FormsAdmin = () => {
         </HStack>
 
         <ButtonGroup gap="1rem" margin="auto" marginTop="2rem" height="inherit">
-          <ButtonUI isLoading={isSubmitting} type="submit">
+          <ButtonUI
+            id="my-form-search-forms"
+            isLoading={isSubmitting}
+            type="submit"
+          >
             Buscar
           </ButtonUI>
-          <DrawerCreateForms />
         </ButtonGroup>
       </HStack>
       <SkeletonCards />
