@@ -46,7 +46,7 @@ const PopoverLogin = ({ children }: IProps) => {
   const theme = useTheme();
   const router = useRouter();
 
-  const initialFocusRef = React.useRef(null);
+  const initialFocusRef = React.useRef<HTMLInputElement>(null);
   const { onOpen, onClose, isOpen } = useDisclosure();
 
   const {

@@ -34,7 +34,7 @@ const schemaFormCreateUsers = yup.object({
 export const DrawerCreateUsers = () => {
   const theme = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstField = React.useRef(null);
+  const firstField = React.useRef<HTMLInputElement>(null);
 
   const {
     handleSubmit,

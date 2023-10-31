@@ -51,6 +51,9 @@ const defaultValues: IValuesForm = {
         {
           value: '',
         },
+        {
+          value: '',
+        },
       ],
     },
   ],
@@ -88,7 +91,7 @@ const schemaFormCreateForms = yup.object({
 export const DrawerCreateForms = () => {
   const theme = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstField = React.useRef(null);
+  const firstField = React.useRef<HTMLInputElement>(null);
 
   const methods = useForm({
     defaultValues: defaultValues,
@@ -172,6 +175,7 @@ export const DrawerCreateForms = () => {
                   label="Título"
                   type="text"
                   placeholder="Título do formulário ⚡️"
+                  ref={firstField}
                 />
 
                 <Box position="relative" py="8" w="100%">
@@ -206,7 +210,7 @@ export const DrawerCreateForms = () => {
                     append({
                       statement: '',
                       type: false,
-                      options: [{ value: '' }],
+                      options: [{ value: '' }, { value: '' }],
                     });
                   }}
                 >
