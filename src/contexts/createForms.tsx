@@ -1,9 +1,7 @@
 import { createContext } from 'react';
 
-export type CreateFormsContextValue = {};
+export type FormsContextValue = {};
 
-const CreateFormsContext = createContext<CreateFormsContextValue>(
-  {} as CreateFormsContextValue,
-);
+const FormsContext = createContext<FormsContextValue>({} as FormsContextValue);
 
-export { CreateFormsContext };
+export { FormsContext };

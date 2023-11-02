@@ -10,7 +10,7 @@ import {
 import { ChakraProvider } from '@chakra-ui/react';
 import globalStyles from '@/styles/global';
 import { defaultPallet } from '@/styles/defaultPallet';
-import { CreateFormsProvider } from '@/providers';
+import { FormsProvider } from '@/providers';
 
 interface AppProps extends NextAppProps {
   emotionCache?: EmotionCache;
@@ -31,14 +31,14 @@ export default function App({
   return (
     <CacheProvider value={emotionCache}>
       <ChakraProvider>
-        <CreateFormsProvider>
-          <ThemeProvider theme={defaultPallet}>
+        <ThemeProvider theme={defaultPallet}>
+          <FormsProvider>
             <Global styles={globalStyles} />
             <main className={poppins.className}>
               <Component {...pageProps} />
             </main>
-          </ThemeProvider>
-        </CreateFormsProvider>
+          </FormsProvider>
+        </ThemeProvider>
       </ChakraProvider>
     </CacheProvider>
   );
