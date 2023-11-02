@@ -1,5 +1,4 @@
 import AdminLayout from '@/layouts/AdminLayout';
-import { SectionAdmin } from '@/components/sections/admin/SectionAdmin';
 
 export default function Admin() {
   return (
@@ -7,7 +6,7 @@ export default function Admin() {
       title="Plataforma Autoavaliativa Mestrado"
       description="Plataforma Autoavaliativa do Mestrado - UFC"
     >
-      <SectionAdmin />
+      <></>
     </AdminLayout>
   );
 }

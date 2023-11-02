@@ -14,7 +14,7 @@ export const SectionsAdminMock: SectionAdmin[] = [
     type: 'button',
   },
   {
-    src: '/admin',
+    src: '/admin/turmas',
     label: 'Criar Turmas',
     textDecoration: false,
     type: 'button',

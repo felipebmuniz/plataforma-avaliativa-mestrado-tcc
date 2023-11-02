@@ -1,15 +1,26 @@
 import AdminLayout from '@/layouts/AdminLayout';
-import { Badge, Box, HStack, Text, VStack } from '@chakra-ui/react';
+import {
+  Badge,
+  Box,
+  Center,
+  HStack,
+  List,
+  ListIcon,
+  ListItem,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { hexToRgb } from '@/utils/theme';
 import { useTheme } from '@emotion/react';
 import { FormsAdmin } from '@/components/sections/admin/FormsAdmin';
 import { DrawerCreateForms } from '@/components/UI/drawers/DrawerCreateForms';
+import { BiInfoCircle } from 'react-icons/bi';
 
 export default function AdminForms() {
   const theme = useTheme();
   return (
     <AdminLayout
-      title="Administrativo - Usuários"
+      title="Administrativo - Turmas"
       description="Plataforma Autoavaliativa do Mestrado - UFC"
     >
       <VStack
@@ -57,7 +68,7 @@ export default function AdminForms() {
             </Box>
           </HStack>
 
-          {/* <List spacing={3} color={theme.colorText}>
+          <List spacing={3} color={theme.colorText}>
             <ListItem>
               <Center justifyContent="flex-start">
                 <ListIcon
@@ -65,11 +76,11 @@ export default function AdminForms() {
                   color={theme.colorSecundary800}
                   fontSize="1.5rem"
                 />
-                Selecione o tipo de usuário que deseja visualizar, modificar e
-                criar.
+                Os formulários são a base da plataforma, com eles podemos saber
+                como se decorreu o funcionamento durante o semestre.
               </Center>
             </ListItem>
-          </List> */}
+          </List>
         </VStack>
         <HStack gap="1.5rem" width="100%" flexWrap="wrap" margin="auto">
           <FormsAdmin />
