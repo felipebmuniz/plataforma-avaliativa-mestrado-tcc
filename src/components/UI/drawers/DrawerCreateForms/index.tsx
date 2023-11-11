@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTheme } from '@emotion/react';
 import {
   AbsoluteCenter,
@@ -48,9 +48,6 @@ const defaultValues: IValuesForm = {
       statement: '',
       type: false,
       options: [
-        {
-          value: '',
-        },
         {
           value: '',
         },
@@ -127,10 +124,6 @@ export const DrawerCreateForms = () => {
       }, 3000);
     });
   }
-
-  useEffect(() => {
-    console.log('[fields] =>', fields);
-  }, [fields]);
 
   return (
     <>
@@ -210,7 +203,7 @@ export const DrawerCreateForms = () => {
                     append({
                       statement: '',
                       type: false,
-                      options: [{ value: '' }, { value: '' }],
+                      options: [{ value: '' }],
                     });
                   }}
                 >

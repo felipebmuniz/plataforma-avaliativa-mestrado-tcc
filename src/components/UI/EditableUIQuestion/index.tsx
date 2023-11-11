@@ -1,4 +1,4 @@
-import { ComponentProps, useEffect } from 'react';
+import { ComponentProps } from 'react';
 import {
   ButtonGroup,
   Input as ChakraInput,

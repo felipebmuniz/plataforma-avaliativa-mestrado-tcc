@@ -1,8 +1,5 @@
-import { useEffect, useCallback, useState } from 'react';
 import {
-  AbsoluteCenter,
   Box,
-  Divider,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -14,8 +11,6 @@ import {
 import { EditableUIQuestion } from '../EditableUIQuestion';
 import ModalAlert from '../Modals/ModalAlert';
 import { CreateOptionRadio } from '../createOptionRadio';
-
-import { useFieldArray } from 'react-hook-form';
 
 type CreateQuestionProps = {
   nameGroup: string;
@@ -36,16 +31,8 @@ export function CreateQuestion({
   errors,
   register,
   watch,
-  control,
 }: CreateQuestionProps) {
   const toast = useToast();
-
-  const [valueSwitchTypeQuestion, setValueSwitchTypeQuestion] = useState(false);
-
-  useEffect(() => {
-    console.log('[fields] =>', fields);
-    console.log('[erros] =>', errors);
-  }, [fields, errors]);
 
   return (
     <>
