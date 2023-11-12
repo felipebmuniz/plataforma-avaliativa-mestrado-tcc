@@ -71,7 +71,7 @@ const PopoverLogin = ({ children }: IProps) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
         clearForm();
-        router.push('/admin');
+        router.push('/admin/formularios');
         resolve();
       }, 3000);
     });

@@ -10,7 +10,7 @@ export const SectionsMock: Section[] = [
     name: 'Métricas',
   },
   {
-    src: '#programa',
-    name: 'Sobre o programa',
+    src: '/programa',
+    name: 'Avalie o programa',
   },
 ];
