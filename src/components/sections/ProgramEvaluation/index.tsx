@@ -38,14 +38,14 @@ const nameProject = 'Sistema de Autoavaliação';
 const questions = [
   `1. Eu acho que gostaria de usar o ${nameProject} com frequência.*`,
   `2. Eu acho o ${nameProject} desnecessariamente complexo.*`,
-  `3.  Eu achei o ${nameProject} fácil de usar.*`,
-  `4.  Eu acho que precisaria de ajuda de uma pessoa com conhecimentos técnicos para usar o ${nameProject}.`,
-  `5.  Eu acho que as várias funções do ${nameProject} estão muito bem integradas.*`,
+  `3. Eu achei o ${nameProject} fácil de usar.*`,
+  `4. Eu acho que precisaria de ajuda de uma pessoa com conhecimentos técnicos para usar o ${nameProject}.`,
+  `5. Eu acho que as várias funções do ${nameProject} estão muito bem integradas.*`,
   `6. Eu acho que o ${nameProject} apresenta muita inconsistência (erros).*`,
   `7. Eu imagino que as pessoas aprenderão como usar o ${nameProject} rapidamente.`,
   `8. Eu achei o ${nameProject} atrapalhado de usar.*`,
   `9. Eu me senti confiante ao usar o ${nameProject}.*`,
-  `10.  Eu precisei aprender várias coisas novas antes de conseguir usar o ${nameProject}.`,
+  `10. Eu precisei aprender várias coisas novas antes de conseguir usar o ${nameProject}.`,
   `11. Deixa aqui sua sugestão de melhoria ou implementação:`,
 ];
 

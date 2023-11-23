@@ -1,18 +1,40 @@
 import { NextApiHandler } from 'next';
-import axios from 'axios';
+import { AxiosResponse } from 'axios';
+import { TypeMethod } from '@/types/forms';
+import { api } from '@/services/api';
 
-const listForms: NextApiHandler = async function (_, response) {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const listForms: NextApiHandler = async function (request, response) {
+  const { method, body } = request;
 
-  const url = `${apiUrl}/Forms`;
+  const url = `/Forms`;
 
-  const apiResponse = await axios.get(url);
+  let apiResponse: AxiosResponse<any, any>;
 
-  if (apiResponse.status === 200) {
-    return response.status(200).json(apiResponse.data);
+  switch (method) {
+    case TypeMethod.GET:
+      apiResponse = await api.get(url);
+      if (apiResponse.status === 200) {
+        return response.status(200).json(apiResponse.data);
+      }
+
+      return response.status(400).json('Erro interno na API');
+
+    case TypeMethod.POST:
+      apiResponse = await api.post(url, body);
+      if (apiResponse.status === 200) {
+        return response.status(200).json(apiResponse.data);
+      }
+
+      return response.status(400).json('Erro interno na API');
+
+    case TypeMethod.PUT:
+      apiResponse = await api.put(url, body);
+      if (apiResponse.status === 200) {
+        return response.status(200).json(apiResponse.data);
+      }
+
+      return response.status(400).json('Erro interno na API');
   }
-
-  return response.status(400).json('Erro interno na API');
 };
 
 export default listForms;

@@ -24,6 +24,8 @@ import { InputUI } from '../InputUI';
 import { BiUser } from 'react-icons/bi';
 import { BiLockAlt } from 'react-icons/bi';
 import { useRouter } from 'next/router';
+import { AcessesLoginResponse } from '@/types/auth';
+import { useAuth } from '@/hooks/useAuth';
 
 interface IProps {
   children: React.ReactNode;
@@ -45,6 +47,7 @@ const schemaFormLogin = yup.object({
 const PopoverLogin = ({ children }: IProps) => {
   const theme = useTheme();
   const router = useRouter();
+  const { signIn } = useAuth();
 
   const initialFocusRef = React.useRef<HTMLInputElement>(null);
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -66,15 +69,8 @@ const PopoverLogin = ({ children }: IProps) => {
     reset(defaultValues);
   };
 
-  function onSubmit(values: any) {
-    return new Promise((resolve: any) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        clearForm();
-        router.push('/admin/formularios');
-        resolve();
-      }, 3000);
-    });
+  function onSubmit(data: AcessesLoginResponse) {
+    return signIn(data, clearForm);
   }
 
   return (
