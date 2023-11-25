@@ -46,10 +46,8 @@ function AuthProvider({ children }: IAuthProviderProps) {
     async (loginData: AcessesLoginResponse, clear: () => void) => {
       return authServices()
         .login(loginData)
-        .then((data) => {
-          console.log('[data] =>', data);
-
-          const { accessToken } = data;
+        .then((response) => {
+          const { accessToken } = response.data;
           if (typeof window !== 'undefined') {
             localStorage.setItem(`${TOKEN_KEY}:accessToken`, accessToken);
 
@@ -72,7 +70,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
             });
           }
         })
-        .catch(() => {
+        .catch((error) => {
           toast({
             status: 'error',
             title: `Não foi possível realizar o login :( Cheque suas credenciais!`,
@@ -93,9 +91,43 @@ function AuthProvider({ children }: IAuthProviderProps) {
     }
   }, []);
 
+  const validateUser = useCallback(
+    async (token: string) => {
+      return authServices()
+        .Validate({ token: token })
+        .then(() => {
+          router.push('/admin/formularios');
+
+          toast({
+            status: 'success',
+            title: `Usuário autenticado com sucesso ✅`,
+            position: 'top-right',
+            isClosable: true,
+            variant: 'left-accent',
+          });
+        })
+        .catch(() => {
+          toast({
+            status: 'error',
+            title: `Não foi possível autenticado o usuário :( Entre em contado com a coordenação!`,
+            position: 'top-right',
+            isClosable: true,
+            variant: 'left-accent',
+          });
+        });
+    },
+    [toast, router],
+  );
+
   return (
     <AuthContext.Provider
-      value={{ accessToken: data.accessToken, signIn, signOut, updateToken }}
+      value={{
+        accessToken: data.accessToken,
+        signIn,
+        signOut,
+        updateToken,
+        validateUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

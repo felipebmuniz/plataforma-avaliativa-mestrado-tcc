@@ -11,7 +11,9 @@ const loginUser: NextApiHandler = async function (request, response) {
     return response.status(200).json(apiResponse.data);
   }
 
-  return response.status(400).json('Erro interno na API');
+  return response
+    .status(400)
+    .json({ data: { message: 'Erro interno na API' } });
 };
 
 export default loginUser;
