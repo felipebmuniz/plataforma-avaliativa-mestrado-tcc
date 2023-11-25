@@ -32,8 +32,10 @@ import { SectionsMock } from '@/mocks/sections';
 import { SectionsAdminMock } from '@/mocks/sectionsAdmin';
 
 import { typeComponent } from '@/types/sectionsAdim';
+import { useAuth } from '@/hooks/useAuth';
 
 export const Menu = ({ typeSection }: { typeSection?: 'admin' }) => {
+  const { signOut } = useAuth();
   const theme = useTheme();
 
   const changeComponentsLinksMenu = (type: typeComponent, label: string) => {
@@ -106,6 +108,9 @@ export const Menu = ({ typeSection }: { typeSection?: 'admin' }) => {
                         fontSize="1.2rem"
                       />
                     }
+                    onClick={() => {
+                      signOut();
+                    }}
                   >
                     Logout
                   </MenuItem>

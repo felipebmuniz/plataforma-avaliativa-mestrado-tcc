@@ -12,6 +12,7 @@ import globalStyles from '@/styles/global';
 import { defaultPallet } from '@/styles/defaultPallet';
 import { FormsProvider } from '@/providers';
 import { AuthProvider } from '@/providers/auth';
+import { UsersProvider } from '@/providers/users';
 
 interface AppProps extends NextAppProps {
   emotionCache?: EmotionCache;
@@ -34,12 +35,14 @@ export default function App({
       <ChakraProvider>
         <ThemeProvider theme={defaultPallet}>
           <AuthProvider>
-            <FormsProvider>
-              <Global styles={globalStyles} />
-              <main className={poppins.className}>
-                <Component {...pageProps} />
-              </main>
-            </FormsProvider>
+            <UsersProvider>
+              <FormsProvider>
+                <Global styles={globalStyles} />
+                <main className={poppins.className}>
+                  <Component {...pageProps} />
+                </main>
+              </FormsProvider>
+            </UsersProvider>
           </AuthProvider>
         </ThemeProvider>
       </ChakraProvider>

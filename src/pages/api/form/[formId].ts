@@ -4,7 +4,7 @@ import { TypeMethod } from '@/types/forms';
 import { api } from '@/services/api';
 
 const showFrom: NextApiHandler = async function (request, response) {
-  const { query, method } = request;
+  const { query, method, headers } = request;
 
   if (!query.formId) {
     return response.status(400).json('Id do provedor/cidade faltando');
@@ -16,7 +16,9 @@ const showFrom: NextApiHandler = async function (request, response) {
 
   switch (method) {
     case TypeMethod.GET:
-      apiResponse = await api.get(url);
+      apiResponse = await api.get(url, {
+        headers: { Authorization: headers.authorization },
+      });
       if (apiResponse.status === 200) {
         return response.status(200).json(apiResponse.data);
       } else if (apiResponse.status === 400) {
@@ -26,7 +28,9 @@ const showFrom: NextApiHandler = async function (request, response) {
       }
 
     case TypeMethod.DELETE:
-      apiResponse = await api.delete(url);
+      apiResponse = await api.delete(url, {
+        headers: { Authorization: headers.authorization },
+      });
       if (apiResponse.status === 200) {
         return response.status(200).json(apiResponse.data);
       } else if (apiResponse.status === 400) {

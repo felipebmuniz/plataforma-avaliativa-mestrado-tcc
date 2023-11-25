@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ButtonGroup, HStack, VStack } from '@chakra-ui/react';
 
 import { ButtonUI } from '@/components/UI/ButtonUI';
@@ -11,6 +12,8 @@ import { useForm } from 'react-hook-form';
 import { BiSearch } from 'react-icons/bi';
 import { DrawerCreateUsers } from '@/components/UI/drawers/DrawerCreateUsers';
 import { SkeletonCards } from '@/components/UI/Skeleton';
+import { userType } from '@/types/users';
+import { useUsers } from '@/hooks/useUsers';
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: '',
@@ -36,7 +39,12 @@ const schemaCreateFilterEvaluationArea = yup.object({
     .typeError('Valor inválido!'),
 });
 
-export const UsersAdmin = () => {
+interface IUsersAdmin {
+  usersType: userType;
+}
+
+export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
+  const { listUser } = useUsers();
   const {
     handleSubmit,
     register,
@@ -47,6 +55,10 @@ export const UsersAdmin = () => {
     resolver: yupResolver(schemaCreateFilterEvaluationArea),
     mode: 'all',
   });
+
+  useEffect(() => {
+    listUser(usersType);
+  }, [listUser, usersType]);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {

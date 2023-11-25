@@ -1,10 +1,11 @@
 import { ReactNode, useCallback, useState } from 'react';
 import { api } from '../services/api';
 import { AcessesLoginResponse, LoginResponse } from '@/types/auth';
-import { AuthContext } from '@/contexts/auth';
+import { AuthContext } from '@/contexts';
 import { useToast } from '@chakra-ui/react';
 import { authServices } from '@/services/auth';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export const TOKEN_KEY = '@PAM-Token';
 
@@ -22,7 +23,8 @@ function AuthProvider({ children }: IAuthProviderProps) {
       localStorage.getItem(`${TOKEN_KEY}:accessToken`);
 
     if (accessToken) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      // api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       return { accessToken };
     }
 
@@ -88,8 +90,20 @@ function AuthProvider({ children }: IAuthProviderProps) {
       localStorage.removeItem(`${TOKEN_KEY}:accessToken`);
 
       setData(() => ({} as LoginResponse));
+
+      router.push('/');
+
+      console.log('signOut');
+
+      toast({
+        status: 'success',
+        title: `Logout realizado com sucesso ✅`,
+        position: 'top-right',
+        isClosable: true,
+        variant: 'left-accent',
+      });
     }
-  }, []);
+  }, [router, toast]);
 
   const validateUser = useCallback(
     async (token: string) => {

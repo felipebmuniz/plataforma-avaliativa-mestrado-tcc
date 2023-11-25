@@ -19,11 +19,11 @@ import { BiInfoCircle } from 'react-icons/bi';
 const dataTabs: ITabs[] = [
   {
     label: 'Usuário Discente',
-    content: <UsersAdmin />,
+    content: <UsersAdmin usersType="student" />,
   },
   {
     label: 'Usuário Docente',
-    content: <UsersAdmin />,
+    content: <UsersAdmin usersType="teacher" />,
   },
 ];
 
