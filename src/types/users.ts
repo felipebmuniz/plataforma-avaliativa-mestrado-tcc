@@ -20,8 +20,8 @@ export interface userList {
 export interface userCreate {
   name: string;
   email: string;
-  studentCode?: string;
-  teacherCode?: string;
+  studentCode?: string | undefined;
+  teacherCode?: string | undefined;
 }
 
 export interface userUpdate {

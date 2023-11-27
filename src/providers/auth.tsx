@@ -24,7 +24,6 @@ function AuthProvider({ children }: IAuthProviderProps) {
 
     if (accessToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      // api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       return { accessToken };
     }
 
@@ -53,7 +52,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
           if (typeof window !== 'undefined') {
             localStorage.setItem(`${TOKEN_KEY}:accessToken`, accessToken);
 
-            api.defaults.headers.common[
+            axios.defaults.headers.common[
               'Authorization'
             ] = `Bearer ${accessToken}`;
 

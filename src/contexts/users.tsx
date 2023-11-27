@@ -2,7 +2,8 @@ import { userType, userCreate, userUpdate, userList } from '@/types/users';
 import { createContext } from 'react';
 
 export interface IUsersContext {
-  users: userList[];
+  usersStudent: userList[];
+  usersTeacher: userList[];
   createUser: (
     data: userCreate,
     type: userType,

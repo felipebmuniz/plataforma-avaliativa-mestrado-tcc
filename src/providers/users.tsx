@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState } from 'react';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { api } from '../services/api';
 import { AcessesLoginResponse, LoginResponse } from '@/types/auth';
 import { UsersContext } from '@/contexts';
@@ -15,7 +15,8 @@ interface IUsersProviderProps {
 function UsersProvider({ children }: IUsersProviderProps) {
   const toast = useToast();
 
-  const [users, setUsers] = useState<userList[]>([]);
+  const [usersStudent, setUsersStudent] = useState<userList[]>([]);
+  const [usersTeacher, setUsersTeacher] = useState<userList[]>([]);
 
   const createUser = useCallback(
     async (data: userCreate, type: userType, clear: () => void) => {
@@ -50,9 +51,8 @@ function UsersProvider({ children }: IUsersProviderProps) {
       return usersServices()
         .list(type)
         .then((response) => {
-          console.log('[listUser] =>', response.data);
-
-          setUsers(() => response.data);
+          type == 'student' && setUsersStudent(() => response.data);
+          type == 'teacher' && setUsersTeacher(() => response.data);
         })
         .catch(() => {
           toast({
@@ -67,16 +67,17 @@ function UsersProvider({ children }: IUsersProviderProps) {
     [toast],
   );
 
+  const value = useMemo(() => {
+    return {
+      usersStudent,
+      usersTeacher,
+      createUser,
+      listUser,
+    };
+  }, [usersStudent, usersTeacher, createUser, listUser]);
+
   return (
-    <UsersContext.Provider
-      value={{
-        users,
-        createUser,
-        listUser,
-      }}
-    >
-      {children}
-    </UsersContext.Provider>
+    <UsersContext.Provider value={value}>{children}</UsersContext.Provider>
   );
 }
 

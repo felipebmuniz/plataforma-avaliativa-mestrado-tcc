@@ -44,7 +44,7 @@ interface IUsersAdmin {
 }
 
 export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
-  const { listUser } = useUsers();
+  const { listUser, usersStudent, usersTeacher } = useUsers();
   const {
     handleSubmit,
     register,
@@ -58,6 +58,11 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
 
   useEffect(() => {
     listUser(usersType);
+  }, []);
+
+  useEffect(() => {
+    (usersStudent.length <= 0 || usersTeacher.length <= 0) &&
+      listUser(usersType);
   }, [listUser, usersType]);
 
   function onSubmit(values: any) {
@@ -79,7 +84,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
     >
       <HStack
         as="form"
-        onSubmit={handleSubmit(onSubmit)}
+        id="my-form-search-forms-users"
         w="100%"
         alignItems="flex-end"
         justifyContent="space-between"
@@ -116,12 +121,17 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
         </HStack>
 
         <ButtonGroup gap="1rem" margin="auto" marginTop="2rem" height="inherit">
-          <ButtonUI isLoading={isSubmitting} type="submit">
+          <ButtonUI
+            form="my-form-search-forms-users"
+            isLoading={isSubmitting}
+            onClick={handleSubmit(onSubmit)}
+          >
             Buscar
           </ButtonUI>
-          <DrawerCreateUsers />
+          <DrawerCreateUsers type={usersType} />
         </ButtonGroup>
       </HStack>
+
       <SkeletonCards />
     </VStack>
   );

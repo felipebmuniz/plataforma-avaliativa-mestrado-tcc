@@ -20,18 +20,84 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { InputUI } from '../../InputUI';
+import { userCreate, userType } from '@/types/users';
+import { useUsers } from '@/hooks/useUsers';
 
-const defaultValues: { name: string; email: string } = {
+enum typeValue {
+  student = 'studentCode',
+  teacher = 'teacherCode',
+}
+
+enum typeValueLabel {
+  student = 'Código do estudante',
+  teacher = 'Código do professor',
+}
+
+interface IDefaultValues {
+  name: string;
+  email: string;
+  studentCode?: string | undefined;
+  teacherCode?: string | undefined;
+}
+
+const defaultValues: IDefaultValues = {
   name: '',
   email: '',
+  studentCode: '',
+  teacherCode: '',
 };
 
-const schemaFormCreateUsers = yup.object({
-  name: yup.string().required('Deve ser informado um nome!'),
-  email: yup.string().email().required('Deve ser informado um email!'),
-});
+const schemaFormCreateUsers = yup.object().shape(
+  {
+    name: yup.string().required('Deve ser informado um nome!'),
+    email: yup.string().email().required('Deve ser informado um email!'),
+    studentCode: yup.string().when('studentCode', (val, schema) => {
+      if (val[0] != '') {
+        return yup.string().required('Deve ser informado o código do usuário!');
+      } else {
+        return yup
+          .string()
+          .transform((value, originalValue) => {
+            // Convert empty values to null
+            if (!value) {
+              return null;
+            }
+            return originalValue;
+          })
+          .nullable()
+          .optional();
+      }
+    }),
+    teacherCode: yup.string().when('teacherCode', (val, schema) => {
+      if (val[0] != '') {
+        return yup.string().required('Deve ser informado o código do usuário!');
+      } else {
+        return yup
+          .string()
+          .transform((value, originalValue) => {
+            // Convert empty values to null
+            if (!value) {
+              return null;
+            }
+            return originalValue;
+          })
+          .nullable()
+          .optional();
+      }
+    }),
+  },
+  [
+    ['studentCode', 'studentCode'],
+    ['teacherCode', 'teacherCode'],
+  ],
+);
 
-export const DrawerCreateUsers = () => {
+interface IDrawerCreateUsersProps {
+  type: userType;
+}
+
+export const DrawerCreateUsers = ({ type }: IDrawerCreateUsersProps) => {
+  const { createUser } = useUsers();
   const theme = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef<HTMLInputElement>(null);
@@ -53,14 +119,15 @@ export const DrawerCreateUsers = () => {
     reset(defaultValues);
   };
 
-  function onSubmit(values: any) {
-    return new Promise((resolve: any) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        clearForm();
-        resolve();
-      }, 3000);
-    });
+  function onSubmit(values: IDefaultValues) {
+    const auxValues: IDefaultValues = {
+      name: values.name,
+      email: values.email,
+    };
+    type == 'student' && (auxValues['studentCode'] = values.studentCode);
+    type == 'teacher' && (auxValues['teacherCode'] = values.teacherCode);
+
+    return createUser(auxValues, type, clearForm);
   }
 
   return (
@@ -117,6 +184,16 @@ export const DrawerCreateUsers = () => {
                 type="email"
                 placeholder="Senha de acesso *"
                 icon={<BiEnvelope />}
+                iconPosition="left"
+              />
+              <InputUI
+                register={register}
+                errors={errors}
+                name={typeValue[type]}
+                label={'Código'}
+                type="text"
+                placeholder={typeValueLabel[type]}
+                icon={<BiUser />}
                 iconPosition="left"
               />
             </Box>
