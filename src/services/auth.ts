@@ -3,7 +3,7 @@ import { AcessesLoginResponse, LoginResponse } from '@/types/auth';
 
 const authServices = () => ({
   login: async (data: AcessesLoginResponse) => {
-    const response = await axios.post<LoginResponse>('/api/auth/login', data);
+    const response = await axios.post('/api/auth/login', data);
     return response;
   },
   Validate: async (data: { token: string }) => {

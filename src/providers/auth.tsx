@@ -71,7 +71,9 @@ function AuthProvider({ children }: IAuthProviderProps) {
             });
           }
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log('[error] =>', response);
+
           toast({
             status: 'error',
             title: `Não foi possível realizar o login :( Cheque suas credenciais!`,
