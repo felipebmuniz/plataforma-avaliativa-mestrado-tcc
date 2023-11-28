@@ -20,8 +20,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { InputUI } from '../../InputUI';
-import { userCreate, userType } from '@/types/users';
-import { useUsers } from '@/hooks/useUsers';
+import { userType } from '@/types/users';
+import { useUsers } from '@/hooks';
 
 enum typeValue {
   student = 'studentCode',

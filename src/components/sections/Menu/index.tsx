@@ -32,7 +32,7 @@ import { SectionsMock } from '@/mocks/sections';
 import { SectionsAdminMock } from '@/mocks/sectionsAdmin';
 
 import { typeComponent } from '@/types/sectionsAdim';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks';
 
 export const Menu = ({ typeSection }: { typeSection?: 'admin' }) => {
   const { signOut } = useAuth();
