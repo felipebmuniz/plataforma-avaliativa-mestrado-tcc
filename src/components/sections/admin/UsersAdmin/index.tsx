@@ -44,7 +44,13 @@ interface IUsersAdmin {
 }
 
 export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
-  const { listUser, usersStudent, usersTeacher } = useUsers();
+  const {
+    listUser,
+    isLoadingStudent,
+    isLoadingTeacher,
+    usersStudent,
+    usersTeacher,
+  } = useUsers();
   const {
     handleSubmit,
     register,
@@ -77,23 +83,33 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
   const renderCardsUsers = useCallback(() => {
     switch (usersType) {
       case 'student':
-        return usersStudent
-          ? usersStudent.map((student) => (
-              <p key={student.userId}>{student.name}</p>
-            ))
-          : null;
+        return !isLoadingStudent && usersStudent ? (
+          usersStudent.map((student) => (
+            <p key={student.userId}>{student.name}</p>
+          ))
+        ) : (
+          <SkeletonCards />
+        );
 
       case 'teacher':
-        return usersTeacher
-          ? usersTeacher.map((teacher) => (
-              <p key={teacher.userId}>{teacher.name}</p>
-            ))
-          : null;
+        return !isLoadingTeacher && usersTeacher ? (
+          usersTeacher.map((teacher) => (
+            <p key={teacher.userId}>{teacher.name}</p>
+          ))
+        ) : (
+          <SkeletonCards />
+        );
 
       default:
-        return null;
+        return <SkeletonCards />;
     }
-  }, [usersType, usersStudent, usersTeacher]);
+  }, [
+    usersType,
+    usersStudent,
+    usersTeacher,
+    isLoadingTeacher,
+    isLoadingStudent,
+  ]);
 
   return (
     <VStack
@@ -153,7 +169,6 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
         </ButtonGroup>
       </HStack>
       {renderCardsUsers()}
-      <SkeletonCards />
     </VStack>
   );
 };

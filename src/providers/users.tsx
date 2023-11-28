@@ -18,6 +18,38 @@ function UsersProvider({ children }: IUsersProviderProps) {
   const [usersStudent, setUsersStudent] = useState<userList[]>([]);
   const [usersTeacher, setUsersTeacher] = useState<userList[]>([]);
 
+  const [isLoadingStudent, setIsLoadingStudent] = useState<boolean>(false);
+  const [isLoadingTeacher, setIsLoadingTeacher] = useState<boolean>(false);
+
+  const changeSetIsLoading = (type: userType, value: boolean) => {
+    type == 'student' && setIsLoadingStudent(() => value);
+    type == 'teacher' && setIsLoadingTeacher(() => value);
+  };
+
+  const listUser = useCallback(
+    async (type: userType) => {
+      changeSetIsLoading(type, true);
+      return usersServices()
+        .list(type)
+        .then((response) => {
+          changeSetIsLoading(type, false);
+          type == 'student' && setUsersStudent(() => response.data);
+          type == 'teacher' && setUsersTeacher(() => response.data);
+        })
+        .catch(() => {
+          changeSetIsLoading(type, false);
+          toast({
+            status: 'error',
+            title: `Error ao buscar usuários :(`,
+            position: 'top-right',
+            isClosable: true,
+            variant: 'left-accent',
+          });
+        });
+    },
+    [toast],
+  );
+
   const createUser = useCallback(
     async (data: userCreate, type: userType, clear: () => void) => {
       return usersServices()
@@ -46,35 +78,23 @@ function UsersProvider({ children }: IUsersProviderProps) {
     [toast],
   );
 
-  const listUser = useCallback(
-    async (type: userType) => {
-      return usersServices()
-        .list(type)
-        .then((response) => {
-          type == 'student' && setUsersStudent(() => response.data);
-          type == 'teacher' && setUsersTeacher(() => response.data);
-        })
-        .catch(() => {
-          toast({
-            status: 'error',
-            title: `Error ao buscar usuários :(`,
-            position: 'top-right',
-            isClosable: true,
-            variant: 'left-accent',
-          });
-        });
-    },
-    [toast],
-  );
-
   const value = useMemo(() => {
     return {
       usersStudent,
       usersTeacher,
+      isLoadingStudent,
+      isLoadingTeacher,
       createUser,
       listUser,
     };
-  }, [usersStudent, usersTeacher, createUser, listUser]);
+  }, [
+    usersStudent,
+    usersTeacher,
+    isLoadingStudent,
+    isLoadingTeacher,
+    createUser,
+    listUser,
+  ]);
 
   return (
     <UsersContext.Provider value={value}>{children}</UsersContext.Provider>

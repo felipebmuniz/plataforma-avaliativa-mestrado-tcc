@@ -4,6 +4,8 @@ import { createContext } from 'react';
 export interface IUsersContext {
   usersStudent: userList[];
   usersTeacher: userList[];
+  isLoadingStudent: boolean;
+  isLoadingTeacher: boolean;
   createUser: (
     data: userCreate,
     type: userType,

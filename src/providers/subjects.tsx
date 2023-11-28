@@ -12,14 +12,18 @@ function SubjectsProvider({ children }: ISubjectsProviderProps) {
   const toast = useToast();
 
   const [subjects, setSubjects] = useState<subjectsList[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const listSubject = useCallback(async () => {
+    setIsLoading(() => true);
     return subjectsServices()
       .list()
       .then((response) => {
+        setIsLoading(() => false);
         setSubjects(() => response.data);
       })
       .catch(() => {
+        setIsLoading(() => false);
         toast({
           status: 'error',
           title: `Error ao buscar disciplinas :(`,
@@ -61,10 +65,11 @@ function SubjectsProvider({ children }: ISubjectsProviderProps) {
   const value = useMemo(() => {
     return {
       subjects,
+      isLoading,
       createSubject,
       listSubject,
     };
-  }, [subjects, createSubject, listSubject]);
+  }, [subjects, isLoading, createSubject, listSubject]);
 
   return (
     <SubjectsContext.Provider value={value}>

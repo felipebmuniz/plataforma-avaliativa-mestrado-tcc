@@ -13,8 +13,22 @@ import {
 import { hexToRgb } from '@/utils/theme';
 import { useTheme } from '@emotion/react';
 import { BiInfoCircle } from 'react-icons/bi';
+import { ITabs } from '@/types/tabs';
+import { SubjectsAdmin } from '@/components/sections/admin/SubjectsAdmin';
+import { TabsUI } from '@/components/UI/TabsUI';
 
-export default function AdminUsers() {
+const dataTabs: ITabs[] = [
+  {
+    label: 'Área de Disciplinas',
+    content: <SubjectsAdmin />,
+  },
+  {
+    label: 'Área de Turmas',
+    content: <ClassesAdmin />,
+  },
+];
+
+export default function AdminTurmas() {
   const theme = useTheme();
   return (
     <AdminLayout
@@ -44,7 +58,7 @@ export default function AdminUsers() {
             lineHeight="150%"
             letterSpacing="0.13rem"
           >
-            Criação de Turmas
+            Criação de Turmas e Disciplinas
           </Badge>
 
           <Text
@@ -53,7 +67,7 @@ export default function AdminUsers() {
             fontWeight="700"
             lineHeight="130%"
           >
-            Crie, edite e busque pelas Turmas da plataforma.
+            Crie, edite e busque pelas Turmas e Disciplinas da plataforma.
           </Text>
 
           <List spacing={3} color={theme.colorText}>
@@ -64,15 +78,15 @@ export default function AdminUsers() {
                   color={theme.colorSecundary800}
                   fontSize="1.5rem"
                 />
-                As turmas são essenciais para o funcionamento da plataforma.
-                Nelas são possíveis vincular discentes e docentes para responder
-                os formulários.
+                As turmas e disciplinas são essenciais para o funcionamento da
+                plataforma. Com elas são possíveis vincular discentes e docentes
+                para responder os formulários.
               </Center>
             </ListItem>
           </List>
         </VStack>
         <HStack gap="1.5rem" width="100%" flexWrap="wrap" margin="auto">
-          <ClassesAdmin />
+          <TabsUI data={dataTabs} />
         </HStack>
       </VStack>
     </AdminLayout>
