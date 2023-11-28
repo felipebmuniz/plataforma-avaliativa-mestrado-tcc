@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { ButtonGroup, HStack, VStack } from '@chakra-ui/react';
 
 import { ButtonUI } from '@/components/UI/ButtonUI';
@@ -56,14 +56,14 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
     mode: 'all',
   });
 
-  useEffect(() => {
-    listUser(usersType);
-  }, []);
+  // useEffect(() => {
+  //   listUser(usersType);
+  // }, [listUser, usersType]);
 
   useEffect(() => {
     (usersStudent.length <= 0 || usersTeacher.length <= 0) &&
       listUser(usersType);
-  }, [listUser, usersType]);
+  }, [listUser, usersType, usersStudent, usersTeacher]);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {
@@ -73,6 +73,27 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
       }, 3000);
     });
   }
+
+  const renderCardsUsers = useCallback(() => {
+    switch (usersType) {
+      case 'student':
+        return usersStudent
+          ? usersStudent.map((student) => (
+              <p key={student.userId}>{student.name}</p>
+            ))
+          : null;
+
+      case 'teacher':
+        return usersTeacher
+          ? usersTeacher.map((teacher) => (
+              <p key={teacher.userId}>{teacher.name}</p>
+            ))
+          : null;
+
+      default:
+        return null;
+    }
+  }, [usersType, usersStudent, usersTeacher]);
 
   return (
     <VStack
@@ -131,7 +152,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
           <DrawerCreateUsers type={usersType} />
         </ButtonGroup>
       </HStack>
-
+      {renderCardsUsers()}
       <SkeletonCards />
     </VStack>
   );
