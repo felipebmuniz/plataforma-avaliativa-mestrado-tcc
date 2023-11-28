@@ -1,18 +1,18 @@
 import { NextApiHandler } from 'next';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { TypeMethod } from '@/types/forms';
-import { api } from '@/services/api';
 
 const listForms: NextApiHandler = async function (request, response) {
   const { method, body, headers } = request;
 
-  const url = `/Forms`;
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const url = baseURL + `/Forms`;
 
   let apiResponse: AxiosResponse<any, any>;
 
   switch (method) {
     case TypeMethod.GET:
-      apiResponse = await api.get(url, {
+      apiResponse = await axios.get(url, {
         headers: { Authorization: headers.authorization },
       });
       if (apiResponse.status === 200) {
@@ -22,7 +22,7 @@ const listForms: NextApiHandler = async function (request, response) {
       return response.status(400).json('Erro interno na API');
 
     case TypeMethod.POST:
-      apiResponse = await api.post(url, body, {
+      apiResponse = await axios.post(url, body, {
         headers: { Authorization: headers.authorization },
       });
       if (apiResponse.status === 200) {
@@ -32,7 +32,7 @@ const listForms: NextApiHandler = async function (request, response) {
       return response.status(400).json('Erro interno na API');
 
     case TypeMethod.PUT:
-      apiResponse = await api.put(url, body, {
+      apiResponse = await axios.put(url, body, {
         headers: { Authorization: headers.authorization },
       });
       if (apiResponse.status === 200) {

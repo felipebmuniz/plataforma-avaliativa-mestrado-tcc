@@ -1,12 +1,13 @@
 import { NextApiHandler } from 'next';
-import { api } from '@/services/api';
+import axios from 'axios';
 
 const loginUser: NextApiHandler = async function (request, response) {
   const { body } = request;
 
-  const url = `/Users/Admins/Login`;
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const url = baseURL + `/Users/Admins/Login`;
 
-  const apiResponse = await api.post(url, body);
+  const apiResponse = await axios.post(url, body);
   if (apiResponse.status === 200) {
     return response.status(200).json(apiResponse.data);
   }

@@ -1,7 +1,6 @@
 import { NextApiHandler } from 'next';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { TypeMethod } from '@/types/forms';
-import { api } from '@/services/api';
 
 const showFrom: NextApiHandler = async function (request, response) {
   const { query, method, headers } = request;
@@ -10,13 +9,14 @@ const showFrom: NextApiHandler = async function (request, response) {
     return response.status(400).json('Id do provedor/cidade faltando');
   }
 
-  const url = `/Forms/${query.formId}`;
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const url = baseURL + `/Forms/${query.formId}`;
 
   let apiResponse: AxiosResponse<any, any>;
 
   switch (method) {
     case TypeMethod.GET:
-      apiResponse = await api.get(url, {
+      apiResponse = await axios.get(url, {
         headers: { Authorization: headers.authorization },
       });
       if (apiResponse.status === 200) {
@@ -28,7 +28,7 @@ const showFrom: NextApiHandler = async function (request, response) {
       }
 
     case TypeMethod.DELETE:
-      apiResponse = await api.delete(url, {
+      apiResponse = await axios.delete(url, {
         headers: { Authorization: headers.authorization },
       });
       if (apiResponse.status === 200) {

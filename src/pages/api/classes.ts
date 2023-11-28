@@ -2,11 +2,11 @@ import { NextApiHandler } from 'next';
 import axios, { AxiosResponse } from 'axios';
 import { TypeMethod } from '@/types/forms';
 
-const fetchUsers: NextApiHandler = async function (request, response) {
+const fetchClasses: NextApiHandler = async function (request, response) {
   const { method, body, query, headers } = request;
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
-  const url = baseURL + `Users/${query?.type ?? body?.type}`;
+  const url = baseURL + `Classes`;
 
   let apiResponse: AxiosResponse<any, any>;
 
@@ -43,4 +43,4 @@ const fetchUsers: NextApiHandler = async function (request, response) {
   }
 };
 
-export default fetchUsers;
+export default fetchClasses;
