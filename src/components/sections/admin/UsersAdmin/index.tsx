@@ -13,7 +13,7 @@ import { BiSearch } from 'react-icons/bi';
 import { DrawerCreateUsers } from '@/components/UI/drawers/DrawerCreateUsers';
 import { SkeletonCards } from '@/components/UI/Skeleton';
 import { userType } from '@/types/users';
-import { useUsers } from '@/hooks/useUsers';
+import { useUsers } from '@/hooks';
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: '',

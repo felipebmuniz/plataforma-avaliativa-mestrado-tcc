@@ -1,7 +1,7 @@
 import { UsersContext, IUsersContext } from '@/contexts';
 import { useContext } from 'react';
 
-export function useUsers(): IUsersContext {
+function useUsers(): IUsersContext {
   const context = useContext(UsersContext);
 
   if (!context) {
@@ -10,3 +10,5 @@ export function useUsers(): IUsersContext {
 
   return context;
 }
+
+export default useUsers;

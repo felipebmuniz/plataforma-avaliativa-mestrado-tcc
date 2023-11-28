@@ -1,7 +1,7 @@
 import { AuthContext, IAuthContext } from '@/contexts/auth';
 import { useContext } from 'react';
 
-export function useAuth(): IAuthContext {
+function useAuth(): IAuthContext {
   const context = useContext(AuthContext);
 
   if (!context) {
@@ -10,3 +10,5 @@ export function useAuth(): IAuthContext {
 
   return context;
 }
+
+export default useAuth;

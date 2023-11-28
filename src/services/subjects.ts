@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { subjectsCreate, subjectsUpdate } from '@/types/subjects';
-import { userList } from '@/types/users';
+import { subjectsCreate, subjectsList, subjectsUpdate } from '@/types/subjects';
 
 const subjectsServices = () => ({
   create: async (data: subjectsCreate) => {
@@ -20,7 +19,7 @@ const subjectsServices = () => ({
     return response;
   },
   list: async () => {
-    const response = await axios.get<userList[]>('/api/subjects');
+    const response = await axios.get<subjectsList[]>('/api/subjects');
     return response;
   },
 });

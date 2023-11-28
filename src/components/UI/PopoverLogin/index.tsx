@@ -25,7 +25,7 @@ import { BiUser } from 'react-icons/bi';
 import { BiLockAlt } from 'react-icons/bi';
 import { useRouter } from 'next/router';
 import { AcessesLoginResponse } from '@/types/auth';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks';
 
 interface IProps {
   children: React.ReactNode;
