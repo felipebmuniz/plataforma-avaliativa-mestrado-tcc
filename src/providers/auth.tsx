@@ -109,9 +109,9 @@ function AuthProvider({ children }: IAuthProviderProps) {
   const validateUser = useCallback(
     async (token: string) => {
       return authServices()
-        .Validate({ token: token })
+        .Validate({ validationToken: token })
         .then(() => {
-          router.push('/admin/formularios');
+          router.push('/');
 
           toast({
             status: 'success',

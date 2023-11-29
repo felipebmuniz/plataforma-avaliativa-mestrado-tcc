@@ -182,7 +182,7 @@ export const DrawerCreateUsers = ({ type }: IDrawerCreateUsersProps) => {
                 name="email"
                 label="E-mail"
                 type="email"
-                placeholder="Senha de acesso *"
+                placeholder="Email do usuário *"
                 icon={<BiEnvelope />}
                 iconPosition="left"
               />

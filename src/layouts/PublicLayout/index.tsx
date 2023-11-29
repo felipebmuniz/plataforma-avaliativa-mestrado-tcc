@@ -9,12 +9,14 @@ import { useTheme } from '@emotion/react';
 interface IPropsLayout {
   title: string;
   description: string;
+  oculteMenu?: boolean;
   children: ReactNode;
 }
 
 export default function PublicLayout({
   title,
   description,
+  oculteMenu,
   children,
 }: IPropsLayout) {
   const theme = useTheme();
@@ -33,7 +35,7 @@ export default function PublicLayout({
         justifyContent="space-between"
         alignItems="flex-start"
       >
-        <Menu />
+        {!oculteMenu && <Menu />}
         <HStack
           w="100%"
           maxW="1920px"

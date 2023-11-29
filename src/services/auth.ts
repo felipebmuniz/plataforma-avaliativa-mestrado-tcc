@@ -6,7 +6,7 @@ const authServices = () => ({
     const response = await axios.post('/api/auth/login', data);
     return response;
   },
-  Validate: async (data: { token: string }) => {
+  Validate: async (data: { validationToken: string }) => {
     const response = await axios.post('/api/auth/validate', data);
     return response.data;
   },

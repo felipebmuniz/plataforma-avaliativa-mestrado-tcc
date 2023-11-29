@@ -57,6 +57,8 @@ function UsersProvider({ children }: IUsersProviderProps) {
         .then((response) => {
           clear();
 
+          listUser(type);
+
           toast({
             status: 'success',
             title: `Usuário criado com sucesso ✅`,
@@ -75,7 +77,7 @@ function UsersProvider({ children }: IUsersProviderProps) {
           });
         });
     },
-    [toast],
+    [toast, listUser],
   );
 
   const value = useMemo(() => {
