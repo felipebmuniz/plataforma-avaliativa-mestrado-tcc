@@ -15,7 +15,7 @@ const fetchUsers: NextApiHandler = async function (request, response) {
           headers: { Authorization: headers.authorization },
         })
         .then((res) => {
-          return response.status(200).json(res.data);
+          return response.status(200 | 300).json(res.data);
         })
         .catch((error) => {
           return response.status(400 | 500).json(error.response.data);
@@ -27,7 +27,7 @@ const fetchUsers: NextApiHandler = async function (request, response) {
           headers: { Authorization: headers.authorization },
         })
         .then((res) => {
-          return response.status(200).json(res.data);
+          return response.status(200 | 300).json(res.data);
         })
         .catch((error) => {
           return response.status(400 | 500).json(error.response.data);
@@ -39,7 +39,7 @@ const fetchUsers: NextApiHandler = async function (request, response) {
           headers: { Authorization: headers.authorization },
         })
         .then((res) => {
-          return response.status(200).json(res.data);
+          return response.status(200 | 300).json(res.data);
         })
         .catch((error) => {
           return response.status(400 | 500).json(error.response.data);

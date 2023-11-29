@@ -60,7 +60,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
 
             clear();
 
-            router.push('/admin/formularios');
+            router.push('/admin/usuarios');
 
             toast({
               status: 'success',

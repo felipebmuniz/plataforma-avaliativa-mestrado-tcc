@@ -36,7 +36,8 @@ function UsersProvider({ children }: IUsersProviderProps) {
           type == 'student' && setUsersStudent(() => response.data);
           type == 'teacher' && setUsersTeacher(() => response.data);
         })
-        .catch(() => {
+        .catch(({ response }) => {
+          console.log('[error] =>', response);
           changeSetIsLoading(type, false);
           toast({
             status: 'error',

@@ -62,14 +62,10 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
     mode: 'all',
   });
 
-  // useEffect(() => {
-  //   listUser(usersType);
-  // }, [listUser, usersType]);
-
   useEffect(() => {
-    (usersStudent.length <= 0 || usersTeacher.length <= 0) &&
-      listUser(usersType);
-  }, [listUser, usersType, usersStudent, usersTeacher]);
+    usersType == 'student' && usersStudent.length <= 0 && listUser(usersType);
+    usersType == 'teacher' && usersTeacher.length <= 0 && listUser(usersType);
+  }, []);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {

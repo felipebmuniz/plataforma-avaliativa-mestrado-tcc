@@ -1,11 +1,5 @@
 import axios from 'axios';
-import {
-  userType,
-  EnumUserType,
-  userCreate,
-  userUpdate,
-  userList,
-} from '@/types/users';
+import { userType, EnumUserType, userCreate, userUpdate } from '@/types/users';
 
 const usersServices = () => ({
   create: async (data: userCreate, type: userType) => {
@@ -27,7 +21,7 @@ const usersServices = () => ({
     return response;
   },
   list: async (type: userType) => {
-    const response = await axios.get<userList[]>('/api/users', {
+    const response = await axios.get('/api/users', {
       params: {
         type: EnumUserType[type],
       },
