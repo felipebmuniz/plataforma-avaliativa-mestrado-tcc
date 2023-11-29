@@ -1,12 +1,12 @@
-import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { api } from '../services/api';
-import { AcessesLoginResponse, LoginResponse } from '@/types/auth';
-import { UsersContext } from '@/contexts';
-import { useToast } from '@chakra-ui/react';
-import { authServices } from '@/services/auth';
-import { useRouter } from 'next/router';
-import { userCreate, userList, userType } from '@/types/users';
-import { usersServices } from '@/services/users';
+import { ReactNode, useCallback, useMemo, useState } from "react";
+import { api } from "../services/api";
+import { AcessesLoginResponse, LoginResponse } from "@/types/auth";
+import { UsersContext } from "@/contexts";
+import { useToast } from "@chakra-ui/react";
+import { authServices } from "@/services/auth";
+import { useRouter } from "next/router";
+import { userCreate, userList, userType } from "@/types/users";
+import { usersServices } from "@/services/users";
 
 interface IUsersProviderProps {
   children: ReactNode;
@@ -22,8 +22,8 @@ function UsersProvider({ children }: IUsersProviderProps) {
   const [isLoadingTeacher, setIsLoadingTeacher] = useState<boolean>(false);
 
   const changeSetIsLoading = (type: userType, value: boolean) => {
-    type == 'student' && setIsLoadingStudent(() => value);
-    type == 'teacher' && setIsLoadingTeacher(() => value);
+    type == "student" && setIsLoadingStudent(() => value);
+    type == "teacher" && setIsLoadingTeacher(() => value);
   };
 
   const listUser = useCallback(
@@ -33,18 +33,18 @@ function UsersProvider({ children }: IUsersProviderProps) {
         .list(type)
         .then((response) => {
           changeSetIsLoading(type, false);
-          type == 'student' && setUsersStudent(() => response.data);
-          type == 'teacher' && setUsersTeacher(() => response.data);
+          type == "student" && setUsersStudent(() => response.data);
+          type == "teacher" && setUsersTeacher(() => response.data);
         })
         .catch(({ response }) => {
-          console.log('[error] =>', response);
+          console.log("[error] =>", response);
           changeSetIsLoading(type, false);
           toast({
-            status: 'error',
+            status: "error",
             title: `Error ao buscar usuários :(`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         });
     },
@@ -61,20 +61,20 @@ function UsersProvider({ children }: IUsersProviderProps) {
           listUser(type);
 
           toast({
-            status: 'success',
+            status: "success",
             title: `Usuário criado com sucesso ✅`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         })
         .catch((error) => {
           toast({
-            status: 'error',
+            status: "error",
             title: `Não foi possível criar o usuário :(`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         });
     },
