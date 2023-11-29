@@ -3,4 +3,5 @@ export { default as useCreateForms } from './useForms';
 export { default as useAuth } from './useAuth';
 export { default as useUsers } from './useUsers';
 export { default as useSubjects } from './useSubjects';
+export { default as useClasses } from './useClasses';
 export { default as useWindow } from './useWindow';

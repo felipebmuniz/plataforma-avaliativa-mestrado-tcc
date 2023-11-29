@@ -10,6 +10,9 @@ import { useForm } from 'react-hook-form';
 
 import { BiSearch } from 'react-icons/bi';
 import { SkeletonCards } from '@/components/UI/Skeleton';
+import { useClasses } from '@/hooks';
+import { useEffect } from 'react';
+import { DrawerCreateClasses } from '@/components/UI/drawers/DrawerCreateClasses';
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: '',
@@ -36,6 +39,8 @@ const schemaCreateFilterEvaluationArea = yup.object({
 });
 
 export const ClassesAdmin = () => {
+  const { classes, isLoading, listClasses } = useClasses();
+
   const {
     handleSubmit,
     register,
@@ -46,6 +51,10 @@ export const ClassesAdmin = () => {
     resolver: yupResolver(schemaCreateFilterEvaluationArea),
     mode: 'all',
   });
+
+  useEffect(() => {
+    classes.length <= 0 && listClasses();
+  }, [listClasses, classes]);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {
@@ -111,9 +120,18 @@ export const ClassesAdmin = () => {
           >
             Buscar
           </ButtonUI>
+          <DrawerCreateClasses />
         </ButtonGroup>
       </HStack>
-      <SkeletonCards />
+      {!isLoading ? (
+        classes ? (
+          classes.map((cls) => (
+            <p key={cls.id}>{JSON.stringify(cls, null, 2)}</p>
+          ))
+        ) : null
+      ) : (
+        <SkeletonCards />
+      )}
     </VStack>
   );
 };

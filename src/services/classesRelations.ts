@@ -5,19 +5,19 @@ import {
 } from '@/types/classes';
 
 const classesRelationsServices = () => ({
-  createRelationUser: async (data: classesRelationStudent) => {
+  createRelationStudent: async (data: classesRelationStudent) => {
     const response = await axios.post('/api/classe-relation/add-student', {
       data: data,
     });
     return response;
   },
-  deleteRelationUser: async (data: classesRelationStudent) => {
+  deleteRelationStudent: async (data: classesRelationStudent) => {
     const response = await axios.post(`/api/classe-relation/remove-student`, {
       data: data,
     });
     return response;
   },
-  createRelationUserEvaluation: async (data: classesRelationEvaluation) => {
+  createRelationStudentEvaluation: async (data: classesRelationEvaluation) => {
     const response = await axios.post(
       '/api/classe-relation/add-student-evaluation',
       {
@@ -26,7 +26,7 @@ const classesRelationsServices = () => ({
     );
     return response;
   },
-  deleteRelationUserEvaluation: async (data: classesRelationEvaluation) => {
+  deleteRelationStudentEvaluation: async (data: classesRelationEvaluation) => {
     const response = await axios.post(
       `/api/classe-relation/remove-student-evaluation`,
       {

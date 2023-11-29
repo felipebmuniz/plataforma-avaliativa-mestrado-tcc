@@ -15,6 +15,7 @@ import {
   AuthProvider,
   UsersProvider,
   SubjectsProvider,
+  ClassesProvider,
 } from '@/providers';
 
 interface AppProps extends NextAppProps {
@@ -40,12 +41,14 @@ export default function App({
           <AuthProvider>
             <UsersProvider>
               <SubjectsProvider>
-                <FormsProvider>
-                  <Global styles={globalStyles} />
-                  <main className={poppins.className}>
-                    <Component {...pageProps} />
-                  </main>
-                </FormsProvider>
+                <ClassesProvider>
+                  <FormsProvider>
+                    <Global styles={globalStyles} />
+                    <main className={poppins.className}>
+                      <Component {...pageProps} />
+                    </main>
+                  </FormsProvider>
+                </ClassesProvider>
               </SubjectsProvider>
             </UsersProvider>
           </AuthProvider>

@@ -1,11 +1,13 @@
 export interface classesList {
-  classId: string;
   code: string;
   subjectId: string;
   teacherId: string;
   period: number;
   year: number;
   open: boolean;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface classesCreate {
@@ -32,10 +34,10 @@ export interface classesRelationStudent {
   studentId: string;
 }
 
-export interface classesRelationTeacher {
-  classId: string;
-  teacherId: string;
-}
+// export interface classesRelationTeacher {
+//   classId: string;
+//   teacherId: string;
+// }
 
 export interface classesRelationEvaluation {
   classId: string;
