@@ -27,7 +27,7 @@ export default function Page() {
   useEffect(() => {
     const valueToken = router.query?.token;
 
-    valueToken ? validateUser(String(valueToken)) : router.push('/');
+    valueToken && validateUser(String(valueToken));
   }, [router, validateUser]);
 
   return (

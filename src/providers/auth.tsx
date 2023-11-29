@@ -111,8 +111,6 @@ function AuthProvider({ children }: IAuthProviderProps) {
       return authServices()
         .Validate({ validationToken: token })
         .then(() => {
-          router.push('/');
-
           toast({
             status: 'success',
             title: `Usuário autenticado com sucesso ✅`,
@@ -120,6 +118,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
             isClosable: true,
             variant: 'left-accent',
           });
+          router.push('/');
         })
         .catch(() => {
           toast({
@@ -129,6 +128,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
             isClosable: true,
             variant: 'left-accent',
           });
+          router.push('/');
         });
     },
     [toast, router],
