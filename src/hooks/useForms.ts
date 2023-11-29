@@ -1,11 +1,11 @@
-import { useContext } from 'react';
-import { FormsContextValue, FormsContext } from '@/contexts';
+import { useContext } from "react";
+import { IFormsContextValue, FormsContext } from "@/contexts";
 
-function useForms(): FormsContextValue {
+function useForms(): IFormsContextValue {
   const themeContext = useContext(FormsContext);
 
   if (!themeContext) {
-    throw new Error('useForms deve ser usado dentro de um FormsProvider');
+    throw new Error("useForms deve ser usado dentro de um FormsProvider");
   }
 
   return themeContext;

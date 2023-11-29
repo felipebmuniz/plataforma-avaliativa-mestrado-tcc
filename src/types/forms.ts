@@ -26,10 +26,10 @@ export interface OptionsResponse {
 }
 
 export enum TypeMethod {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
 }
 
 // ###################################################################
@@ -41,4 +41,11 @@ export interface ICreateFrom {
 export interface IPutFrom {
   id: string;
   name: string;
+}
+
+export interface IListFrom {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
 }

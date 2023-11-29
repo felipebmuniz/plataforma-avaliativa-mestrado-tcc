@@ -1,5 +1,5 @@
-import React from 'react';
-import { useTheme } from '@emotion/react';
+import React from "react";
+import { useTheme } from "@emotion/react";
 import {
   AbsoluteCenter,
   Box,
@@ -13,15 +13,15 @@ import {
   DrawerHeader,
   DrawerOverlay,
   useDisclosure,
-} from '@chakra-ui/react';
-import { ButtonUI } from '../../ButtonUI';
-import { BiAddToQueue, BiEnvelope, BiUser } from 'react-icons/bi';
+} from "@chakra-ui/react";
+import { ButtonUI } from "../../ButtonUI";
+import { BiAddToQueue, BiEnvelope, BiUser } from "react-icons/bi";
 
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useFieldArray, useForm, FormProvider } from 'react-hook-form';
-import { EditableUI } from '../../EditableUI';
-import { CreateQuestion } from '../../createQuestion';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useFieldArray, useForm, FormProvider } from "react-hook-form";
+import { EditableUI } from "../../EditableUI";
+import { CreateQuestion } from "../../createQuestion";
 
 interface IValueQuestions {
   statement: string;
@@ -42,14 +42,14 @@ interface IValuesForm {
 }
 
 const defaultValues: IValuesForm = {
-  title: '',
+  title: "",
   questions: [
     {
-      statement: '',
+      statement: "",
       type: false,
       options: [
         {
-          value: '',
+          value: "",
         },
       ],
     },
@@ -57,16 +57,16 @@ const defaultValues: IValuesForm = {
 };
 
 const schemaFormCreateForms = yup.object({
-  title: yup.string().required('Deve ser informado um título!'),
+  title: yup.string().required("Deve ser informado um título!"),
   questions: yup
     .array(
       yup.object({
-        statement: yup.string().required('Deve ser informado uma pergunta!'),
-        type: yup.boolean().required('Deve ser informado o tipo!'),
+        statement: yup.string().required("Deve ser informado uma pergunta!"),
+        type: yup.boolean().required("Deve ser informado o tipo!"),
         options: yup
           .array(
             yup.object({
-              value: yup.string().required('Deve ser informado a opção!'),
+              value: yup.string().required("Deve ser informado a opção!"),
               // .when('type', {
               //   is: (value: boolean) => value == false,
               //   then: (schema) =>
@@ -75,14 +75,14 @@ const schemaFormCreateForms = yup.object({
               order: yup.number(),
             }),
           )
-          .when('type', {
+          .when("type", {
             is: (value: boolean) => value == false,
             then: (schema) =>
-              schema.min(1, 'Deve ser informado uma Opção!').required(),
+              schema.min(1, "Deve ser informado uma Opção!").required(),
           }),
       }),
     )
-    .required('Deve ser informado um Pergunta!'),
+    .required("Deve ser informado um Pergunta!"),
 });
 
 export const DrawerCreateForms = () => {
@@ -93,7 +93,7 @@ export const DrawerCreateForms = () => {
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schemaFormCreateForms),
-    mode: 'all',
+    mode: "all",
   });
 
   const {
@@ -106,7 +106,7 @@ export const DrawerCreateForms = () => {
   } = methods;
 
   const { fields, append, remove } = useFieldArray({
-    name: 'questions',
+    name: "questions",
     control: control,
   });
 
@@ -133,7 +133,7 @@ export const DrawerCreateForms = () => {
         color={theme.colorTextAddButton}
         onClick={onOpen}
       >
-        Adicionar Formulário
+        Adicionar
       </ButtonUI>
       <Drawer
         isOpen={isOpen}
@@ -154,7 +154,6 @@ export const DrawerCreateForms = () => {
               <Box
                 as="form"
                 id="my-form-create-forms"
-                onSubmit={handleSubmit(onSubmit)}
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
@@ -201,9 +200,9 @@ export const DrawerCreateForms = () => {
                   color={theme.colorTextAddButton}
                   onClick={() => {
                     append({
-                      statement: '',
+                      statement: "",
                       type: false,
-                      options: [{ value: '' }],
+                      options: [{ value: "" }],
                     });
                   }}
                 >
@@ -217,17 +216,18 @@ export const DrawerCreateForms = () => {
             <ButtonGroup size="sm" gap="1rem">
               <ButtonUI
                 onClick={clearForm}
-                transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
+                transition={!isOpen ? "inherit" : "filter 0.3s ease"}
               >
                 Cancelar
               </ButtonUI>
               <ButtonUI
                 bg={theme.container500}
                 color={theme.container200}
-                transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
+                transition={!isOpen ? "inherit" : "filter 0.3s ease"}
                 type="submit"
                 form="my-form-create-forms"
                 isLoading={isSubmitting}
+                onClick={handleSubmit(onSubmit)}
               >
                 Cadastrar
               </ButtonUI>

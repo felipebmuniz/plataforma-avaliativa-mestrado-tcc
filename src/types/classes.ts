@@ -1,11 +1,31 @@
+import { subjectsList } from "./subjects";
+import { userList } from "./users";
+
 export interface classesList {
+  id: string;
   code: string;
-  subjectId: string;
-  teacherId: string;
   period: number;
   year: number;
   open: boolean;
-  id: string;
+  subject: subjectsList;
+  teacher: {
+    teacherCode: string;
+    name: string;
+    email: string;
+    type: number;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  student: {
+    studentCode: string;
+    name: string;
+    email: string;
+    type: number;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
   createdAt: string;
   updatedAt: string;
 }

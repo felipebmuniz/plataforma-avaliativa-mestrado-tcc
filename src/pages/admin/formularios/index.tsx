@@ -1,4 +1,4 @@
-import AdminLayout from '@/layouts/AdminLayout';
+import AdminLayout from "@/layouts/AdminLayout";
 import {
   Badge,
   Box,
@@ -9,12 +9,25 @@ import {
   ListItem,
   Text,
   VStack,
-} from '@chakra-ui/react';
-import { hexToRgb } from '@/utils/theme';
-import { useTheme } from '@emotion/react';
-import { FormsAdmin } from '@/components/sections/admin/FormsAdmin';
-import { DrawerCreateForms } from '@/components/UI/drawers/DrawerCreateForms';
-import { BiInfoCircle } from 'react-icons/bi';
+} from "@chakra-ui/react";
+import { hexToRgb } from "@/utils/theme";
+import { useTheme } from "@emotion/react";
+import { FormsAdmin } from "@/components/sections/admin/FormsAdmin";
+import { BiInfoCircle } from "react-icons/bi";
+import { TabsUI } from "@/components/UI/TabsUI";
+import { ITabs } from "@/types/tabs";
+import { EvaluationsAdmin } from "@/components/sections/admin/EvaluationsAdmin";
+
+const dataTabs: ITabs[] = [
+  {
+    label: "Área dos Formulários",
+    content: <FormsAdmin />,
+  },
+  {
+    label: "Área de Avaliações",
+    content: <EvaluationsAdmin />,
+  },
+];
 
 export default function AdminForms() {
   const theme = useTheme();
@@ -37,8 +50,8 @@ export default function AdminForms() {
           justifyContent="inherit"
         >
           <Badge
-            p={'0.25rem 1.25rem'}
-            borderRadius={'0.5rem'}
+            p={"0.25rem 1.25rem"}
+            borderRadius={"0.5rem"}
             bg={hexToRgb(theme.container200, 0.3)}
             fontSize="0.8125rem"
             fontStyle="normal"
@@ -63,9 +76,7 @@ export default function AdminForms() {
             >
               Crie, edite e busque pelos formulários da plataforma.
             </Text>
-            <Box>
-              <DrawerCreateForms />
-            </Box>
+            <Box></Box>
           </HStack>
 
           <List spacing={3} color={theme.colorText}>
@@ -83,7 +94,7 @@ export default function AdminForms() {
           </List>
         </VStack>
         <HStack gap="1.5rem" width="100%" flexWrap="wrap" margin="auto">
-          <FormsAdmin />
+          <TabsUI data={dataTabs} />
         </HStack>
       </VStack>
     </AdminLayout>
