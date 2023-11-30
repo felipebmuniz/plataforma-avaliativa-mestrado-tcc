@@ -24,7 +24,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { InputUI } from "../../InputUI";
-import { useForms } from "@/hooks";
+import { useEvaluations, useForms } from "@/hooks";
 import { SelectUI } from "../../SelectUI";
 import { evaluationsCreate } from "@/types/evaluations";
 
@@ -43,7 +43,9 @@ const schemaFormCreateClasses = yup.object({
 });
 
 export const DrawerCreateEvaluations = () => {
+  const { createEvaluation } = useEvaluations();
   const { forms } = useForms();
+
   const theme = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef<HTMLInputElement>(null);
@@ -66,13 +68,7 @@ export const DrawerCreateEvaluations = () => {
   };
 
   function onSubmit(values: evaluationsCreate) {
-    return new Promise((resolve: any) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 3000);
-    });
-    // return createClasses(values, clearForm);
+    return createEvaluation(values, clearForm);
   }
 
   return (

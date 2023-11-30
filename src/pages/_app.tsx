@@ -1,33 +1,34 @@
-import type { AppProps as NextAppProps } from 'next/app';
-import { Poppins } from 'next/font/google';
-import createCache from '@emotion/cache';
+import type { AppProps as NextAppProps } from "next/app";
+import { Poppins } from "next/font/google";
+import createCache from "@emotion/cache";
 import {
   EmotionCache,
   CacheProvider,
   ThemeProvider,
   Global,
-} from '@emotion/react';
-import { ChakraProvider } from '@chakra-ui/react';
-import globalStyles from '@/styles/global';
-import { defaultPallet } from '@/styles/defaultPallet';
+} from "@emotion/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import globalStyles from "@/styles/global";
+import { defaultPallet } from "@/styles/defaultPallet";
 import {
   FormsProvider,
   AuthProvider,
   UsersProvider,
   SubjectsProvider,
   ClassesProvider,
-} from '@/providers';
+  EvaluationsProvider,
+} from "@/providers";
 
 interface AppProps extends NextAppProps {
   emotionCache?: EmotionCache;
 }
 
 const poppins = Poppins({
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  subsets: ['latin'],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
 });
 
-const clientSideEmotionCache = createCache({ key: 'css', prepend: true });
+const clientSideEmotionCache = createCache({ key: "css", prepend: true });
 
 export default function App({
   Component,
@@ -43,10 +44,12 @@ export default function App({
               <SubjectsProvider>
                 <ClassesProvider>
                   <FormsProvider>
-                    <Global styles={globalStyles} />
-                    <main className={poppins.className}>
-                      <Component {...pageProps} />
-                    </main>
+                    <EvaluationsProvider>
+                      <Global styles={globalStyles} />
+                      <main className={poppins.className}>
+                        <Component {...pageProps} />
+                      </main>
+                    </EvaluationsProvider>
                   </FormsProvider>
                 </ClassesProvider>
               </SubjectsProvider>

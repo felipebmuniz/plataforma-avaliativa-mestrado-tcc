@@ -55,7 +55,7 @@ export const FormsAdmin = () => {
 
   useEffect(() => {
     forms.length <= 0 && listForms();
-  }, [listForms, forms]);
+  }, [listForms, forms.length]);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {
@@ -126,7 +126,9 @@ export const FormsAdmin = () => {
       </HStack>
       {!isLoading ? (
         forms ? (
-          forms.map((sub) => <p key={sub.id}>{JSON.stringify(sub, null, 2)}</p>)
+          forms.map((form) => (
+            <p key={form.id}>{JSON.stringify(form, null, 2)}</p>
+          ))
         ) : null
       ) : (
         <SkeletonCards />

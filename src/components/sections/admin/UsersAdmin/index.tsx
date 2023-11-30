@@ -1,42 +1,42 @@
-import { useCallback, useEffect } from 'react';
-import { ButtonGroup, HStack, VStack } from '@chakra-ui/react';
+import { useCallback, useEffect } from "react";
+import { ButtonGroup, HStack, VStack } from "@chakra-ui/react";
 
-import { ButtonUI } from '@/components/UI/ButtonUI';
-import { InputUI } from '@/components/UI/InputUI';
-import { SelectUI } from '@/components/UI/SelectUI';
+import { ButtonUI } from "@/components/UI/ButtonUI";
+import { InputUI } from "@/components/UI/InputUI";
+import { SelectUI } from "@/components/UI/SelectUI";
 
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
-import { BiSearch } from 'react-icons/bi';
-import { DrawerCreateUsers } from '@/components/UI/drawers/DrawerCreateUsers';
-import { SkeletonCards } from '@/components/UI/Skeleton';
-import { userType } from '@/types/users';
-import { useUsers } from '@/hooks';
+import { BiSearch } from "react-icons/bi";
+import { DrawerCreateUsers } from "@/components/UI/drawers/DrawerCreateUsers";
+import { SkeletonCards } from "@/components/UI/Skeleton";
+import { userType } from "@/types/users";
+import { useUsers } from "@/hooks";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
-  search: '',
-  filter1: '',
-  filter2: '',
+  search: "",
+  filter1: "",
+  filter2: "",
 };
 
 const schemaCreateFilterEvaluationArea = yup.object({
-  search: yup.string().required('Deve buscar por alguma turma!'),
+  search: yup.string().required("Deve buscar por alguma turma!"),
   filter1: yup
     .string()
-    .when('search', {
-      is: (value: string) => value != '',
-      then: (schema) => schema.required('Necessário selecionar um valor!'),
+    .when("search", {
+      is: (value: string) => value != "",
+      then: (schema) => schema.required("Necessário selecionar um valor!"),
     })
-    .typeError('Valor inválido!'),
+    .typeError("Valor inválido!"),
   filter2: yup
     .string()
-    .when('filter1', {
-      is: (value: string) => value != '',
-      then: (schema) => schema.required('Necessário selecionar um valor!'),
+    .when("filter1", {
+      is: (value: string) => value != "",
+      then: (schema) => schema.required("Necessário selecionar um valor!"),
     })
-    .typeError('Valor inválido!'),
+    .typeError("Valor inválido!"),
 });
 
 interface IUsersAdmin {
@@ -59,13 +59,16 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
   } = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schemaCreateFilterEvaluationArea),
-    mode: 'all',
+    mode: "all",
   });
 
   useEffect(() => {
-    usersType == 'student' && usersStudent.length <= 0 && listUser(usersType);
-    usersType == 'teacher' && usersTeacher.length <= 0 && listUser(usersType);
-  }, []);
+    usersType === "student" && usersStudent.length <= 0 && listUser(usersType);
+  }, [usersType, listUser, usersStudent.length]);
+
+  useEffect(() => {
+    usersType === "teacher" && usersTeacher.length <= 0 && listUser(usersType);
+  }, [usersType, listUser, usersTeacher.length]);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {
@@ -78,7 +81,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
 
   const renderCardsUsers = useCallback(() => {
     switch (usersType) {
-      case 'student':
+      case "student":
         return !isLoadingStudent && usersStudent ? (
           usersStudent.map((student) => (
             <p key={student.userId}>{student.name}</p>
@@ -87,7 +90,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
           <SkeletonCards />
         );
 
-      case 'teacher':
+      case "teacher":
         return !isLoadingTeacher && usersTeacher ? (
           usersTeacher.map((teacher) => (
             <p key={teacher.userId}>{teacher.name}</p>

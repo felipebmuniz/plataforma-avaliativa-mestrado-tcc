@@ -1,41 +1,41 @@
-import { ButtonGroup, HStack, VStack } from '@chakra-ui/react';
+import { ButtonGroup, HStack, VStack } from "@chakra-ui/react";
 
-import { ButtonUI } from '@/components/UI/ButtonUI';
-import { InputUI } from '@/components/UI/InputUI';
-import { SelectUI } from '@/components/UI/SelectUI';
+import { ButtonUI } from "@/components/UI/ButtonUI";
+import { InputUI } from "@/components/UI/InputUI";
+import { SelectUI } from "@/components/UI/SelectUI";
 
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
-import { BiSearch } from 'react-icons/bi';
-import { SkeletonCards } from '@/components/UI/Skeleton';
-import { useClasses } from '@/hooks';
-import { useEffect } from 'react';
-import { DrawerCreateClasses } from '@/components/UI/drawers/DrawerCreateClasses';
+import { BiSearch } from "react-icons/bi";
+import { SkeletonCards } from "@/components/UI/Skeleton";
+import { useClasses } from "@/hooks";
+import { useEffect } from "react";
+import { DrawerCreateClasses } from "@/components/UI/drawers/DrawerCreateClasses";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
-  search: '',
-  filter1: '',
-  filter2: '',
+  search: "",
+  filter1: "",
+  filter2: "",
 };
 
 const schemaCreateFilterEvaluationArea = yup.object({
-  search: yup.string().required('Deve buscar por alguma turma!'),
+  search: yup.string().required("Deve buscar por alguma turma!"),
   filter1: yup
     .string()
-    .when('search', {
-      is: (value: string) => value != '',
-      then: (schema) => schema.required('Necessário selecionar um valor!'),
+    .when("search", {
+      is: (value: string) => value != "",
+      then: (schema) => schema.required("Necessário selecionar um valor!"),
     })
-    .typeError('Valor inválido!'),
+    .typeError("Valor inválido!"),
   filter2: yup
     .string()
-    .when('filter1', {
-      is: (value: string) => value != '',
-      then: (schema) => schema.required('Necessário selecionar um valor!'),
+    .when("filter1", {
+      is: (value: string) => value != "",
+      then: (schema) => schema.required("Necessário selecionar um valor!"),
     })
-    .typeError('Valor inválido!'),
+    .typeError("Valor inválido!"),
 });
 
 export const ClassesAdmin = () => {
@@ -49,12 +49,12 @@ export const ClassesAdmin = () => {
   } = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schemaCreateFilterEvaluationArea),
-    mode: 'all',
+    mode: "all",
   });
 
   useEffect(() => {
     classes.length <= 0 && listClasses();
-  }, [listClasses, classes]);
+  }, [listClasses, classes.length]);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {

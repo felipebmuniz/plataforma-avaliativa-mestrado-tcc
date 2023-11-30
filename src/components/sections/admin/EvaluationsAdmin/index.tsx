@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 import { BiSearch } from "react-icons/bi";
 import { SkeletonCards } from "@/components/UI/Skeleton";
 import { DrawerCreateEvaluations } from "@/components/UI/drawers/DrawerCreateEvaluations";
+import { useEvaluations } from "@/hooks";
+import { useEffect } from "react";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -37,6 +39,8 @@ const schemaCreateFilterEvaluationArea = yup.object({
 });
 
 export const EvaluationsAdmin = () => {
+  const { evaluations, isLoading, listEvaluation } = useEvaluations();
+
   const {
     handleSubmit,
     register,
@@ -47,6 +51,10 @@ export const EvaluationsAdmin = () => {
     resolver: yupResolver(schemaCreateFilterEvaluationArea),
     mode: "all",
   });
+
+  useEffect(() => {
+    evaluations.length <= 0 && listEvaluation();
+  }, [listEvaluation, evaluations.length]);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {
@@ -115,7 +123,15 @@ export const EvaluationsAdmin = () => {
           <DrawerCreateEvaluations />
         </ButtonGroup>
       </HStack>
-      <SkeletonCards />
+      {!isLoading ? (
+        evaluations.length > 0 ? (
+          evaluations.map((evaluation) => (
+            <p key={evaluation.id}>{JSON.stringify(evaluation, null, 2)}</p>
+          ))
+        ) : null
+      ) : (
+        <SkeletonCards />
+      )}
     </VStack>
   );
 };
