@@ -33,7 +33,7 @@ export default function AdminForms() {
   const theme = useTheme();
   return (
     <AdminLayout
-      title="Administrativo - Turmas"
+      title="Administrativo - Formulários"
       description="Plataforma Autoavaliativa do Mestrado - UFC"
     >
       <VStack

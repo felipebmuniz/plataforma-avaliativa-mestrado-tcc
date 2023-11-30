@@ -1,5 +1,5 @@
-import AdminLayout from '@/layouts/AdminLayout';
-import { ClassesAdmin } from '@/components/sections/admin/ClassesAdmin';
+import AdminLayout from "@/layouts/AdminLayout";
+import { ClassesAdmin } from "@/components/sections/admin/ClassesAdmin";
 import {
   Badge,
   Center,
@@ -9,21 +9,21 @@ import {
   ListItem,
   Text,
   VStack,
-} from '@chakra-ui/react';
-import { hexToRgb } from '@/utils/theme';
-import { useTheme } from '@emotion/react';
-import { BiInfoCircle } from 'react-icons/bi';
-import { ITabs } from '@/types/tabs';
-import { SubjectsAdmin } from '@/components/sections/admin/SubjectsAdmin';
-import { TabsUI } from '@/components/UI/TabsUI';
+} from "@chakra-ui/react";
+import { hexToRgb } from "@/utils/theme";
+import { useTheme } from "@emotion/react";
+import { BiInfoCircle } from "react-icons/bi";
+import { ITabs } from "@/types/tabs";
+import { SubjectsAdmin } from "@/components/sections/admin/SubjectsAdmin";
+import { TabsUI } from "@/components/UI/TabsUI";
 
 const dataTabs: ITabs[] = [
   {
-    label: 'Área de Disciplinas',
+    label: "Área de Disciplinas",
     content: <SubjectsAdmin />,
   },
   {
-    label: 'Área de Turmas',
+    label: "Área de Turmas",
     content: <ClassesAdmin />,
   },
 ];
@@ -32,7 +32,7 @@ export default function AdminTurmas() {
   const theme = useTheme();
   return (
     <AdminLayout
-      title="Administrativo - Usuários"
+      title="Administrativo - Turmas"
       description="Plataforma Autoavaliativa do Mestrado - UFC"
     >
       <VStack
@@ -49,8 +49,8 @@ export default function AdminTurmas() {
           justifyContent="inherit"
         >
           <Badge
-            p={'0.25rem 1.25rem'}
-            borderRadius={'0.5rem'}
+            p={"0.25rem 1.25rem"}
+            borderRadius={"0.5rem"}
             bg={hexToRgb(theme.container200, 0.3)}
             fontSize="0.8125rem"
             fontStyle="normal"
