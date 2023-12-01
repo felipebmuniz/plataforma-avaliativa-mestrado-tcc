@@ -1,4 +1,4 @@
-import { FormsResponse, IListFrom, IPutFrom } from "@/types/forms";
+import { FormsResponse, IListFrom, IPutFrom, IValuesForm } from "@/types/forms";
 import { createContext } from "react";
 
 export interface IFormsContextValue {
@@ -6,7 +6,7 @@ export interface IFormsContextValue {
   formByID: FormsResponse | undefined;
   isLoading: boolean;
   isLoadingShow: boolean;
-  createForms: (name: string, clear: () => void) => Promise<void>;
+  createForms: (data: IValuesForm, clear: () => void) => Promise<void>;
   showFormsByID: (id: string) => Promise<void>;
   updateFormsByID: (data: IPutFrom, clear?: () => void) => void;
   deleteFormsByID?: (id: string) => void;

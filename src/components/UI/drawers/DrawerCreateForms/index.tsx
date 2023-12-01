@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useRef } from "react";
 import { useTheme } from "@emotion/react";
 import {
   AbsoluteCenter,
@@ -22,24 +22,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import { EditableUI } from "../../EditableUI";
 import { CreateQuestion } from "../../createQuestion";
-
-interface IValueQuestions {
-  statement: string;
-  type: boolean;
-  options?: IValueOptions[];
-  formId?: string;
-}
-
-interface IValueOptions {
-  value: string;
-  order?: number;
-  questionId?: string;
-}
-
-interface IValuesForm {
-  title: string;
-  questions: IValueQuestions[];
-}
+import { IValuesForm } from "@/types/forms";
+import { useForms } from "@/hooks";
 
 const defaultValues: IValuesForm = {
   title: "",
@@ -86,9 +70,10 @@ const schemaFormCreateForms = yup.object({
 });
 
 export const DrawerCreateForms = () => {
+  const { createForms } = useForms();
   const theme = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstField = React.useRef<HTMLInputElement>(null);
+  const firstField = useRef<HTMLInputElement>(null);
 
   const methods = useForm({
     defaultValues: defaultValues,
@@ -115,16 +100,8 @@ export const DrawerCreateForms = () => {
     reset(defaultValues);
   };
 
-  // const refactorSubmitForms = useCallback((values: IValuesForm) => {}, []);
-
   function onSubmit(values: IValuesForm) {
-    return new Promise((resolve: any) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        clearForm();
-        resolve();
-      }, 3000);
-    });
+    createForms(values, clearForm);
   }
 
   return (

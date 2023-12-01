@@ -75,3 +75,21 @@ export interface IListFrom {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IValueQuestions {
+  statement: string;
+  type: boolean;
+  options?: IValueOptions[];
+  formId?: string;
+}
+
+export interface IValueOptions {
+  value: string;
+  order?: number;
+  questionId?: string;
+}
+
+export interface IValuesForm {
+  title: string;
+  questions: IValueQuestions[];
+}

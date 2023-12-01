@@ -3,11 +3,15 @@ import { ICreateQuestion, IPutQuestion } from "@/types/forms";
 
 const questionsServices = () => ({
   create: async (data: ICreateQuestion) => {
-    const response = await axios.post("/api/questions", data);
+    const response = await axios.post("/api/questions", {
+      data: data,
+    });
     return response;
   },
   update: async (data: IPutQuestion) => {
-    const response = await axios.put("/api/questions", data);
+    const response = await axios.put("/api/questions", {
+      data: data,
+    });
     return response;
   },
   delete: async (questionId: string) => {

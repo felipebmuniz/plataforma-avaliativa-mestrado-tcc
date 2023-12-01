@@ -15,6 +15,7 @@ const fetchQuestions: NextApiHandler = async function (request, response) {
       apiResponse = await axios.post(url, body?.data, {
         headers: { Authorization: headers.authorization },
       });
+
       if (apiResponse.status === 200) {
         return response.status(200).json(apiResponse.data);
       }

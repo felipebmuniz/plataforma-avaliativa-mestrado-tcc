@@ -1,8 +1,19 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { FormsContext } from "@/contexts";
 import { formsServices } from "@/services/forms";
-import { FormsResponse, IListFrom, IPutFrom } from "@/types/forms";
+import {
+  FormsResponse,
+  ICreateOption,
+  ICreateQuestion,
+  IListFrom,
+  IPutFrom,
+  IValueOptions,
+  IValueQuestions,
+  IValuesForm,
+} from "@/types/forms";
 import { useToast } from "@chakra-ui/react";
+import { questionsServices } from "@/services/questions";
+import { optionsServices } from "@/services/options";
 
 interface FormsProviderProps {
   children: ReactNode;
@@ -37,13 +48,77 @@ function FormsProvider({ children }: FormsProviderProps) {
       });
   }, [toast]);
 
+  const createOptions = useCallback(
+    (options: IValueOptions[], questionId: string) => {
+      options?.forEach((data, index) => {
+        const auxData = {
+          value: data.value,
+          order: index,
+          questionId: questionId,
+        };
+        return optionsServices()
+          .create(auxData)
+          .then((response) => {})
+          .catch((error) => {
+            toast({
+              status: "error",
+              title: `Não foi possível criar a opção :(`,
+              position: "top-right",
+              isClosable: true,
+              variant: "left-accent",
+            });
+          });
+      });
+      listForms();
+    },
+    [toast, listForms],
+  );
+
+  const createQuestions = useCallback(
+    (questions: IValueQuestions[], formId: string) => {
+      questions?.forEach((data) => {
+        const auxData = {
+          statement: data.statement,
+          type: Number(data.type),
+          formId: formId,
+        };
+        return questionsServices()
+          .create(auxData)
+          .then((response) => {
+            response.data?.id &&
+              createOptions(data?.options ?? [], response.data?.id);
+
+            // toast({
+            //   status: "success",
+            //   title: `Pergunta criada com sucesso ✅`,
+            //   position: "top-right",
+            //   isClosable: true,
+            //   variant: "left-accent",
+            // });
+          })
+          .catch((error) => {
+            toast({
+              status: "error",
+              title: `Não foi possível criar a pergunta :(`,
+              position: "top-right",
+              isClosable: true,
+              variant: "left-accent",
+            });
+          });
+      });
+    },
+    [toast, createOptions],
+  );
+
   const createForms = useCallback(
-    (name: string, clear: () => void) => {
+    (data: IValuesForm, clear: () => void) => {
       return formsServices()
-        .create({ name })
+        .create({ name: data.title })
         .then((response) => {
+          response.data?.id &&
+            createQuestions(data.questions, response.data?.id);
           clear();
-          listForms();
+
           toast({
             status: "success",
             title: `Formulário criado com sucesso ✅`,
@@ -62,7 +137,7 @@ function FormsProvider({ children }: FormsProviderProps) {
           });
         });
     },
-    [toast, listForms],
+    [toast, listForms, createQuestions],
   );
 
   const showFormsByID = useCallback(
