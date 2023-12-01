@@ -38,9 +38,35 @@ export interface ICreateFrom {
   name: string;
 }
 
+export interface ICreateQuestion {
+  formId: string;
+  statement: string;
+  type: number;
+}
+
+export interface ICreateOption {
+  value: string;
+  order: number;
+  questionId: string;
+}
+
 export interface IPutFrom {
   id: string;
   name: string;
+}
+
+export interface IPutQuestion {
+  id: string;
+  formId?: string;
+  statement?: string;
+  type?: number;
+}
+
+export interface IPutOption {
+  id: string;
+  value?: string;
+  order?: number;
+  questionId?: string;
 }
 
 export interface IListFrom {

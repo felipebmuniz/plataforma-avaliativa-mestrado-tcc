@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useTheme } from "@emotion/react";
 import {
   AbsoluteCenter,
@@ -115,7 +115,9 @@ export const DrawerCreateForms = () => {
     reset(defaultValues);
   };
 
-  function onSubmit(values: any) {
+  // const refactorSubmitForms = useCallback((values: IValuesForm) => {}, []);
+
+  function onSubmit(values: IValuesForm) {
     return new Promise((resolve: any) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
