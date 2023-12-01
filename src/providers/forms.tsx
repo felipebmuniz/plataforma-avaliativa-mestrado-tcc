@@ -137,7 +137,7 @@ function FormsProvider({ children }: FormsProviderProps) {
           });
         });
     },
-    [toast, listForms, createQuestions],
+    [toast, createQuestions],
   );
 
   const showFormsByID = useCallback(

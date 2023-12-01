@@ -1,10 +1,14 @@
 export interface evaluationsList {
-  code: string;
-  subjectId: string;
-  teacherId: string;
-  period: number;
-  year: number;
-  open: boolean;
+  title: string;
+  startDate: string;
+  endDate: string;
+  form: {
+    name: string;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  users: any[];
   id: string;
   createdAt: string;
   updatedAt: string;

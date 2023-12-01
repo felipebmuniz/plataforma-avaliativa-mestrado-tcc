@@ -13,6 +13,7 @@ import { SkeletonCards } from "@/components/UI/Skeleton";
 import { DrawerCreateEvaluations } from "@/components/UI/drawers/DrawerCreateEvaluations";
 import { useEvaluations } from "@/hooks";
 import { useEffect } from "react";
+import { TableUI } from "@/components/UI/TableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -125,9 +126,18 @@ export const EvaluationsAdmin = () => {
       </HStack>
       {!isLoading ? (
         evaluations.length > 0 ? (
-          evaluations.map((evaluation) => (
-            <p key={evaluation.id}>{JSON.stringify(evaluation, null, 2)}</p>
-          ))
+          <>
+            <TableUI
+              data={evaluations.map((evaluation) => {
+                return {
+                  ...evaluation,
+                  form: evaluation.form.id,
+                };
+              })}
+              columns={["title", "startDate", "endDate", "form"]}
+              title="Avaliações cadastrados"
+            />
+          </>
         ) : null
       ) : (
         <SkeletonCards />

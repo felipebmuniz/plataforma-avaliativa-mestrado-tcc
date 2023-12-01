@@ -14,6 +14,7 @@ import { DrawerCreateUsers } from "@/components/UI/drawers/DrawerCreateUsers";
 import { SkeletonCards } from "@/components/UI/Skeleton";
 import { userType } from "@/types/users";
 import { useUsers } from "@/hooks";
+import { TableUI } from "@/components/UI/TableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -83,18 +84,26 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
     switch (usersType) {
       case "student":
         return !isLoadingStudent && usersStudent ? (
-          usersStudent.map((student) => (
-            <p key={student.userId}>{student.name}</p>
-          ))
+          <>
+            <TableUI
+              data={usersStudent}
+              columns={["userId", "studentId", "name", "email", "studentCode"]}
+              title="Usuários cadastrados"
+            />
+          </>
         ) : (
           <SkeletonCards />
         );
 
       case "teacher":
         return !isLoadingTeacher && usersTeacher ? (
-          usersTeacher.map((teacher) => (
-            <p key={teacher.userId}>{teacher.name}</p>
-          ))
+          <>
+            <TableUI
+              data={usersTeacher}
+              columns={["userId", "teacherId", "name", "email", "teacherCode"]}
+              title="Usuários cadastrados"
+            />
+          </>
         ) : (
           <SkeletonCards />
         );

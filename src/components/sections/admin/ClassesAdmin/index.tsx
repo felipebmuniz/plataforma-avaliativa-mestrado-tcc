@@ -13,6 +13,7 @@ import { SkeletonCards } from "@/components/UI/Skeleton";
 import { useClasses } from "@/hooks";
 import { useEffect } from "react";
 import { DrawerCreateClasses } from "@/components/UI/drawers/DrawerCreateClasses";
+import { TableUI } from "@/components/UI/TableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -125,9 +126,19 @@ export const ClassesAdmin = () => {
       </HStack>
       {!isLoading ? (
         classes ? (
-          classes.map((cls) => (
-            <p key={cls.id}>{JSON.stringify(cls, null, 2)}</p>
-          ))
+          <>
+            <TableUI
+              data={classes.map((classe) => {
+                return {
+                  ...classe,
+                  subject: classe.subject.code,
+                  teacher: classe.teacher.teacherCode,
+                };
+              })}
+              columns={["code", "year", "subject", "teacher", "createdAt"]}
+              title="Disciplinas cadastrados"
+            />
+          </>
         ) : null
       ) : (
         <SkeletonCards />

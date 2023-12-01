@@ -14,6 +14,7 @@ import { BiSearch } from "react-icons/bi";
 import { SkeletonCards } from "@/components/UI/Skeleton";
 import { DrawerCreateForms } from "@/components/UI/drawers/DrawerCreateForms";
 import { useForms } from "@/hooks";
+import { TableUI } from "@/components/UI/TableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -126,9 +127,16 @@ export const FormsAdmin = () => {
       </HStack>
       {!isLoading ? (
         forms ? (
-          forms.map((form) => (
-            <p key={form.id}>{JSON.stringify(form, null, 2)}</p>
-          ))
+          <>
+            {/* {forms.map((form) => (
+              <p key={form.id}>{JSON.stringify(form, null, 2)}</p>
+            ))} */}
+            <TableUI
+              data={forms}
+              columns={["id", "name", "createdAt"]}
+              title="Formulários cadastrados"
+            />
+          </>
         ) : null
       ) : (
         <SkeletonCards />

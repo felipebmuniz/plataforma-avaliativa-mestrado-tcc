@@ -13,6 +13,7 @@ import { BiSearch } from "react-icons/bi";
 import { SkeletonCards } from "@/components/UI/Skeleton";
 import { useSubjects } from "@/hooks";
 import { DrawerCreateSubjects } from "@/components/UI/drawers/DrawerCreateSubjects";
+import { TableUI } from "@/components/UI/TableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -124,9 +125,13 @@ export const SubjectsAdmin = () => {
       </HStack>
       {!isLoading ? (
         subjects ? (
-          subjects.map((sub) => (
-            <p key={sub.id}>{JSON.stringify(sub, null, 2)}</p>
-          ))
+          <>
+            <TableUI
+              data={subjects}
+              columns={["code", "name", "createdAt"]}
+              title="Disciplinas cadastrados"
+            />
+          </>
         ) : null
       ) : (
         <SkeletonCards />
