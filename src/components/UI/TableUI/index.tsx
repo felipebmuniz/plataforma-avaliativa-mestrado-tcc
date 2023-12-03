@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { ReactNode } from "react";
 import {
   Table,
   Thead,
@@ -43,9 +43,19 @@ interface IProps {
     | columnsEvaluations
   )[];
   title: string;
+  children?: ReactNode;
+  dataChildren?: ReactNode[];
+  columnsChildren?: string[];
 }
 
-export const TableUI = ({ data, columns, title }: IProps) => {
+export const TableUI = ({
+  data,
+  columns,
+  title,
+  children,
+  columnsChildren,
+  dataChildren,
+}: IProps) => {
   const theme = useTheme();
 
   return (
@@ -61,6 +71,10 @@ export const TableUI = ({ data, columns, title }: IProps) => {
             {columns.map((column) => (
               <Th key={`column-${column}`}>{EColumns[column]}</Th>
             ))}
+            {columnsChildren &&
+              columnsChildren.map((column) => (
+                <Th key={`columnsChildren-${column}`}>{column}</Th>
+              ))}
           </Tr>
         </Thead>
 
@@ -71,6 +85,11 @@ export const TableUI = ({ data, columns, title }: IProps) => {
                 // @ts-ignore
                 <Td key={`td-${column}-${index}`}>{data[column]}</Td>
               ))}
+              {dataChildren &&
+                dataChildren.map((column, index) => (
+                  // @ts-ignore
+                  <Td key={`td-dataChildren-${index}`}>{column}</Td>
+                ))}
             </Tr>
           ))}
         </Tbody>
@@ -79,6 +98,10 @@ export const TableUI = ({ data, columns, title }: IProps) => {
             {columns.map((column) => (
               <Th key={`column-${column}`}>{EColumns[column]}</Th>
             ))}
+            {columnsChildren &&
+              columnsChildren.map((column) => (
+                <Th key={`columnsChildren-${column}`}>{column}</Th>
+              ))}
           </Tr>
         </Tfoot>
       </Table>

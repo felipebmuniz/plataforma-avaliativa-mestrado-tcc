@@ -17,9 +17,13 @@ const fetchClassesRemoveTeacherEvaluation: NextApiHandler = async function (
 
   switch (method) {
     case TypeMethod.POST:
-      apiResponse = await axios.post(url, null, {
-        headers: { Authorization: headers.authorization },
-      });
+      apiResponse = await axios.post(
+        url,
+        {},
+        {
+          headers: { Authorization: headers.authorization },
+        },
+      );
       if (apiResponse.status === 200) {
         return response.status(200).json(apiResponse.data);
       }

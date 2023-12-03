@@ -4,8 +4,8 @@ import {
   classesUpdate,
   classesRelationStudent,
   classesRelationEvaluation,
-} from '@/types/classes';
-import { createContext } from 'react';
+} from "@/types/classes";
+import { createContext } from "react";
 
 export interface IClassesContext {
   classes: classesList[];
@@ -14,9 +14,18 @@ export interface IClassesContext {
   updateClasses?: (data: classesUpdate, clear: () => void) => Promise<void>;
   deleteClasses?: (id: string) => void;
   listClasses: () => void;
-  relationClassesStudent: (data: classesRelationStudent) => void;
-  relationEvaluationStudent: (data: classesRelationEvaluation) => void;
-  relationEvaluationTeacher: (data: classesRelationEvaluation) => void;
+  relationClassesStudent: (
+    data: classesRelationStudent,
+    clear?: () => void,
+  ) => void;
+  relationEvaluationStudent: (
+    data: classesRelationEvaluation,
+    clear?: () => void,
+  ) => void;
+  relationEvaluationTeacher: (
+    data: classesRelationEvaluation,
+    clear?: () => void,
+  ) => void;
 }
 
 export const ClassesContext = createContext<IClassesContext>(

@@ -33,6 +33,7 @@ export type columnsClasses =
   | "year"
   | "code"
   | "subject"
+  | "relations"
   | "teacher";
 
 export enum EColumnsClasses {
@@ -80,4 +81,5 @@ export enum EColumns {
   form = "Formulário",
   teacher = "Docente",
   subject = "Disciplina",
+  relations = "Opções de Vinculações",
 }

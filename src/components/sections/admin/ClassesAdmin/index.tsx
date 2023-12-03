@@ -14,6 +14,10 @@ import { useClasses } from "@/hooks";
 import { useEffect } from "react";
 import { DrawerCreateClasses } from "@/components/UI/drawers/DrawerCreateClasses";
 import { TableUI } from "@/components/UI/TableUI";
+import OptionsTableUI from "@/components/UI/OptionsTableUI";
+import { DrawerCreateRelationUsers } from "@/components/UI/drawers/DrawerCreateRelationUsers";
+import { DrawerRelationUsersEvaluation } from "@/components/UI/drawers/DrawerRelationUsersEvaluation";
+import { DrawerRelationTeacherEvaluation } from "@/components/UI/drawers/DrawerRelationTeacherEvaluation";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -131,13 +135,27 @@ export const ClassesAdmin = () => {
               data={classes.map((classe) => {
                 return {
                   ...classe,
-                  subject: classe.subject.code,
-                  teacher: classe.teacher.teacherCode,
+                  subject: `${classe.subject.name} - ${classe.subject.code}`,
+                  teacher: `${classe.teacher.name} - ${classe.teacher.teacherCode}`,
+                  relations: (
+                    <OptionsTableUI key={"dataChildren-1"}>
+                      <DrawerCreateRelationUsers classId={classe.id} />
+                      <DrawerRelationUsersEvaluation classId={classe.id} />
+                      <DrawerRelationTeacherEvaluation classId={classe.id} />
+                    </OptionsTableUI>
+                  ),
                 };
               })}
-              columns={["code", "year", "subject", "teacher", "createdAt"]}
+              columns={[
+                "code",
+                "year",
+                "subject",
+                "teacher",
+                "createdAt",
+                "relations",
+              ]}
               title="Disciplinas cadastrados"
-            />
+            ></TableUI>
           </>
         ) : null
       ) : (

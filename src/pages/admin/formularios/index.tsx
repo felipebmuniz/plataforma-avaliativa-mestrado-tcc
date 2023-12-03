@@ -76,7 +76,6 @@ export default function AdminForms() {
             >
               Crie, edite e busque pelos formulários da plataforma.
             </Text>
-            <Box></Box>
           </HStack>
 
           <List spacing={3} color={theme.colorText}>

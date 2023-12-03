@@ -1,39 +1,39 @@
-import { ComponentProps, useCallback, useMemo } from 'react';
+import { ComponentProps, useCallback, useMemo } from "react";
 import {
   Select as ChakraSelect,
   ChakraProps,
   FormControl,
   FormLabel,
   FormErrorMessage,
-} from '@chakra-ui/react';
-import { useTheme } from '@emotion/react';
-import { Controller } from 'react-hook-form';
+} from "@chakra-ui/react";
+import { useTheme } from "@emotion/react";
+import { Controller } from "react-hook-form";
 
 const mockData: { value: string | number | boolean; labelOption: string }[] = [
   {
-    labelOption: 'Nigeria',
-    value: 'Nigeria',
+    labelOption: "Nigeria",
+    value: "Nigeria",
   },
   {
-    labelOption: 'Aberta',
+    labelOption: "Aberta",
     value: true,
   },
   {
-    labelOption: 'Período',
+    labelOption: "Período",
     value: 1,
   },
 ];
 
-type ButtonProps = ComponentProps<'select'> &
+type SelectProps = ComponentProps<"select"> &
   ChakraProps & {
     name: string;
     label: string;
     data?: any[] | { value: string | number | boolean; labelOption: string }[];
-    indexObjectLabel?: string | 'labelOption';
-    indexObjectValue?: string | 'value';
+    indexObjectLabel?: string | "labelOption";
+    indexObjectValue?: string | "value";
     control: any;
     errors?: any;
-    size?: (string & {}) | 'sm' | 'md' | 'lg' | 'xs';
+    size?: (string & {}) | "sm" | "md" | "lg" | "xs";
   };
 
 export function SelectUI({
@@ -46,14 +46,14 @@ export function SelectUI({
   control,
   errors,
   ...props
-}: ButtonProps) {
+}: SelectProps) {
   const theme = useTheme();
 
   const transformData = useMemo(() => {
     const auxData = data?.map((value) => {
       return {
-        labelOption: value[indexObjectLabel ?? 'labelOption'],
-        value: value[indexObjectValue ?? 'value'],
+        labelOption: value[indexObjectLabel ?? "labelOption"],
+        value: value[indexObjectValue ?? "value"],
       };
     });
 
