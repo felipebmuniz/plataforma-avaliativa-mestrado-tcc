@@ -86,7 +86,7 @@ export const FormsAdmin = () => {
         marginTop="1.5rem"
       >
         <HStack w="100%" alignItems="flex-start">
-          <InputUI
+          {/* <InputUI
             register={register}
             errors={errors}
             name="search"
@@ -111,17 +111,17 @@ export const FormsAdmin = () => {
             name="filter2"
             label="Turma"
             placeholder="Busque pelo nome da Turma"
-          />
+          /> */}
         </HStack>
 
         <ButtonGroup gap="1rem" margin="auto" marginTop="2rem" height="inherit">
-          <ButtonUI
+          {/* <ButtonUI
             id="my-form-search-forms"
             isLoading={isSubmitting}
             type="submit"
           >
             Buscar
-          </ButtonUI>
+          </ButtonUI> */}
           <DrawerCreateForms />
         </ButtonGroup>
       </HStack>

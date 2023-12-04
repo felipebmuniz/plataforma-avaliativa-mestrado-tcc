@@ -137,7 +137,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
         marginTop="1.5rem"
       >
         <HStack w="100%" alignItems="flex-start">
-          <InputUI
+          {/* <InputUI
             register={register}
             errors={errors}
             name="search"
@@ -162,17 +162,17 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
             name="filter2"
             label="Turma"
             placeholder="Busque pelo nome da Turma"
-          />
+          /> */}
         </HStack>
 
         <ButtonGroup gap="1rem" margin="auto" marginTop="2rem" height="inherit">
-          <ButtonUI
+          {/* <ButtonUI
             form="my-form-search-forms-users"
             isLoading={isSubmitting}
             onClick={handleSubmit(onSubmit)}
           >
             Buscar
-          </ButtonUI>
+          </ButtonUI> */}
           <DrawerCreateUsers type={usersType} />
         </ButtonGroup>
       </HStack>

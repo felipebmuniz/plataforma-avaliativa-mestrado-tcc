@@ -8,12 +8,12 @@ import {
   ListItem,
   Text,
   VStack,
-} from '@chakra-ui/react';
-import { useTheme } from '@emotion/react';
-import { hexToRgb } from '@/utils/theme';
-import { BiInfoCircle } from 'react-icons/bi';
-import Image from 'next/image';
-import { ButtonUI } from '@/components/UI/ButtonUI';
+} from "@chakra-ui/react";
+import { useTheme } from "@emotion/react";
+import { hexToRgb } from "@/utils/theme";
+import { BiInfoCircle } from "react-icons/bi";
+import Image from "next/image";
+import { ButtonUI } from "@/components/UI/ButtonUI";
 
 export const LandingPage = () => {
   const theme = useTheme();
@@ -27,8 +27,8 @@ export const LandingPage = () => {
         w="100%"
       >
         <Badge
-          p={'0.25rem 1.25rem'}
-          borderRadius={'0.5rem'}
+          p={"0.25rem 1.25rem"}
+          borderRadius={"0.5rem"}
           bg={hexToRgb(theme.container200, 0.3)}
           fontSize="0.8125rem"
           fontStyle="normal"
@@ -55,7 +55,8 @@ export const LandingPage = () => {
                 color={theme.colorSecundary800}
                 fontSize="1.5rem"
               />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit
+              Faça parte do desenvolvimento e melhore o nosso ambiente do
+              mestrado na universidade.
             </Center>
           </ListItem>
           <ListItem>
@@ -65,7 +66,7 @@ export const LandingPage = () => {
                 color={theme.colorSecundary800}
                 fontSize="1.5rem"
               />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit
+              Realize as suas avaliações de rendimento do semestre em vigência.
             </Center>
           </ListItem>
           <ListItem>
@@ -75,16 +76,17 @@ export const LandingPage = () => {
                 color={theme.colorSecundary800}
                 fontSize="1.5rem"
               />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit
+              Contribua com uma base de dados para realização de projetos
+              futuros.
             </Center>
           </ListItem>
         </List>
-        <HStack gap="2rem">
+        {/* <HStack gap="2rem">
           <ButtonUI>Cadastro</ButtonUI>
           <ButtonUI bg={theme.container500} color={theme.container200}>
             Login
           </ButtonUI>
-        </HStack>
+        </HStack> */}
       </VStack>
       <VStack>
         <Box
@@ -97,10 +99,10 @@ export const LandingPage = () => {
           w="43rem"
         >
           <Image
-            src={'/assets/imagens/ilustration.svg'}
+            src={"/assets/imagens/ilustration.svg"}
             alt="ilustration"
             fill
-            style={{ objectFit: 'contain' }}
+            style={{ objectFit: "contain" }}
           />
         </Box>
       </VStack>
