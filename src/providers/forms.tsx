@@ -14,6 +14,7 @@ import {
 import { useToast } from "@chakra-ui/react";
 import { questionsServices } from "@/services/questions";
 import { optionsServices } from "@/services/options";
+import { useRouter } from "next/router";
 
 interface FormsProviderProps {
   children: ReactNode;
@@ -21,6 +22,7 @@ interface FormsProviderProps {
 
 function FormsProvider({ children }: FormsProviderProps) {
   const toast = useToast();
+  const router = useRouter();
 
   const [forms, setForms] = useState<IListFrom[]>([]);
   const [formByID, setFormByID] = useState<FormsResponse>();
@@ -141,10 +143,10 @@ function FormsProvider({ children }: FormsProviderProps) {
   );
 
   const showFormsByID = useCallback(
-    (id: string) => {
+    (id: string, accessToken: string, redirect?: string) => {
       setIsLoadingShow(() => true);
       return formsServices()
-        .show(id)
+        .show(id, accessToken)
         .then((response) => {
           setIsLoadingShow(() => false);
           setFormByID(() => response.data);
@@ -158,9 +160,10 @@ function FormsProvider({ children }: FormsProviderProps) {
             isClosable: true,
             variant: "left-accent",
           });
+          redirect && router.push(redirect);
         });
     },
-    [toast],
+    [toast, router],
   );
 
   const updateFormsByID = useCallback(

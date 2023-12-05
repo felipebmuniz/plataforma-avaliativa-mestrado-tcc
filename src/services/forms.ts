@@ -14,8 +14,12 @@ const formsServices = () => ({
     const response = await axios.delete(`/api/form/${formId}`);
     return response;
   },
-  show: async (formId: string) => {
-    const response = await axios.get<FormsResponse>(`/api/form/${formId}`);
+  show: async (formId: string, accessToken: string) => {
+    const response = await axios.get<FormsResponse>(`/api/form/${formId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return response;
   },
   list: async () => {

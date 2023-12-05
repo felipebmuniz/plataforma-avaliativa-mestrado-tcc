@@ -7,7 +7,11 @@ export interface IFormsContextValue {
   isLoading: boolean;
   isLoadingShow: boolean;
   createForms: (data: IValuesForm, clear: () => void) => Promise<void>;
-  showFormsByID: (id: string) => Promise<void>;
+  showFormsByID: (
+    id: string,
+    accessToken: string,
+    redirect?: string,
+  ) => Promise<void>;
   updateFormsByID: (data: IPutFrom, clear?: () => void) => void;
   deleteFormsByID?: (id: string) => void;
   listForms: () => void;

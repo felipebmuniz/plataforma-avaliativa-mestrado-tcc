@@ -83,7 +83,19 @@ export const TableUI = ({
             <Tr key={`tr-${index}`}>
               {columns.map((column) => (
                 // @ts-ignore
-                <Td key={`td-${column}-${index}`}>{data[column]}</Td>
+                <Td key={`td-${column}-${index}`}>
+                  {column === "createdAt" ||
+                  column === "startDate" ||
+                  column === "endDate"
+                    ? new Date(data[column]).toLocaleDateString("pt-br", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    : data[column]}
+                </Td>
               ))}
               {dataChildren &&
                 dataChildren.map((column, index) => (

@@ -1,6 +1,6 @@
 export interface FormsResponse {
   name: string;
-  questions?: QuestionsResponse;
+  questions?: QuestionsResponse[];
   id: string;
   createdAt: string;
   updatedAt: string;

@@ -18,12 +18,12 @@ import {
   Stack,
   Text,
   VStack,
-} from '@chakra-ui/react';
-import { useTheme } from '@emotion/react';
-import { hexToRgb } from '@/utils/theme';
-import { BiInfoCircle } from 'react-icons/bi';
+} from "@chakra-ui/react";
+import { useTheme } from "@emotion/react";
+import { hexToRgb } from "@/utils/theme";
+import { BiInfoCircle } from "react-icons/bi";
 
-import { ButtonUI } from '@/components/UI/ButtonUI';
+import { ButtonUI } from "@/components/UI/ButtonUI";
 // import { InputUI } from '@/components/UI/InputUI';
 // import { SelectUI } from '@/components/UI/SelectUI';
 
@@ -33,7 +33,7 @@ import { ButtonUI } from '@/components/UI/ButtonUI';
 
 // import { BiSearch } from 'react-icons/bi';
 
-const nameProject = 'Sistema de Autoavaliação';
+const nameProject = "Sistema de Autoavaliação";
 
 const questions = [
   `1. Eu acho que gostaria de usar o ${nameProject} com frequência.*`,
@@ -106,13 +106,15 @@ export const ProgramEvaluation = () => {
     >
       <VStack
         width="100%"
+        maxW="1100px"
         gap="1.5rem"
         alignItems="inherit"
         justifyContent="inherit"
+        margin="auto"
       >
         <Badge
-          p={'0.25rem 1.25rem'}
-          borderRadius={'0.5rem'}
+          p={"0.25rem 1.25rem"}
+          borderRadius={"0.5rem"}
           bg={hexToRgb(theme.container200, 0.3)}
           fontSize="0.8125rem"
           fontStyle="normal"
@@ -154,6 +156,7 @@ export const ProgramEvaluation = () => {
         gap="3rem"
         h="100%"
         w="100%"
+        maxW="1100px"
         m="auto"
       >
         {questions.map((question, index) => (

@@ -1,12 +1,12 @@
-import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
-import { TypeMethod } from '@/types/forms';
+import { NextApiHandler } from "next";
+import axios, { AxiosResponse } from "axios";
+import { TypeMethod } from "@/types/forms";
 
 const showFrom: NextApiHandler = async function (request, response) {
   const { query, method, headers } = request;
 
   if (!query.formId) {
-    return response.status(400).json('Id do provedor/cidade faltando');
+    return response.status(400).json("Id do provedor/cidade faltando");
   }
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -22,7 +22,7 @@ const showFrom: NextApiHandler = async function (request, response) {
       if (apiResponse.status === 200) {
         return response.status(200).json(apiResponse.data);
       } else if (apiResponse.status === 400) {
-        return response.status(400).json('Erro interno na API');
+        return response.status(400).json("Erro interno na API");
       } else {
         return apiResponse.data;
       }
@@ -34,7 +34,7 @@ const showFrom: NextApiHandler = async function (request, response) {
       if (apiResponse.status === 200) {
         return response.status(200).json(apiResponse.data);
       } else if (apiResponse.status === 400) {
-        return response.status(400).json('Erro interno na API');
+        return response.status(400).json("Erro interno na API");
       } else {
         return apiResponse.data;
       }

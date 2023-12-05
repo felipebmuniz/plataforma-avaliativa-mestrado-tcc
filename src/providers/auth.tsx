@@ -1,13 +1,17 @@
-import { ReactNode, useCallback, useState } from 'react';
-import { api } from '../services/api';
-import { AcessesLoginResponse, LoginResponse } from '@/types/auth';
-import { AuthContext } from '@/contexts';
-import { useToast } from '@chakra-ui/react';
-import { authServices } from '@/services/auth';
-import { useRouter } from 'next/router';
-import axios from 'axios';
+import { ReactNode, useCallback, useState } from "react";
+import { api } from "../services/api";
+import {
+  AcessesLoginResponse,
+  LoginResponse,
+  ResponseUserEvaluationForm,
+} from "@/types/auth";
+import { AuthContext } from "@/contexts";
+import { useToast } from "@chakra-ui/react";
+import { authServices } from "@/services/auth";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-export const TOKEN_KEY = '@PAM-Token';
+export const TOKEN_KEY = "@PPGEEC-Token";
 
 interface IAuthProviderProps {
   children: ReactNode;
@@ -19,20 +23,24 @@ function AuthProvider({ children }: IAuthProviderProps) {
 
   const [data, setData] = useState<LoginResponse>(() => {
     const accessToken =
-      typeof window !== 'undefined' &&
+      typeof window !== "undefined" &&
       localStorage.getItem(`${TOKEN_KEY}:accessToken`);
 
     if (accessToken) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
       return { accessToken };
     }
 
     return {} as LoginResponse;
   });
 
+  const [dataUserEvaluationForm, setDataUserEvaluationForm] = useState<
+    ResponseUserEvaluationForm | undefined
+  >();
+
   const updateToken = useCallback(
     (accessToken: string) => {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         localStorage.setItem(`${TOKEN_KEY}:accessToken`, accessToken);
 
         setData(() => ({
@@ -49,37 +57,37 @@ function AuthProvider({ children }: IAuthProviderProps) {
         .login(loginData)
         .then((response) => {
           const { accessToken } = response.data;
-          if (typeof window !== 'undefined') {
+          if (typeof window !== "undefined") {
             localStorage.setItem(`${TOKEN_KEY}:accessToken`, accessToken);
 
             axios.defaults.headers.common[
-              'Authorization'
+              "Authorization"
             ] = `Bearer ${accessToken}`;
 
             updateToken(accessToken);
 
             clear();
 
-            router.push('/admin/usuarios');
+            router.push("/admin/usuarios");
 
             toast({
-              status: 'success',
+              status: "success",
               title: `Login realizado com sucesso ✅`,
-              position: 'top-right',
+              position: "top-right",
               isClosable: true,
-              variant: 'left-accent',
+              variant: "left-accent",
             });
           }
         })
         .catch(({ response }) => {
-          console.log('[error] =>', response);
+          console.log("[error] =>", response);
 
           toast({
-            status: 'error',
+            status: "error",
             title: `Não foi possível realizar o login :( Cheque suas credenciais!`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         });
     },
@@ -87,21 +95,21 @@ function AuthProvider({ children }: IAuthProviderProps) {
   );
 
   const signOut = useCallback(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       localStorage.removeItem(`${TOKEN_KEY}:accessToken`);
 
       setData(() => ({} as LoginResponse));
 
-      router.push('/');
+      router.push("/");
 
-      console.log('signOut');
+      console.log("signOut");
 
       toast({
-        status: 'success',
+        status: "success",
         title: `Logout realizado com sucesso ✅`,
-        position: 'top-right',
+        position: "top-right",
         isClosable: true,
-        variant: 'left-accent',
+        variant: "left-accent",
       });
     }
   }, [router, toast]);
@@ -112,23 +120,54 @@ function AuthProvider({ children }: IAuthProviderProps) {
         .Validate({ validationToken: token })
         .then(() => {
           toast({
-            status: 'success',
+            status: "success",
             title: `Usuário autenticado com sucesso ✅`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
-          router.push('/');
+          router.push("/");
         })
         .catch(() => {
           toast({
-            status: 'error',
+            status: "error",
             title: `Não foi possível autenticado o usuário :( Entre em contado com a coordenação!`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
-          router.push('/');
+          router.push("/");
+        });
+    },
+    [toast, router],
+  );
+
+  const ValidateEvaluation = useCallback(
+    async (id: string, accessToken: string) => {
+      return authServices()
+        .ValidateEvaluation(id, accessToken)
+        .then((response) => {
+          console.log("[response] =>", response);
+          setDataUserEvaluationForm(() => response.data);
+
+          toast({
+            status: "success",
+            title: `Usuário relacionado com sucesso ✅`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+          router.push("/avaliacao");
+        })
+        .catch(() => {
+          toast({
+            status: "error",
+            title: `Não foi possível relacionar o usuário :( Entre em contado com a coordenação!`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+          router.push("/");
         });
     },
     [toast, router],
@@ -142,6 +181,9 @@ function AuthProvider({ children }: IAuthProviderProps) {
         signOut,
         updateToken,
         validateUser,
+        ValidateEvaluation,
+        dataUserEvaluationForm,
+        setDataUserEvaluationForm,
       }}
     >
       {children}
