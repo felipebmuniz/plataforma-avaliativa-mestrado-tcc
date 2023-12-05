@@ -87,7 +87,14 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
           <>
             <TableUI
               data={usersStudent}
-              columns={["userId", "studentId", "name", "email", "studentCode"]}
+              columns={[
+                "userId",
+                "studentId",
+                "name",
+                "email",
+                "studentCode",
+                "validated",
+              ]}
               title="Usuários cadastrados"
             />
           </>
@@ -100,7 +107,14 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
           <>
             <TableUI
               data={usersTeacher}
-              columns={["userId", "teacherId", "name", "email", "teacherCode"]}
+              columns={[
+                "userId",
+                "teacherId",
+                "name",
+                "email",
+                "teacherCode",
+                "validated",
+              ]}
               title="Usuários cadastrados"
             />
           </>

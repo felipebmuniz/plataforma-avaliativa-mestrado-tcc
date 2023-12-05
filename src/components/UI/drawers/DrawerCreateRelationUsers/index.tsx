@@ -129,11 +129,15 @@ export const DrawerCreateRelationUsers = ({ classId }: { classId: string }) => {
                   errors={errors}
                   control={control}
                 >
-                  {usersStudent?.map((value) => (
-                    <Checkbox key={value.studentId} value={value.studentId}>
-                      {value.name} - {value.studentCode}
-                    </Checkbox>
-                  ))}
+                  {usersStudent?.map((value) => {
+                    return (
+                      value.validated && (
+                        <Checkbox key={value.studentId} value={value.studentId}>
+                          {value.name} - {value.studentCode}
+                        </Checkbox>
+                      )
+                    );
+                  })}
                 </CheckboxUI>
                 {/* <CreateQuestion
                   fields={fields}

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useCallback } from "react";
 import {
   Table,
   Thead,
@@ -9,6 +9,7 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Badge,
 } from "@chakra-ui/react";
 import { ITabs } from "@/types/tabs";
 
@@ -58,6 +59,14 @@ export const TableUI = ({
 }: IProps) => {
   const theme = useTheme();
 
+  const setBadge = useCallback((status: boolean) => {
+    if (status) {
+      return <Badge colorScheme="green">Validado</Badge>;
+    } else {
+      return <Badge colorScheme="yellow">Pendente</Badge>;
+    }
+  }, []);
+
   return (
     <TableContainer
       w={"100%"}
@@ -94,6 +103,8 @@ export const TableUI = ({
                         hour: "2-digit",
                         minute: "2-digit",
                       })
+                    : column === "validated"
+                    ? setBadge(data[column])
                     : data[column]}
                 </Td>
               ))}

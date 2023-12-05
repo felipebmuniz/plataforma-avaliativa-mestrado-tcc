@@ -1,5 +1,5 @@
-import React from 'react';
-import { useTheme } from '@emotion/react';
+import React from "react";
+import { useTheme } from "@emotion/react";
 import {
   Box,
   ButtonGroup,
@@ -11,50 +11,50 @@ import {
   DrawerHeader,
   DrawerOverlay,
   useDisclosure,
-} from '@chakra-ui/react';
-import { ButtonUI } from '../../ButtonUI';
-import { BiAddToQueue, BiUser, BiCodeCurly } from 'react-icons/bi';
+} from "@chakra-ui/react";
+import { ButtonUI } from "../../ButtonUI";
+import { BiAddToQueue, BiUser, BiCodeCurly } from "react-icons/bi";
 
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import { InputUI } from '../../InputUI';
-import { useClasses, useSubjects, useUsers } from '@/hooks';
-import { classesCreate } from '@/types/classes';
-import { SelectUI } from '../../SelectUI';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { InputUI } from "../../InputUI";
+import { useClasses, useSubjects, useUsers } from "@/hooks";
+import { classesCreate } from "@/types/classes";
+import { SelectUI } from "../../SelectUI";
 
 const yearActual = Number(
-  new Date().toLocaleDateString('pt-br', {
-    year: 'numeric',
+  new Date().toLocaleDateString("pt-br", {
+    year: "numeric",
   }),
 );
 
 const defaultValues: classesCreate = {
-  code: '',
+  code: "",
   open: true,
   period: 1,
   year: yearActual,
-  subjectId: '',
-  teacherId: '',
+  subjectId: "",
+  teacherId: "",
 };
 
 const schemaFormCreateClasses = yup.object({
-  code: yup.string().required('Deve ser informado um código!'),
-  period: yup.number().min(1).required('Deve ser informado um período!'),
+  code: yup.string().required("Deve ser informado um código!"),
+  period: yup.number().min(1).required("Deve ser informado um período!"),
   year: yup
     .number()
     .min(yearActual)
     .max(yearActual)
-    .required('Deve ser informado o ano em vigência!'),
+    .required("Deve ser informado o ano em vigência!"),
   open: yup
     .boolean()
-    .required('Deve ser informado o se a turma o estado da Turma!'),
+    .required("Deve ser informado o se a turma o estado da Turma!"),
   subjectId: yup
     .string()
-    .required('Deve ser informado um código de Disciplina!'),
+    .required("Deve ser informado um código de Disciplina!"),
   teacherId: yup
     .string()
-    .required('Deve ser informado um código de Professor!'),
+    .required("Deve ser informado um código de Professor!"),
 });
 
 export const DrawerCreateClasses = () => {
@@ -74,7 +74,7 @@ export const DrawerCreateClasses = () => {
   } = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schemaFormCreateClasses),
-    mode: 'onBlur',
+    mode: "onBlur",
   });
 
   const clearForm = () => {
@@ -136,7 +136,7 @@ export const DrawerCreateClasses = () => {
                 name="period"
                 label="Período"
                 placeholder="Período da Turma"
-                data={[{ labelOption: 'Integral', value: '1' }]}
+                data={[{ labelOption: "Integral", value: "1" }]}
               />
               <SelectUI
                 control={control}
@@ -153,8 +153,8 @@ export const DrawerCreateClasses = () => {
                 label="Estado"
                 placeholder="Estado da Turma"
                 data={[
-                  { labelOption: 'Aberta', value: true },
-                  { labelOption: 'Encerrada', value: false },
+                  { labelOption: "Aberta", value: true },
+                  { labelOption: "Encerrada", value: false },
                 ]}
               />
               <SelectUI
@@ -173,7 +173,7 @@ export const DrawerCreateClasses = () => {
                 name="teacherId"
                 label="Professor"
                 placeholder="Professor da Turma"
-                data={usersTeacher}
+                data={usersTeacher.filter((teacher) => teacher.validated)}
                 indexObjectLabel="name"
                 indexObjectValue="teacherId"
               />
@@ -184,14 +184,14 @@ export const DrawerCreateClasses = () => {
             <ButtonGroup size="sm" gap="1rem">
               <ButtonUI
                 onClick={clearForm}
-                transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
+                transition={!isOpen ? "inherit" : "filter 0.3s ease"}
               >
                 Cancelar
               </ButtonUI>
               <ButtonUI
                 bg={theme.container500}
                 color={theme.container200}
-                transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
+                transition={!isOpen ? "inherit" : "filter 0.3s ease"}
                 type="submit"
                 form="my-form-create-classes"
                 isLoading={isSubmitting}
