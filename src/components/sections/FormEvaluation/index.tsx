@@ -87,18 +87,20 @@ export const FormEvaluation = () => {
       answers: evaluationForm,
     };
 
-    !validate &&
-      evaluationValues &&
-      evaluationForm &&
-      createAnswers(
-        {
-          formId: evaluationValues?.formId,
-          evaluationId: evaluationValues?.evaluationId,
-          classId: evaluationValues?.clasId,
-          answers: evaluationForm,
-        },
-        evaluationValues?.accessToken,
-      );
+    console.log(auxValues);
+
+    // !validate &&
+    //   evaluationValues &&
+    //   evaluationForm &&
+    //   createAnswers(
+    //     {
+    //       formId: evaluationValues?.formId,
+    //       evaluationId: evaluationValues?.evaluationId,
+    //       classId: evaluationValues?.clasId,
+    //       answers: evaluationForm,
+    //     },
+    //     evaluationValues?.accessToken,
+    //   );
   }
 
   return (
@@ -212,11 +214,13 @@ export const FormEvaluation = () => {
                             direction="row"
                             justifyContent="space-between"
                           >
-                            {question?.options?.map((option) => (
-                              <Radio key={option?.id} value={option?.id}>
-                                {option?.value}
-                              </Radio>
-                            ))}
+                            {question?.options
+                              ?.sort((a, b) => a.order - b.order)
+                              .map((option) => (
+                                <Radio key={option?.id} value={option?.id}>
+                                  {option?.value}
+                                </Radio>
+                              ))}
                           </Stack>
                         </RadioGroup>
 
