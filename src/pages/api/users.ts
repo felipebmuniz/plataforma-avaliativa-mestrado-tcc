@@ -42,6 +42,24 @@ const fetchUsers: NextApiHandler = async function (request, response) {
       }
 
       return response.status(400).json("Erro interno na API");
+
+    case TypeMethod.DELETE:
+      console.log("URL =>", `${baseURL}/Users/${query?.id}`);
+
+      await axios
+        .delete(`${baseURL}/Users/${query?.id}`, {
+          headers: { Authorization: headers.authorization },
+        })
+        .then((res) => {
+          return response.status(200).json(res.data);
+        })
+        .catch((error) => {
+          console.log("[error] =>", error?.response);
+
+          return response
+            .status(400 | 500)
+            .json(error?.response?.data ?? "Erro Interno");
+        });
   }
 };
 

@@ -83,6 +83,37 @@ function UsersProvider({ children }: IUsersProviderProps) {
     [toast, listUser],
   );
 
+  const deleteUser = useCallback(
+    async (id: string, type: userType) => {
+      return usersServices()
+        .delete(id)
+        .then((response) => {
+          listUser(type);
+
+          toast({
+            status: "success",
+            title: `Usuário deletado com sucesso ✅`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        })
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
+          toast({
+            status: "error",
+            title:
+              response?.data?.message ??
+              `Não foi possível deletar o usuário :(`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        });
+    },
+    [toast, listUser],
+  );
+
   const value = useMemo(() => {
     return {
       usersStudent,
@@ -91,6 +122,7 @@ function UsersProvider({ children }: IUsersProviderProps) {
       isLoadingTeacher,
       createUser,
       listUser,
+      deleteUser,
     };
   }, [
     usersStudent,
@@ -99,6 +131,7 @@ function UsersProvider({ children }: IUsersProviderProps) {
     isLoadingTeacher,
     createUser,
     listUser,
+    deleteUser,
   ]);
 
   return (

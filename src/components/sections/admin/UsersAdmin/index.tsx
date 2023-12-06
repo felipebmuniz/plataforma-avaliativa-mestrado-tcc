@@ -15,6 +15,7 @@ import { SkeletonCards } from "@/components/UI/Skeleton";
 import { userType } from "@/types/users";
 import { useUsers } from "@/hooks";
 import { TableUI } from "@/components/UI/TableUI";
+import ModalAlert from "@/components/UI/Modals/ModalAlert";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -51,6 +52,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
     isLoadingTeacher,
     usersStudent,
     usersTeacher,
+    deleteUser,
   } = useUsers();
   const {
     handleSubmit,
@@ -86,7 +88,22 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
         return !isLoadingStudent && usersStudent ? (
           <>
             <TableUI
-              data={usersStudent}
+              data={usersStudent.map((user) => {
+                return {
+                  ...user,
+                  options: (
+                    <ModalAlert
+                      ModalText="Certeza em realizar a ação de deletar Usuário?"
+                      ModalTitle="Deletar Usuário"
+                      ModalTextButtonConfirm="Deletar"
+                      type="iconButtonDelete"
+                      onChange={() => {
+                        deleteUser(user.userId, "student");
+                      }}
+                    />
+                  ),
+                };
+              })}
               columns={[
                 "userId",
                 "studentId",
@@ -94,6 +111,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
                 "email",
                 "studentCode",
                 "validated",
+                "options",
               ]}
               title="Usuários cadastrados"
             />
@@ -106,7 +124,22 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
         return !isLoadingTeacher && usersTeacher ? (
           <>
             <TableUI
-              data={usersTeacher}
+              data={usersTeacher.map((user) => {
+                return {
+                  ...user,
+                  options: (
+                    <ModalAlert
+                      ModalText="Certeza em realizar a ação de deletar Usuário?"
+                      ModalTitle="Deletar Usuário"
+                      ModalTextButtonConfirm="Deletar"
+                      type="iconButtonDelete"
+                      onChange={() => {
+                        deleteUser(user.userId, "teacher");
+                      }}
+                    />
+                  ),
+                };
+              })}
               columns={[
                 "userId",
                 "teacherId",
@@ -114,6 +147,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
                 "email",
                 "teacherCode",
                 "validated",
+                "options",
               ]}
               title="Usuários cadastrados"
             />

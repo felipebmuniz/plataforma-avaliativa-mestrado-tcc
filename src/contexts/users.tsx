@@ -1,5 +1,5 @@
-import { userType, userCreate, userUpdate, userList } from '@/types/users';
-import { createContext } from 'react';
+import { userType, userCreate, userUpdate, userList } from "@/types/users";
+import { createContext } from "react";
 
 export interface IUsersContext {
   usersStudent: userList[];
@@ -16,7 +16,7 @@ export interface IUsersContext {
     type: userType,
     clear: () => void,
   ) => Promise<void>;
-  deleteUser?: (id: string) => void;
+  deleteUser: (id: string, type: userType) => Promise<void>;
   listUser: (type: userType) => void;
 }
 

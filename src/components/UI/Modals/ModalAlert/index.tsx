@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 import {
   Button,
   ButtonGroup,
+  HStack,
   IconButton,
   Modal,
   ModalBody,
@@ -12,13 +13,13 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
-} from '@chakra-ui/react';
-import { useTheme } from '@emotion/react';
-import { ButtonUI } from '../../ButtonUI';
-import { BiX } from 'react-icons/bi';
+} from "@chakra-ui/react";
+import { useTheme } from "@emotion/react";
+import { ButtonUI } from "../../ButtonUI";
+import { BiX, BiTrash } from "react-icons/bi";
 
 interface IModalAlertProps {
-  type: 'textButton' | 'iconButtonClose';
+  type: "textButton" | "iconButtonClose" | "iconButtonDelete";
   label?: string;
   ModalTitle: string;
   ModalText: string;
@@ -39,19 +40,51 @@ const ModalAlert = ({
   const theme = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const selectButtonType = React.useCallback(
+    (typeSelect: "textButton" | "iconButtonClose" | "iconButtonDelete") => {
+      switch (typeSelect) {
+        case "textButton":
+          return <Button onClick={onOpen}>{label}</Button>;
+
+        case "iconButtonClose":
+          return (
+            <IconButton
+              aria-label="close-icon-modal"
+              icon={<BiX />}
+              onClick={onOpen}
+              size="xs"
+              {...configButton}
+            />
+          );
+        case "iconButtonDelete":
+          return (
+            <HStack
+              w="100%"
+              m="auto"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <IconButton
+                aria-label="delete-icon-modal"
+                icon={<BiTrash />}
+                onClick={onOpen}
+                size="lg"
+                color="red"
+                {...configButton}
+              />
+            </HStack>
+          );
+
+        default:
+          return <Button onClick={onOpen}>{label}</Button>;
+      }
+    },
+    [],
+  );
+
   return (
     <>
-      {type == 'textButton' ? (
-        <Button onClick={onOpen}>{label}</Button>
-      ) : (
-        <IconButton
-          aria-label="close-icon-modal"
-          icon={<BiX />}
-          onClick={onOpen}
-          size="xs"
-          {...configButton}
-        />
-      )}
+      {selectButtonType(type)}
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
@@ -65,13 +98,13 @@ const ModalAlert = ({
             <ButtonGroup size="sm" gap="1rem">
               <ButtonUI
                 onClick={onClose}
-                transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
+                transition={!isOpen ? "inherit" : "filter 0.3s ease"}
               >
                 Cancelar
               </ButtonUI>
               <ButtonUI
                 onClick={onChange}
-                transition={!isOpen ? 'inherit' : 'filter 0.3s ease'}
+                transition={!isOpen ? "inherit" : "filter 0.3s ease"}
                 bgColor={theme.delete}
                 color={theme.colorTextAddButton}
               >

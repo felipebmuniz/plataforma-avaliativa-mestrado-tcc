@@ -7,6 +7,7 @@ export type columnsUsers =
   | "validated"
   | "studentCode"
   | "id"
+  | "options"
   | "teacherCode";
 
 export enum EColumnsUsers {
@@ -20,7 +21,7 @@ export enum EColumnsUsers {
   teacherCode = "Código do Docente",
 }
 
-export type columnsSubjects = "name" | "code" | "createdAt";
+export type columnsSubjects = "name" | "code" | "createdAt" | "options";
 
 export enum EColumnsSubjects {
   name = "Nome",
@@ -36,6 +37,7 @@ export type columnsClasses =
   | "subject"
   | "students"
   | "relations"
+  | "options"
   | "teacher";
 
 export enum EColumnsClasses {
@@ -45,7 +47,7 @@ export enum EColumnsClasses {
   code = "Código",
 }
 
-export type columnsForms = "name" | "id" | "createdAt" | "preview";
+export type columnsForms = "name" | "id" | "createdAt" | "preview" | "options";
 
 export enum EColumnsForms {
   id = "ID",
@@ -59,6 +61,7 @@ export type columnsEvaluations =
   | "endDate"
   | "form"
   | "answers"
+  | "options"
   | "users";
 
 export enum EColumnsEvaluations {
@@ -94,4 +97,5 @@ export enum EColumns {
   users = "Visualizar Usuários",
   students = "Visualizar Discentes",
   answers = "Visualizar Respostas",
+  options = "Opções de Ação",
 }
