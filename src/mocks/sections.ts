@@ -9,8 +9,8 @@ export const SectionsMock: Section[] = [
   //   src: '/metricas',
   //   name: 'Métricas',
   // },
-  {
-    src: "/programa",
-    name: "Avalie o programa",
-  },
+  // {
+  //   src: "/programa",
+  //   name: "Avalie o programa",
+  // },
 ];
