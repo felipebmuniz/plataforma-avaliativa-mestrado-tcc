@@ -49,7 +49,8 @@ function EvaluationsProvider({ children }: IEvaluationsProviderProps) {
             variant: "left-accent",
           });
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
             status: "error",
             title: `Não foi possível criar o Avaliação :(`,

@@ -1,16 +1,16 @@
-import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { ClassesContext } from '@/contexts';
-import { useToast } from '@chakra-ui/react';
-import { userCreate, userList, userType } from '@/types/users';
+import { ReactNode, useCallback, useMemo, useState } from "react";
+import { ClassesContext } from "@/contexts";
+import { useToast } from "@chakra-ui/react";
+import { userCreate, userList, userType } from "@/types/users";
 
-import { classesServices } from '@/services/classes';
-import { classesRelationsServices } from '@/services/classesRelations';
+import { classesServices } from "@/services/classes";
+import { classesRelationsServices } from "@/services/classesRelations";
 import {
   classesCreate,
   classesList,
   classesRelationEvaluation,
   classesRelationStudent,
-} from '@/types/classes';
+} from "@/types/classes";
 
 interface IClassesProviderProps {
   children: ReactNode;
@@ -35,11 +35,11 @@ function ClassesProvider({ children }: IClassesProviderProps) {
       .catch(() => {
         setIsLoading(() => false);
         toast({
-          status: 'error',
+          status: "error",
           title: `Error ao buscar usuários :(`,
-          position: 'top-right',
+          position: "top-right",
           isClosable: true,
-          variant: 'left-accent',
+          variant: "left-accent",
         });
       });
   }, [toast]);
@@ -54,20 +54,20 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           listClasses();
 
           toast({
-            status: 'success',
+            status: "success",
             title: `Usuário criado com sucesso ✅`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         })
         .catch((error) => {
           toast({
-            status: 'error',
+            status: "error",
             title: `Não foi possível criar o usuário :(`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         });
     },
@@ -82,20 +82,21 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           clear && clear();
 
           toast({
-            status: 'success',
+            status: "success",
             title: `Relação criada com sucesso ✅`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
-            status: 'error',
+            status: "error",
             title: `Não foi possível criar a relação :(`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         });
     },
@@ -110,20 +111,21 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           clear && clear();
 
           toast({
-            status: 'success',
+            status: "success",
             title: `Relação criada com sucesso ✅`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
-            status: 'error',
+            status: "error",
             title: `Não foi possível criar a relação :(`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         });
     },
@@ -138,20 +140,20 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           clear && clear();
 
           toast({
-            status: 'success',
+            status: "success",
             title: `Relação criada com sucesso ✅`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         })
         .catch((error) => {
           toast({
-            status: 'error',
+            status: "error",
             title: `Não foi possível criar a relação :(`,
-            position: 'top-right',
+            position: "top-right",
             isClosable: true,
-            variant: 'left-accent',
+            variant: "left-accent",
           });
         });
     },

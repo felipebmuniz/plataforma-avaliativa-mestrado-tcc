@@ -102,8 +102,6 @@ function AuthProvider({ children }: IAuthProviderProps) {
 
       router.push("/");
 
-      console.log("signOut");
-
       toast({
         status: "success",
         title: `Logout realizado com sucesso ✅`,
@@ -147,7 +145,6 @@ function AuthProvider({ children }: IAuthProviderProps) {
       return authServices()
         .ValidateEvaluation(id, accessToken)
         .then((response) => {
-          console.log("[response] =>", response);
           setDataUserEvaluationForm(() => response.data);
 
           toast({

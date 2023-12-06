@@ -22,8 +22,6 @@ const fetchAnswers: NextApiHandler = async function (request, response) {
       return response.status(400).json("Erro interno na API");
 
     case TypeMethod.POST:
-      console.log("[POST] =>", JSON.stringify(body.data, null, 2));
-
       apiResponse = await axios.post(url, body?.data, {
         headers: { Authorization: headers.authorization },
       });

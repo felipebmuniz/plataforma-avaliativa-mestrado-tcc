@@ -161,34 +161,41 @@ export const FormEvaluation = () => {
       >
         <FormControl
           isInvalid={evaluationForm?.every((value) => value.optionId === "")}
-          alignItems="flex-start"
-          justifyContent="flex-start"
-          flexDir="column-reverse"
-          gap="3rem"
-          h="100%"
           w="100%"
           maxW="1100px"
           m="auto"
         >
-          {!isLoadingShow ? (
-            formByID?.questions?.map((question, index) => (
-              <Card w="100%" p="1rem" key={`qst-${question.id}`}>
-                <CardHeader>
-                  <Heading size="md">{question?.statement}</Heading>
-                </CardHeader>
+          <VStack
+            alignItems="flex-start"
+            justifyContent="flex-start"
+            flexDir="column-reverse"
+            gap="3rem"
+            h="100%"
+            w="100%"
+            maxW="1100px"
+            m="auto"
+            paddingBottom="1rem"
+          >
+            {!isLoadingShow ? (
+              formByID?.questions?.map((question, index) => (
+                <Card w="100%" p="1rem" key={`qst-${question.id}`}>
+                  <CardHeader>
+                    <Heading size="md">{question?.statement}</Heading>
+                  </CardHeader>
 
-                <CardBody>
-                  {evaluationForm && evaluationForm?.length > 0 && (
-                    <FormControl
-                      isInvalid={
-                        (evaluationForm &&
-                          evaluationForm[index]?.optionId === "") ??
-                        false
-                      }
-                    >
-                      <Box m="auto" width="90%" p="2rem 1rem">
+                  <CardBody>
+                    {evaluationForm && evaluationForm?.length > 0 && (
+                      <FormControl
+                        isInvalid={
+                          (evaluationForm &&
+                            evaluationForm[index]?.optionId === "") ??
+                          false
+                        }
+                      >
                         <RadioGroup
-                          defaultValue="1"
+                          m="auto"
+                          width="90%"
+                          p="2rem 1rem"
                           onChange={(event) => {
                             setEvaluationsForm((value) =>
                               value?.map((value, idx) => {
@@ -212,18 +219,19 @@ export const FormEvaluation = () => {
                             ))}
                           </Stack>
                         </RadioGroup>
-                      </Box>
-                      <FormErrorMessage>
-                        Selecione uma resposta!
-                      </FormErrorMessage>
-                    </FormControl>
-                  )}
-                </CardBody>
-              </Card>
-            ))
-          ) : (
-            <SkeletonCards />
-          )}
+
+                        <FormErrorMessage>
+                          Selecione uma resposta!
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </CardBody>
+                </Card>
+              ))
+            ) : (
+              <SkeletonCards />
+            )}
+          </VStack>
           <FormErrorMessage>
             Responta todas as perguntas antes de enviar!
           </FormErrorMessage>
