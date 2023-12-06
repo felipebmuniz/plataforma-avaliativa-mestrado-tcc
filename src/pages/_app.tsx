@@ -19,6 +19,7 @@ import {
   EvaluationsProvider,
   AnswersProvider,
 } from "@/providers";
+import { Analytics } from "@vercel/analytics/react";
 
 interface AppProps extends NextAppProps {
   emotionCache?: EmotionCache;
@@ -50,6 +51,7 @@ export default function App({
                         <Global styles={globalStyles} />
                         <main className={poppins.className}>
                           <Component {...pageProps} />
+                          <Analytics />
                         </main>
                       </AnswersProvider>
                     </EvaluationsProvider>

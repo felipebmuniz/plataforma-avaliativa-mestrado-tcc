@@ -54,8 +54,6 @@ const fetchUsers: NextApiHandler = async function (request, response) {
           return response.status(200).json(res.data);
         })
         .catch((error) => {
-          console.log("[error] =>", error?.response);
-
           return response
             .status(400 | 500)
             .json(error?.response?.data ?? "Erro Interno");
