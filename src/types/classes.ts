@@ -17,7 +17,7 @@ export interface classesList {
     createdAt: string;
     updatedAt: string;
   };
-  student: {
+  students: {
     studentCode: string;
     name: string;
     email: string;

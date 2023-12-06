@@ -18,6 +18,7 @@ import OptionsTableUI from "@/components/UI/OptionsTableUI";
 import { DrawerCreateRelationUsers } from "@/components/UI/drawers/DrawerCreateRelationUsers";
 import { DrawerRelationUsersEvaluation } from "@/components/UI/drawers/DrawerRelationUsersEvaluation";
 import { DrawerRelationTeacherEvaluation } from "@/components/UI/drawers/DrawerRelationTeacherEvaluation";
+import ModalPreview from "@/components/UI/Modals/ModalPreview";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -137,6 +138,19 @@ export const ClassesAdmin = () => {
                   ...classe,
                   subject: `${classe.subject.name} - ${classe.subject.code}`,
                   teacher: `${classe.teacher.name} - ${classe.teacher.teacherCode}`,
+                  students: (
+                    <ModalPreview
+                      label="Visualizar"
+                      ModalTitle="Visualize os Discentes vinculados!"
+                      key={`modal-preview-${classe.id}`}
+                    >
+                      <TableUI
+                        data={classe.students}
+                        columns={["studentCode", "name", "email"]}
+                        title="Usuários Vinculados"
+                      />
+                    </ModalPreview>
+                  ),
                   relations: (
                     <OptionsTableUI key={"dataChildren-1"}>
                       <DrawerCreateRelationUsers classId={classe.id} />
@@ -151,6 +165,7 @@ export const ClassesAdmin = () => {
                 "year",
                 "subject",
                 "teacher",
+                "students",
                 "createdAt",
                 "relations",
               ]}

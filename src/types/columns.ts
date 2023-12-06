@@ -34,6 +34,7 @@ export type columnsClasses =
   | "year"
   | "code"
   | "subject"
+  | "students"
   | "relations"
   | "teacher";
 
@@ -91,5 +92,6 @@ export enum EColumns {
   relations = "Opções de Vinculações",
   preview = "Visualizar",
   users = "Visualizar Usuários",
+  students = "Visualizar Discentes",
   answers = "Visualizar Respostas",
 }
