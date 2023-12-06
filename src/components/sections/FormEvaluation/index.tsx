@@ -36,7 +36,7 @@ export const FormEvaluation = () => {
   const toast = useToast();
   const router = useRouter();
 
-  const { createAnswers } = useAnswers();
+  const { createAnswers, isLoadingCreate } = useAnswers();
   const { dataUserEvaluationForm, setDataUserEvaluationForm } = useAuth();
   const { formByID, isLoadingShow, showFormsByID } = useForms();
 
@@ -87,20 +87,18 @@ export const FormEvaluation = () => {
       answers: evaluationForm,
     };
 
-    console.log(auxValues);
-
-    // !validate &&
-    //   evaluationValues &&
-    //   evaluationForm &&
-    //   createAnswers(
-    //     {
-    //       formId: evaluationValues?.formId,
-    //       evaluationId: evaluationValues?.evaluationId,
-    //       classId: evaluationValues?.clasId,
-    //       answers: evaluationForm,
-    //     },
-    //     evaluationValues?.accessToken,
-    //   );
+    !validate &&
+      evaluationValues &&
+      evaluationForm &&
+      createAnswers(
+        {
+          formId: evaluationValues?.formId,
+          evaluationId: evaluationValues?.evaluationId,
+          classId: evaluationValues?.clasId,
+          answers: evaluationForm,
+        },
+        evaluationValues?.accessToken,
+      );
   }
 
   return (
@@ -247,6 +245,7 @@ export const FormEvaluation = () => {
               bg={theme.container500}
               color={theme.container200}
               type="submit"
+              isLoading={isLoadingCreate}
             >
               Enviar Avaliação
             </ButtonUI>

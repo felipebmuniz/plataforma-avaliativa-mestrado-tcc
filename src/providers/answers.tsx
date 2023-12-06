@@ -15,6 +15,7 @@ function AnswersProvider({ children }: IAnswersProviderProps) {
 
   const [answers, setAnswers] = useState<answersList[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingCreate, setIsLoadingCreate] = useState<boolean>(false);
 
   const listAnswers = useCallback(
     async (evaluationId: string) => {
@@ -41,6 +42,7 @@ function AnswersProvider({ children }: IAnswersProviderProps) {
 
   const createAnswers = useCallback(
     async (data: answersCreate, accessToken: string, clear?: () => void) => {
+      setIsLoadingCreate(() => true);
       return answersServices()
         .create(data, accessToken)
         .then((response) => {
@@ -52,6 +54,7 @@ function AnswersProvider({ children }: IAnswersProviderProps) {
             isClosable: true,
             variant: "left-accent",
           });
+          setIsLoadingCreate(() => false);
           router.push("/");
         })
         .catch((error) => {
@@ -62,6 +65,7 @@ function AnswersProvider({ children }: IAnswersProviderProps) {
             isClosable: true,
             variant: "left-accent",
           });
+          setIsLoadingCreate(() => false);
         });
     },
     [toast, router],
@@ -71,6 +75,7 @@ function AnswersProvider({ children }: IAnswersProviderProps) {
     return {
       answers,
       isLoading,
+      isLoadingCreate,
       createAnswers,
       listAnswers,
     };

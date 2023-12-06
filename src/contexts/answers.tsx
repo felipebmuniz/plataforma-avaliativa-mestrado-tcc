@@ -4,6 +4,7 @@ import { createContext } from "react";
 export interface IAnswersContext {
   answers: answersList[];
   isLoading: boolean;
+  isLoadingCreate: boolean;
   createAnswers: (
     data: answersCreate,
     accessToken: string,
