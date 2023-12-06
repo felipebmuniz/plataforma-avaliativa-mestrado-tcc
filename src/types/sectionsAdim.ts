@@ -1,20 +1,18 @@
-import React from 'react';
-
 type SectionAdminName =
-  | 'Voltar para a página inicial'
-  | 'Criar Usuários'
-  | 'Criar Formulários'
-  | 'Criar Turmas';
+  | "Voltar para a página inicial"
+  | "Usuários"
+  | "Formulários/Avaliações"
+  | "Disciplinas/Turmas";
 
 type SectionAdminSrc =
-  | '/'
-  | '/admin'
-  | '/admin/usuarios'
-  | '/admin/turmas'
-  | '/admin/formularios'
-  | '/admin/configuracoes';
+  | "/"
+  | "/admin"
+  | "/admin/usuarios"
+  | "/admin/turmas"
+  | "/admin/formularios"
+  | "/admin/configuracoes";
 
-export type typeComponent = 'button' | 'link';
+export type typeComponent = "button" | "link";
 
 export interface SectionAdmin {
   label: SectionAdminName;

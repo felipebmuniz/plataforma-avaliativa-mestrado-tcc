@@ -9,7 +9,7 @@ export interface IFormsContextValue {
   createForms: (data: IValuesForm, clear: () => void) => Promise<void>;
   showFormsByID: (
     id: string,
-    accessToken: string,
+    accessToken?: string,
     redirect?: string,
   ) => Promise<void>;
   updateFormsByID: (data: IPutFrom, clear?: () => void) => void;

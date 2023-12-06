@@ -17,6 +17,7 @@ import {
   SubjectsProvider,
   ClassesProvider,
   EvaluationsProvider,
+  AnswersProvider,
 } from "@/providers";
 
 interface AppProps extends NextAppProps {
@@ -45,10 +46,12 @@ export default function App({
                 <ClassesProvider>
                   <FormsProvider>
                     <EvaluationsProvider>
-                      <Global styles={globalStyles} />
-                      <main className={poppins.className}>
-                        <Component {...pageProps} />
-                      </main>
+                      <AnswersProvider>
+                        <Global styles={globalStyles} />
+                        <main className={poppins.className}>
+                          <Component {...pageProps} />
+                        </main>
+                      </AnswersProvider>
                     </EvaluationsProvider>
                   </FormsProvider>
                 </ClassesProvider>

@@ -15,6 +15,8 @@ import { SkeletonCards } from "@/components/UI/Skeleton";
 import { DrawerCreateForms } from "@/components/UI/drawers/DrawerCreateForms";
 import { useForms } from "@/hooks";
 import { TableUI } from "@/components/UI/TableUI";
+import ModalPreview from "@/components/UI/Modals/ModalPreview";
+import PreviewForm from "@/components/preview/PreviewForm";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -132,8 +134,21 @@ export const FormsAdmin = () => {
               <p key={form.id}>{JSON.stringify(form, null, 2)}</p>
             ))} */}
             <TableUI
-              data={forms}
-              columns={["id", "name", "createdAt"]}
+              data={forms.map((form) => {
+                return {
+                  ...form,
+                  preview: (
+                    <ModalPreview
+                      label="Visualizar"
+                      ModalTitle="Visualize como está o formulário!"
+                      key={`modal-preview-${form.id}`}
+                    >
+                      <PreviewForm formId={form.id} />
+                    </ModalPreview>
+                  ),
+                };
+              })}
+              columns={["id", "name", "createdAt", "preview"]}
               title="Formulários cadastrados"
             />
           </>

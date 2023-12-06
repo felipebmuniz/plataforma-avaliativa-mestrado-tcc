@@ -14,6 +14,8 @@ import { DrawerCreateEvaluations } from "@/components/UI/drawers/DrawerCreateEva
 import { useEvaluations } from "@/hooks";
 import { useEffect } from "react";
 import { TableUI } from "@/components/UI/TableUI";
+import ModalPreview from "@/components/UI/Modals/ModalPreview";
+import PreviewAnswers from "@/components/preview/PreviewAnswers";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -132,9 +134,38 @@ export const EvaluationsAdmin = () => {
                 return {
                   ...evaluation,
                   form: evaluation.form.id,
+                  users: (
+                    <ModalPreview
+                      label="Visualizar"
+                      ModalTitle="Visualize os usuários vinculados!"
+                      key={`modal-preview-${evaluation.id}`}
+                    >
+                      <TableUI
+                        data={evaluation.users}
+                        columns={["id", "name", "email"]}
+                        title="Usuários Vinculados"
+                      />
+                    </ModalPreview>
+                  ),
+                  answers: (
+                    <ModalPreview
+                      label="Visualizar"
+                      ModalTitle="Visualize os usuários vinculados!"
+                      key={`modal-preview-${evaluation.id}`}
+                    >
+                      <PreviewAnswers evaluationId={evaluation.id} />
+                    </ModalPreview>
+                  ),
                 };
               })}
-              columns={["title", "startDate", "endDate", "form"]}
+              columns={[
+                "title",
+                "startDate",
+                "endDate",
+                "form",
+                "users",
+                "answers",
+              ]}
               title="Avaliações cadastrados"
             />
           </>

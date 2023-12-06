@@ -25,32 +25,33 @@ import { hexToRgb } from "@/utils/theme";
 import { BiInfoCircle } from "react-icons/bi";
 
 import { ButtonUI } from "@/components/UI/ButtonUI";
-import { useAuth, useForms } from "@/hooks";
+import { useAnswers, useAuth, useForms } from "@/hooks";
 import { SkeletonCards } from "@/components/UI/Skeleton";
 import { useRouter } from "next/router";
 import { ResponseUserEvaluationForm } from "@/types/auth";
+import { answersCreate } from "@/types/answers";
 
 export const FormEvaluation = () => {
   const theme = useTheme();
   const toast = useToast();
   const router = useRouter();
 
+  const { createAnswers } = useAnswers();
+  const { dataUserEvaluationForm, setDataUserEvaluationForm } = useAuth();
+  const { formByID, isLoadingShow, showFormsByID } = useForms();
+
   const [evaluationValues, setEvaluationsValues] = useState<
     ResponseUserEvaluationForm | undefined
   >();
 
   const [evaluationForm, setEvaluationsForm] = useState<
-    Array<{ optionId: string; questionId: string }>
+    Array<{ optionId: string; questionId: string }> | undefined
   >([]);
-
-  const { dataUserEvaluationForm, setDataUserEvaluationForm } = useAuth();
-  const { formByID, isLoadingShow, showFormsByID } = useForms();
 
   useEffect(() => {
     const auxValidate = dataUserEvaluationForm ?? {};
 
     if (!!Object.values(auxValidate).length) {
-      console.log("[dataUserEvaluationForm] =>", dataUserEvaluationForm);
       setEvaluationsValues(() => dataUserEvaluationForm);
       const auxID = dataUserEvaluationForm?.formId ?? "";
       const auxToken = dataUserEvaluationForm?.accessToken ?? "";
@@ -77,21 +78,27 @@ export const FormEvaluation = () => {
 
   function onSubmit(event: any, values: any) {
     event.preventDefault();
-    const validate = evaluationForm.every((value) => value.optionId === "");
+    const validate = evaluationForm?.every((value) => value.optionId === "");
 
-    const auxValues = {
+    const auxValues: any = {
       formId: evaluationValues?.formId,
       evaluationId: evaluationValues?.evaluationId,
       classId: evaluationValues?.clasId,
       answers: evaluationForm,
     };
 
-    console.log("[onSubmit] =>", JSON.stringify(values, null, 2));
-    console.log("[EvaluationForm] =>", evaluationForm);
-    console.log("[auxValues] =>", auxValues);
-    console.log("[validate] =>", validate);
-
-    // validate;
+    !validate &&
+      evaluationValues &&
+      evaluationForm &&
+      createAnswers(
+        {
+          formId: evaluationValues?.formId,
+          evaluationId: evaluationValues?.evaluationId,
+          classId: evaluationValues?.clasId,
+          answers: evaluationForm,
+        },
+        evaluationValues?.accessToken,
+      );
   }
 
   return (
@@ -147,9 +154,13 @@ export const FormEvaluation = () => {
         </List>
       </VStack>
 
-      <form onSubmit={(event) => onSubmit(event, evaluationForm)}>
+      <Box
+        as={"form"}
+        onSubmit={(event: any) => onSubmit(event, evaluationForm)}
+        w="100%"
+      >
         <FormControl
-          isInvalid={evaluationForm.every((value) => value.optionId === "")}
+          isInvalid={evaluationForm?.every((value) => value.optionId === "")}
           alignItems="flex-start"
           justifyContent="flex-start"
           flexDir="column-reverse"
@@ -167,16 +178,20 @@ export const FormEvaluation = () => {
                 </CardHeader>
 
                 <CardBody>
-                  {evaluationForm.length > 0 && (
+                  {evaluationForm && evaluationForm?.length > 0 && (
                     <FormControl
-                      isInvalid={evaluationForm[index]?.optionId === ""}
+                      isInvalid={
+                        (evaluationForm &&
+                          evaluationForm[index]?.optionId === "") ??
+                        false
+                      }
                     >
                       <Box m="auto" width="90%" p="2rem 1rem">
                         <RadioGroup
                           defaultValue="1"
                           onChange={(event) => {
                             setEvaluationsForm((value) =>
-                              value.map((value, idx) => {
+                              value?.map((value, idx) => {
                                 if (index === idx) {
                                   value.optionId = event;
                                 }
@@ -225,7 +240,7 @@ export const FormEvaluation = () => {
             </ButtonUI>
           </HStack>
         </Box>
-      </form>
+      </Box>
     </VStack>
   );
 };

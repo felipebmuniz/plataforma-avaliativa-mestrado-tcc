@@ -143,7 +143,7 @@ function FormsProvider({ children }: FormsProviderProps) {
   );
 
   const showFormsByID = useCallback(
-    (id: string, accessToken: string, redirect?: string) => {
+    (id: string, accessToken?: string, redirect?: string) => {
       setIsLoadingShow(() => true);
       return formsServices()
         .show(id, accessToken)

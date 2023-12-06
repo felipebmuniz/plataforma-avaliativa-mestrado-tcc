@@ -26,7 +26,6 @@ export default function Page() {
 
   useEffect(() => {
     const valueTokens = router.query?.tokens;
-    // console.log("[valueTokens] =>", valueTokens);
 
     valueTokens &&
       valueTokens?.length > 0 &&
