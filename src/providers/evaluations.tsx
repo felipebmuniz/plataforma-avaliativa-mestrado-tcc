@@ -53,7 +53,9 @@ function EvaluationsProvider({ children }: IEvaluationsProviderProps) {
           console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível criar o Avaliação :(`,
+            title:
+              response?.data?.message ??
+              `Não foi possível criar o Avaliação :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",

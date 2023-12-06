@@ -61,10 +61,12 @@ function ClassesProvider({ children }: IClassesProviderProps) {
             variant: "left-accent",
           });
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível criar o usuário :(`,
+            title:
+              response?.data?.message ?? `Não foi possível criar o usuário :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
@@ -93,7 +95,8 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível criar a relação :(`,
+            title:
+              response?.data?.message ?? `Não foi possível criar a relação :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
@@ -122,7 +125,8 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível criar a relação :(`,
+            title:
+              response?.data?.message ?? `Não foi possível criar a relação :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
@@ -151,7 +155,8 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível criar a relação :(`,
+            title:
+              response?.data?.message ?? `Não foi possível criar a relação :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",

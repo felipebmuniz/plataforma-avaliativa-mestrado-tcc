@@ -1,6 +1,6 @@
-import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
-import { TypeMethod } from '@/types/forms';
+import { NextApiHandler } from "next";
+import axios, { AxiosResponse } from "axios";
+import { TypeMethod } from "@/types/forms";
 
 const listForms: NextApiHandler = async function (request, response) {
   const { method, body, headers } = request;
@@ -19,17 +19,19 @@ const listForms: NextApiHandler = async function (request, response) {
         return response.status(200).json(apiResponse.data);
       }
 
-      return response.status(400).json('Erro interno na API');
+      return response.status(400).json("Erro interno na API");
 
     case TypeMethod.POST:
-      apiResponse = await axios.post(url, body, {
-        headers: { Authorization: headers.authorization },
-      });
-      if (apiResponse.status === 200) {
-        return response.status(200).json(apiResponse.data);
-      }
-
-      return response.status(400).json('Erro interno na API');
+      await axios
+        .post(url, body, {
+          headers: { Authorization: headers.authorization },
+        })
+        .then((res) => {
+          return response.status(200).json(res.data);
+        })
+        .catch((error) => {
+          return response.status(400 | 500).json(error.response.data);
+        });
 
     case TypeMethod.PUT:
       apiResponse = await axios.put(url, body, {
@@ -39,7 +41,7 @@ const listForms: NextApiHandler = async function (request, response) {
         return response.status(200).json(apiResponse.data);
       }
 
-      return response.status(400).json('Erro interno na API');
+      return response.status(400).json("Erro interno na API");
   }
 };
 

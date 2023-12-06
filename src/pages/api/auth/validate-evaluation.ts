@@ -10,12 +10,14 @@ const validateEvaluationUser: NextApiHandler = async function (
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const url = baseURL + `/Evaluation/${query?.id}/access/${query?.accessToken}`;
 
-  const apiResponse = await axios.get(url);
-  if (apiResponse.status === 200) {
-    return response.status(200).json(apiResponse.data);
-  }
-
-  return response.status(400 | 500).json("Erro interno na API");
+  await await axios
+    .get(url)
+    .then((res) => {
+      return response.status(200).json(res.data);
+    })
+    .catch((error) => {
+      return response.status(400 | 500).json(error.response.data);
+    });
 };
 
 export default validateEvaluationUser;

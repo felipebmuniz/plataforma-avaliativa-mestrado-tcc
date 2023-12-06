@@ -22,14 +22,16 @@ const fetchSubjects: NextApiHandler = async function (request, response) {
       return response.status(400).json("Erro interno na API");
 
     case TypeMethod.POST:
-      apiResponse = await axios.post(url, body?.data, {
-        headers: { Authorization: headers.authorization },
-      });
-      if (apiResponse.status === 200) {
-        return response.status(200).json(apiResponse.data);
-      }
-
-      return response.status(400).json("Erro interno na API");
+      await axios
+        .post(url, body?.data, {
+          headers: { Authorization: headers.authorization },
+        })
+        .then((res) => {
+          return response.status(200).json(res.data);
+        })
+        .catch((error) => {
+          return response.status(400 | 500).json(error.response.data);
+        });
 
     case TypeMethod.PUT:
       apiResponse = await axios.put(url, body?.data, {

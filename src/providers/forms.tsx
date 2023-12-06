@@ -61,7 +61,8 @@ function FormsProvider({ children }: FormsProviderProps) {
         return optionsServices()
           .create(auxData)
           .then((response) => {})
-          .catch((error) => {
+          .catch(({ response }) => {
+            console.log("[error] =>", response.data);
             toast({
               status: "error",
               title: `Não foi possível criar a opção :(`,
@@ -98,7 +99,8 @@ function FormsProvider({ children }: FormsProviderProps) {
             //   variant: "left-accent",
             // });
           })
-          .catch((error) => {
+          .catch(({ response }) => {
+            console.log("[error] =>", response.data);
             toast({
               status: "error",
               title: `Não foi possível criar a pergunta :(`,
@@ -129,10 +131,13 @@ function FormsProvider({ children }: FormsProviderProps) {
             variant: "left-accent",
           });
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível criar o Formulário :(`,
+            title:
+              response?.data?.message ??
+              `Não foi possível criar o Formulário :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
@@ -181,10 +186,13 @@ function FormsProvider({ children }: FormsProviderProps) {
             variant: "left-accent",
           });
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível atualizar o Formulário :(`,
+            title:
+              response?.data?.message ??
+              `Não foi possível atualizar o Formulário :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",

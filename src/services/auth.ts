@@ -8,7 +8,7 @@ const authServices = () => ({
   },
   Validate: async (data: { validationToken: string }) => {
     const response = await axios.post("/api/auth/validate", data);
-    return response.data;
+    return response;
   },
   ValidateEvaluation: async (id: string, accessToken: string) => {
     const response = await axios.get("/api/auth/validate-evaluation", {

@@ -80,11 +80,13 @@ function AuthProvider({ children }: IAuthProviderProps) {
           }
         })
         .catch(({ response }) => {
-          console.log("[error] =>", response);
+          console.log("[error] =>", response.data);
 
           toast({
             status: "error",
-            title: `Não foi possível realizar o login :( Cheque suas credenciais!`,
+            title:
+              response.data.message ??
+              `Não foi possível realizar o login :( Cheque suas credenciais!`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
@@ -126,10 +128,13 @@ function AuthProvider({ children }: IAuthProviderProps) {
           });
           router.push("/");
         })
-        .catch(() => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível autenticado o usuário :( Entre em contado com a coordenação!`,
+            title:
+              response?.data?.message ??
+              `Não foi possível autenticado o usuário :( Entre em contado com a coordenação!`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
@@ -156,10 +161,13 @@ function AuthProvider({ children }: IAuthProviderProps) {
           });
           router.push("/avaliacao");
         })
-        .catch(() => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível relacionar o usuário :( Entre em contado com a coordenação!`,
+            title:
+              response?.data?.message ??
+              `Não foi possível relacionar o usuário :( Entre em contado com a coordenação!`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",

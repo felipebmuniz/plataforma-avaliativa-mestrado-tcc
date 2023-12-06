@@ -57,10 +57,13 @@ function AnswersProvider({ children }: IAnswersProviderProps) {
           setIsLoadingCreate(() => false);
           router.push("/");
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
             status: "error",
-            title: `Não foi possível efetuar a  resposta :(`,
+            title:
+              response?.data?.message ??
+              `Não foi possível efetuar a  resposta :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
