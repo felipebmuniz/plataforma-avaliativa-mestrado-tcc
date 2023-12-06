@@ -147,7 +147,8 @@ function ClassesProvider({ children }: IClassesProviderProps) {
             variant: "left-accent",
           });
         })
-        .catch((error) => {
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
           toast({
             status: "error",
             title: `Não foi possível criar a relação :(`,
