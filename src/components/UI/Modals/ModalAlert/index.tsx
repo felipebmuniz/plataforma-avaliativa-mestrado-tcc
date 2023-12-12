@@ -58,7 +58,7 @@ const ModalAlert = ({
           );
         case "iconButtonDelete":
           return (
-            <HStack w="100%" m="auto" alignItems="center" marginLeft="2.2rem">
+            <HStack w="100%" m="auto" alignItems="center" paddingLeft="2.2rem">
               <IconButton
                 aria-label="delete-icon-modal"
                 icon={<BiTrash />}
