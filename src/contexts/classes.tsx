@@ -12,7 +12,7 @@ export interface IClassesContext {
   isLoading: boolean;
   createClasses: (data: classesCreate, clear: () => void) => Promise<void>;
   updateClasses?: (data: classesUpdate, clear: () => void) => Promise<void>;
-  deleteClasses?: (id: string) => void;
+  deleteClasses: (id: string) => Promise<void>;
   listClasses: () => void;
   relationClassesStudent: (
     data: classesRelationStudent,

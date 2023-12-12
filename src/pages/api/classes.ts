@@ -12,14 +12,16 @@ const fetchClasses: NextApiHandler = async function (request, response) {
 
   switch (method) {
     case TypeMethod.GET:
-      apiResponse = await axios.get(url, {
-        headers: { Authorization: headers.authorization },
-      });
-      if (apiResponse.status === 200) {
-        return response.status(200).json(apiResponse.data);
-      }
-
-      return response.status(400).json("Erro interno na API");
+      await axios
+        .get(url, {
+          headers: { Authorization: headers.authorization },
+        })
+        .then((res) => {
+          return response.status(200).json(res.data);
+        })
+        .catch((error) => {
+          return response.status(400 | 500).json(error.response.data);
+        });
 
     case TypeMethod.POST:
       await axios
@@ -42,6 +44,18 @@ const fetchClasses: NextApiHandler = async function (request, response) {
       }
 
       return response.status(400).json("Erro interno na API");
+
+    case TypeMethod.DELETE:
+      await axios
+        .delete(`${url}/${query?.classeId}`, {
+          headers: { Authorization: headers.authorization },
+        })
+        .then((res) => {
+          return response.status(200).json(res.data);
+        })
+        .catch((error) => {
+          return response.status(400 | 500).json(error.response.data);
+        });
   }
 };
 

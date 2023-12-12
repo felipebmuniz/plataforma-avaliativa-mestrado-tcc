@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "@emotion/react";
 import {
   Box,
@@ -59,11 +59,16 @@ const schemaFormCreateClasses = yup.object({
 
 export const DrawerCreateClasses = () => {
   const { createClasses } = useClasses();
-  const { usersTeacher } = useUsers();
+  const { usersTeacher, listUser } = useUsers();
   const { subjects } = useSubjects();
+
   const theme = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    usersTeacher.length <= 0 && listUser("teacher");
+  }, [listUser, usersTeacher.length]);
 
   const {
     handleSubmit,

@@ -28,11 +28,11 @@ function ClassesProvider({ children }: IClassesProviderProps) {
     return classesServices()
       .list()
       .then((response) => {
-        setIsLoading(() => false);
-
         setClasses(() => response.data);
+        setIsLoading(() => false);
       })
-      .catch(() => {
+      .catch(({ response }) => {
+        console.log("[error] =>", response.data);
         setIsLoading(() => false);
         toast({
           status: "error",
@@ -65,7 +65,37 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           toast({
             status: "error",
             title:
-              response?.data?.message ?? `Não foi possível criar o turma :(`,
+              response?.data?.message ?? `Não foi possível criar a turma :(`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        });
+    },
+    [toast, listClasses],
+  );
+
+  const deleteClasses = useCallback(
+    async (id: string) => {
+      return classesServices()
+        .delete(id)
+        .then((response) => {
+          listClasses();
+
+          toast({
+            status: "success",
+            title: `Turma removida com sucesso ✅`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        })
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
+          toast({
+            status: "error",
+            title:
+              response?.data?.message ?? `Não foi possível remover a turma :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
@@ -171,6 +201,7 @@ function ClassesProvider({ children }: IClassesProviderProps) {
       isLoading,
       createClasses,
       listClasses,
+      deleteClasses,
       relationClassesStudent,
       relationEvaluationStudent,
       relationEvaluationTeacher,
@@ -180,6 +211,7 @@ function ClassesProvider({ children }: IClassesProviderProps) {
     isLoading,
     createClasses,
     listClasses,
+    deleteClasses,
     relationClassesStudent,
     relationEvaluationStudent,
     relationEvaluationTeacher,

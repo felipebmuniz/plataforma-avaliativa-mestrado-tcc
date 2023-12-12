@@ -19,6 +19,7 @@ import { DrawerCreateRelationUsers } from "@/components/UI/drawers/DrawerCreateR
 import { DrawerRelationUsersEvaluation } from "@/components/UI/drawers/DrawerRelationUsersEvaluation";
 import { DrawerRelationTeacherEvaluation } from "@/components/UI/drawers/DrawerRelationTeacherEvaluation";
 import ModalPreview from "@/components/UI/Modals/ModalPreview";
+import ModalAlert from "@/components/UI/Modals/ModalAlert";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -45,7 +46,7 @@ const schemaCreateFilterEvaluationArea = yup.object({
 });
 
 export const ClassesAdmin = () => {
-  const { classes, isLoading, listClasses } = useClasses();
+  const { classes, isLoading, listClasses, deleteClasses } = useClasses();
 
   const {
     handleSubmit,
@@ -158,6 +159,17 @@ export const ClassesAdmin = () => {
                       <DrawerRelationTeacherEvaluation classId={classe.id} />
                     </OptionsTableUI>
                   ),
+                  options: (
+                    <ModalAlert
+                      ModalText="Certeza em realizar a ação de deletar Turma?"
+                      ModalTitle="Deletar Turma"
+                      ModalTextButtonConfirm="Deletar"
+                      type="iconButtonDelete"
+                      onChange={() => {
+                        deleteClasses(classe.id);
+                      }}
+                    />
+                  ),
                 };
               })}
               columns={[
@@ -168,6 +180,7 @@ export const ClassesAdmin = () => {
                 "students",
                 "createdAt",
                 "relations",
+                "options",
               ]}
               title="Disciplinas cadastrados"
             ></TableUI>
