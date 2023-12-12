@@ -65,14 +65,45 @@ function SubjectsProvider({ children }: ISubjectsProviderProps) {
     [toast, listSubject],
   );
 
+  const deleteSubject = useCallback(
+    async (id: string) => {
+      return subjectsServices()
+        .delete(id)
+        .then((response) => {
+          listSubject();
+          toast({
+            status: "success",
+            title: `Disciplina deletada com sucesso ✅`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        })
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
+          toast({
+            status: "error",
+            title:
+              response?.data?.message ??
+              `Não foi possível deletar a Disciplina :(`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        });
+    },
+    [toast, listSubject],
+  );
+
   const value = useMemo(() => {
     return {
       subjects,
       isLoading,
       createSubject,
       listSubject,
+      deleteSubject,
     };
-  }, [subjects, isLoading, createSubject, listSubject]);
+  }, [subjects, isLoading, createSubject, listSubject, deleteSubject]);
 
   return (
     <SubjectsContext.Provider value={value}>

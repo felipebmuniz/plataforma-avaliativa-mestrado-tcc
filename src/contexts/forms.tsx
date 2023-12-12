@@ -13,7 +13,7 @@ export interface IFormsContextValue {
     redirect?: string,
   ) => Promise<void>;
   updateFormsByID: (data: IPutFrom, clear?: () => void) => void;
-  deleteFormsByID?: (id: string) => void;
+  deleteFormsByID: (id: string) => Promise<void>;
   listForms: () => void;
 }
 

@@ -17,6 +17,7 @@ import { useForms } from "@/hooks";
 import { TableUI } from "@/components/UI/TableUI";
 import ModalPreview from "@/components/UI/Modals/ModalPreview";
 import PreviewForm from "@/components/preview/PreviewForm";
+import ModalAlert from "@/components/UI/Modals/ModalAlert";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -43,7 +44,7 @@ const schemaCreateFilterEvaluationArea = yup.object({
 });
 
 export const FormsAdmin = () => {
-  const { forms, isLoading, listForms } = useForms();
+  const { forms, isLoading, listForms, deleteFormsByID } = useForms();
 
   const {
     handleSubmit,
@@ -146,9 +147,20 @@ export const FormsAdmin = () => {
                       <PreviewForm formId={form.id} />
                     </ModalPreview>
                   ),
+                  options: (
+                    <ModalAlert
+                      ModalText="Certeza em realizar a ação de deletar Formulário?"
+                      ModalTitle="Deletar Formulário"
+                      ModalTextButtonConfirm="Deletar"
+                      type="iconButtonDelete"
+                      onChange={() => {
+                        deleteFormsByID(form.id);
+                      }}
+                    />
+                  ),
                 };
               })}
-              columns={["id", "name", "createdAt", "preview"]}
+              columns={["id", "name", "createdAt", "preview", "options"]}
               title="Formulários cadastrados"
             />
           </>

@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { TypeMethod } from "@/types/forms";
 
 const fetchSubjects: NextApiHandler = async function (request, response) {
-  const { method, body, headers } = request;
+  const { method, body, headers, query } = request;
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const url = baseURL + `/Subjects`;
@@ -42,6 +42,18 @@ const fetchSubjects: NextApiHandler = async function (request, response) {
       }
 
       return response.status(400).json("Erro interno na API");
+
+    case TypeMethod.DELETE:
+      await axios
+        .delete(url + `/${query?.subjectId}`, {
+          headers: { Authorization: headers.authorization },
+        })
+        .then((res) => {
+          return response.status(200).json(res.data);
+        })
+        .catch((error) => {
+          return response.status(400 | 500).json(error.response.data);
+        });
   }
 };
 

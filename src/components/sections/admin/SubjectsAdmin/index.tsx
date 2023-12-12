@@ -14,6 +14,7 @@ import { SkeletonCards } from "@/components/UI/Skeleton";
 import { useSubjects } from "@/hooks";
 import { DrawerCreateSubjects } from "@/components/UI/drawers/DrawerCreateSubjects";
 import { TableUI } from "@/components/UI/TableUI";
+import ModalAlert from "@/components/UI/Modals/ModalAlert";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -40,7 +41,7 @@ const schemaCreateFilterEvaluationArea = yup.object({
 });
 
 export const SubjectsAdmin = () => {
-  const { subjects, isLoading, listSubject } = useSubjects();
+  const { subjects, isLoading, listSubject, deleteSubject } = useSubjects();
 
   const {
     handleSubmit,
@@ -127,8 +128,23 @@ export const SubjectsAdmin = () => {
         subjects ? (
           <>
             <TableUI
-              data={subjects}
-              columns={["code", "name", "createdAt"]}
+              data={subjects.map((subject) => {
+                return {
+                  ...subject,
+                  options: (
+                    <ModalAlert
+                      ModalText="Certeza em realizar a ação de deletar Disciplina?"
+                      ModalTitle="Deletar Disciplina"
+                      ModalTextButtonConfirm="Deletar"
+                      type="iconButtonDelete"
+                      onChange={() => {
+                        deleteSubject(subject.id);
+                      }}
+                    />
+                  ),
+                };
+              })}
+              columns={["code", "name", "createdAt", "options"]}
               title="Disciplinas cadastrados"
             />
           </>

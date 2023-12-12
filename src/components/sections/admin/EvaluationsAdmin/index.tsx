@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { TableUI } from "@/components/UI/TableUI";
 import ModalPreview from "@/components/UI/Modals/ModalPreview";
 import PreviewAnswers from "@/components/preview/PreviewAnswers";
+import ModalAlert from "@/components/UI/Modals/ModalAlert";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -42,7 +43,8 @@ const schemaCreateFilterEvaluationArea = yup.object({
 });
 
 export const EvaluationsAdmin = () => {
-  const { evaluations, isLoading, listEvaluation } = useEvaluations();
+  const { evaluations, isLoading, listEvaluation, deleteEvaluation } =
+    useEvaluations();
 
   const {
     handleSubmit,
@@ -156,6 +158,17 @@ export const EvaluationsAdmin = () => {
                       <PreviewAnswers evaluationId={evaluation.id} />
                     </ModalPreview>
                   ),
+                  options: (
+                    <ModalAlert
+                      ModalText="Certeza em realizar a ação de deletar Avaliação?"
+                      ModalTitle="Deletar Avaliação"
+                      ModalTextButtonConfirm="Deletar"
+                      type="iconButtonDelete"
+                      onChange={() => {
+                        deleteEvaluation(evaluation.id);
+                      }}
+                    />
+                  ),
                 };
               })}
               columns={[
@@ -165,6 +178,7 @@ export const EvaluationsAdmin = () => {
                 "form",
                 "users",
                 "answers",
+                "options",
               ]}
               title="Avaliações cadastrados"
             />

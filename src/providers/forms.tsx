@@ -202,6 +202,34 @@ function FormsProvider({ children }: FormsProviderProps) {
     [toast, listForms],
   );
 
+  const deleteFormsByID = useCallback(
+    async (id: string) => {
+      return formsServices()
+        .delete(id)
+        .then((response) => {
+          listForms();
+          toast({
+            status: "success",
+            title: `Formulário deletado com sucesso ✅`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        })
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
+          toast({
+            status: "error",
+            title: response?.data?.message ?? `Error ao deletar formulário :(`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        });
+    },
+    [toast, listForms],
+  );
+
   const value = useMemo(() => {
     return {
       forms,
@@ -212,6 +240,7 @@ function FormsProvider({ children }: FormsProviderProps) {
       createForms,
       showFormsByID,
       updateFormsByID,
+      deleteFormsByID,
     };
   }, [
     forms,
@@ -222,6 +251,7 @@ function FormsProvider({ children }: FormsProviderProps) {
     createForms,
     showFormsByID,
     updateFormsByID,
+    deleteFormsByID,
   ]);
 
   return (

@@ -16,7 +16,7 @@ export interface IEvaluationsContext {
     data: evaluationsUpdate,
     clear: () => void,
   ) => Promise<void>;
-  deleteEvaluation?: (id: string) => void;
+  deleteEvaluation: (id: string) => void;
   listEvaluation: () => void;
 }
 

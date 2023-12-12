@@ -65,14 +65,51 @@ function EvaluationsProvider({ children }: IEvaluationsProviderProps) {
     [toast, listEvaluation],
   );
 
+  const deleteEvaluation = useCallback(
+    async (id: string) => {
+      return evaluationsServices()
+        .delete(id)
+        .then((response) => {
+          listEvaluation();
+          toast({
+            status: "success",
+            title: `Avaliação deletada com sucesso ✅`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        })
+        .catch(({ response }) => {
+          console.log("[error] =>", response.data);
+          toast({
+            status: "error",
+            title:
+              response?.data?.message ??
+              `Não foi possível deletar a Avaliação :(`,
+            position: "top-right",
+            isClosable: true,
+            variant: "left-accent",
+          });
+        });
+    },
+    [toast, listEvaluation],
+  );
+
   const value = useMemo(() => {
     return {
       evaluations,
       isLoading,
       createEvaluation,
       listEvaluation,
+      deleteEvaluation,
     };
-  }, [evaluations, isLoading, createEvaluation, listEvaluation]);
+  }, [
+    evaluations,
+    isLoading,
+    createEvaluation,
+    listEvaluation,
+    deleteEvaluation,
+  ]);
 
   return (
     <EvaluationsContext.Provider value={value}>

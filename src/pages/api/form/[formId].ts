@@ -28,16 +28,16 @@ const showFrom: NextApiHandler = async function (request, response) {
       }
 
     case TypeMethod.DELETE:
-      apiResponse = await axios.delete(url, {
-        headers: { Authorization: headers.authorization },
-      });
-      if (apiResponse.status === 200) {
-        return response.status(200).json(apiResponse.data);
-      } else if (apiResponse.status === 400) {
-        return response.status(400).json("Erro interno na API");
-      } else {
-        return apiResponse.data;
-      }
+      await axios
+        .delete(url, {
+          headers: { Authorization: headers.authorization },
+        })
+        .then((res) => {
+          return response.status(200).json(res.data);
+        })
+        .catch((error) => {
+          return response.status(400 | 500).json(error.response.data);
+        });
   }
 };
 
