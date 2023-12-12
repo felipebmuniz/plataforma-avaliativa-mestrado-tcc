@@ -36,7 +36,7 @@ function ClassesProvider({ children }: IClassesProviderProps) {
         setIsLoading(() => false);
         toast({
           status: "error",
-          title: `Error ao buscar usuários :(`,
+          title: `Error ao buscar turmas :(`,
           position: "top-right",
           isClosable: true,
           variant: "left-accent",
@@ -50,12 +50,11 @@ function ClassesProvider({ children }: IClassesProviderProps) {
         .create(data)
         .then((response) => {
           clear();
-
           listClasses();
 
           toast({
             status: "success",
-            title: `Usuário criado com sucesso ✅`,
+            title: `Turma criada com sucesso ✅`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
@@ -66,7 +65,7 @@ function ClassesProvider({ children }: IClassesProviderProps) {
           toast({
             status: "error",
             title:
-              response?.data?.message ?? `Não foi possível criar o usuário :(`,
+              response?.data?.message ?? `Não foi possível criar o turma :(`,
             position: "top-right",
             isClosable: true,
             variant: "left-accent",
