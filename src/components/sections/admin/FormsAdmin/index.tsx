@@ -18,6 +18,7 @@ import { TableUI } from "@/components/UI/TableUI";
 import ModalPreview from "@/components/UI/Modals/ModalPreview";
 import PreviewForm from "@/components/preview/PreviewForm";
 import ModalAlert from "@/components/UI/Modals/ModalAlert";
+import ButtonSyncTableUI from "@/components/UI/ButtonSyncTableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -125,6 +126,7 @@ export const FormsAdmin = () => {
           >
             Buscar
           </ButtonUI> */}
+          <ButtonSyncTableUI onClick={listForms} />
           <DrawerCreateForms />
         </ButtonGroup>
       </HStack>

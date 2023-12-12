@@ -15,6 +15,7 @@ import { useSubjects } from "@/hooks";
 import { DrawerCreateSubjects } from "@/components/UI/drawers/DrawerCreateSubjects";
 import { TableUI } from "@/components/UI/TableUI";
 import ModalAlert from "@/components/UI/Modals/ModalAlert";
+import ButtonSyncTableUI from "@/components/UI/ButtonSyncTableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -121,6 +122,7 @@ export const SubjectsAdmin = () => {
           >
             Buscar
           </ButtonUI> */}
+          <ButtonSyncTableUI onClick={listSubject} />
           <DrawerCreateSubjects />
         </ButtonGroup>
       </HStack>

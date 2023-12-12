@@ -16,6 +16,7 @@ import { userType } from "@/types/users";
 import { useUsers } from "@/hooks";
 import { TableUI } from "@/components/UI/TableUI";
 import ModalAlert from "@/components/UI/Modals/ModalAlert";
+import ButtonSyncTableUI from "@/components/UI/ButtonSyncTableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -221,6 +222,7 @@ export const UsersAdmin = ({ usersType }: IUsersAdmin) => {
           >
             Buscar
           </ButtonUI> */}
+          <ButtonSyncTableUI onClick={() => listUser(usersType)} />
           <DrawerCreateUsers type={usersType} />
         </ButtonGroup>
       </HStack>

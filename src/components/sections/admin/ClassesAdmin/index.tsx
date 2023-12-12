@@ -20,6 +20,7 @@ import { DrawerRelationUsersEvaluation } from "@/components/UI/drawers/DrawerRel
 import { DrawerRelationTeacherEvaluation } from "@/components/UI/drawers/DrawerRelationTeacherEvaluation";
 import ModalPreview from "@/components/UI/Modals/ModalPreview";
 import ModalAlert from "@/components/UI/Modals/ModalAlert";
+import ButtonSyncTableUI from "@/components/UI/ButtonSyncTableUI";
 
 const defaultValues: { search: string; filter1: string; filter2: string } = {
   search: "",
@@ -127,6 +128,7 @@ export const ClassesAdmin = () => {
           >
             Buscar
           </ButtonUI> */}
+          <ButtonSyncTableUI onClick={listClasses} />
           <DrawerCreateClasses />
         </ButtonGroup>
       </HStack>
