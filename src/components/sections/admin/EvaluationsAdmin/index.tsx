@@ -57,7 +57,7 @@ export const EvaluationsAdmin = () => {
 
   useEffect(() => {
     evaluations.length <= 0 && listEvaluation();
-  }, [listEvaluation, evaluations.length]);
+  }, [evaluations.length, listEvaluation]);
 
   function onSubmit(values: any) {
     return new Promise((resolve: any) => {

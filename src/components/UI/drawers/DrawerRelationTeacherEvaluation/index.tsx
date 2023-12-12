@@ -71,7 +71,7 @@ export const DrawerRelationTeacherEvaluation = ({
 
   useEffect(() => {
     evaluations.length <= 0 && listEvaluation();
-  }, [evaluations.length, listEvaluation]);
+  }, []);
 
   const clearForm = () => {
     onClose();
